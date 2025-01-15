@@ -26,7 +26,32 @@ credits:Toggle("脚本框架变小一点", "", false, function(state)
     end)
 local creds = window:Tab("通用",'16060333448')
 
-local credits = creds:section("内容",true)                                                           
+local credits = creds:section("内容",true)                                                            if getgenv().ED_AntiKick then
+	return
+end
+
+getgenv().ED_AntiKick = {
+	Enabled = true, -- Set to false if you want to disable the Anti-Kick.
+	SendNotifications = true, -- Set to true if you want to get notified for every event
+	CheckCaller = true -- Set to true if you want to disable kicking by other executed scripts
+}
+
+local dropdown = {}
+local playernamedied = ""
+local teleportConnection
+
+for i, player in pairs(game.Players:GetPlayers()) do
+    dropdown[i] = player.Name
+end
+
+function Notify(top, text, ico, dur)
+  game:GetService("StarterGui"):SetCore("SendNotification", {
+    Title = top,
+    Text = text,
+    Icon = ico,
+    Duration = dur,
+  })
+end
     credits:Dropdown("选择玩家到传送", "Player Name", AllPlayers, function(Value)
     TeleportToPlayer(Value)
 end)
