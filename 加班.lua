@@ -72,6 +72,8 @@ end)
     loadstring(game:HttpGet("https://pastebin.com/raw/zqyDSUWX"))()
 end)
     credits:Button("透视",function()    loadstring(game:GetObjects("rbxassetid://10092697033")[1].Source)()end)
+    credits:Button("工具挂",function()loadstring(game:HttpGet("https://raw.githubusercontent.com/Bebo-Mods/BeboScripts/main/StandAwekening.lua"))()end)
+    credits:Button("iw指令", function()  loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()end)
 
    local creds = window:Tab("传送",'16060333448')                  
 local credits = creds:section("传送功能",true)
