@@ -196,7 +196,6 @@ local credits = creds:section("Doors脚本",true)
     credits:Button("巴掌", function()
     loadstring(game:HttpGet'https://raw.githubusercontent.com/Dusty1234567890/NewGloves/refs/heads/main/Clock')()
     end)
-local win = lib:Window("力量传奇",Color3.fromRGB(0, 255, 0), Enum.KeyCode.E) -- your own keybind 
  local creds = window:Tab("力量传奇",'16060333448')
 local credits = creds:Tab("岩石功能")
 local credits2 = creds:section("跑步机功能")
