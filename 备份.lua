@@ -24,9 +24,8 @@ credits:Toggle("脚本框架变小一点", "", false, function(state)
     credits:Button("关闭脚本",function()
         game:GetService("CoreGui")["frosty"]:Destroy()
     end)
-local creds = window:Tab("通用",'16060333448')
-
-local credits = creds:section("内容",true)                                                            if getgenv().ED_AntiKick then
+    
+  if getgenv().ED_AntiKick then
 	return
 end
 
@@ -52,6 +51,9 @@ function Notify(top, text, ico, dur)
     Duration = dur,
   })
 end
+local creds = window:Tab("通用",'16060333448')
+
+local credits = creds:section("内容",true)                                                            
     credits:Dropdown("选择玩家到传送", "Player Name", AllPlayers, function(Value)
     TeleportToPlayer(Value)
 end)
