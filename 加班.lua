@@ -196,8 +196,28 @@ local credits = creds:section("Doors脚本",true)
     credits:Button("巴掌", function()
     loadstring(game:HttpGet'https://raw.githubusercontent.com/Dusty1234567890/NewGloves/refs/heads/main/Clock')()
     end)
+  local lib = loadstring(game:HttpGet"https://pastebin.com/raw/aDQ86WZA")()
  local creds = window:Tab("力量传奇",'16060333448')
 local credits = creds:section("岩石功能")
+credits:Toggle("传送安全地方", false, function(place)
+    if place then
+getgenv().place = true
+while getgenv().place do
+wait()
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(-51.6716728, 32.2157211, 1290.41211, 0.9945544, 1.23613528e-08, -0.104218982, -7.58742402e-09, 1, 4.62031657e-08, 0.104218982, -4.51608102e-08, 0.9945544)
+end
+else
+getgenv().place = false
+wait()
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(-34.1635208, 3.67689133, 219.640869, 0.599920511, -2.24152163e-09, 0.800059617, 4.46125981e-09, 1, -5.43559087e-10, -0.800059617, 3.89536625e-09, 0.599920511)
+end
+end)
+local credits2 = creds:section("跑步机功能")
+local credits3 = creds:section("深蹲架功能")
+local credits4 = creds:section("引体向上功能")
+local credits5 = creds:section("卧推功能")
+local credits6 = creds:section("投掷功能")
+local credits7 = creds:section("自动功能")
 credits:Toggle("传送安全地方", false, function(place)
     if place then
 getgenv().place = true
@@ -416,7 +436,7 @@ game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):UnequipTools()
 end
 end
 end)
-local credits2 = creds:section("跑步机功能")
+
 credits2:Toggle("海滩跑步机10", false, function(treadmill)
     getgenv().spam = treadmill
 while getgenv().spam do
@@ -659,7 +679,7 @@ RunService:UnbindFromRenderStep("move",
 )
 end
 end)
-local credits3 = creds:section("深蹲架功能")
+
 credits3:Toggle("沙滩深蹲架", false, function(rack)
     if game.Players.LocalPlayer.leaderstats.Strength.Value >= 1000 then
 getgenv().spam = rack
@@ -743,7 +763,7 @@ if not getgenv().spam then
 game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Jump = true
 end
 end)
-local credits4 = creds:section("引体向上功能")
+
 credits4:Toggle("引体向上海滩", false, function(pull)
     if game.Players.LocalPlayer.leaderstats.Strength.Value >= 1000 then
 getgenv().spam = pull
@@ -807,7 +827,7 @@ if not getgenv().spam then
 game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Jump = true
 end
 end)
-local credits5 = creds:section("卧推功能")
+
 credits5:Toggle("卧推海滩", false, function(bench)
     if game.Players.LocalPlayer.leaderstats.Strength.Value >= 150 then
 getgenv().spam = bench
@@ -935,7 +955,7 @@ if not getgenv().spam then
 game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Jump = true
 end
 end)
-local credits6 = creds:section("投掷功能")
+
 credits6:Toggle("投掷海滩", false , function(lift)
     if game.Players.LocalPlayer.leaderstats.Strength.Value >= 3000 then
 getgenv().spam = lift
@@ -1019,7 +1039,7 @@ if not getgenv().spam then
 game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Jump = true
 end
 end)
-local credits7 = creds:section("自动功能")
+
 noCD = false
 punchCooldown = 0.35
 
