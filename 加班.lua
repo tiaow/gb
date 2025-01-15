@@ -1,3 +1,9 @@
+if _G.LoadedA then
+    warn("请勿重复加载")
+    return
+else
+    _G.LoadedA = true
+end
 local library = loadstring(game:HttpGet("https://pastebin.com/raw/nBq2D86q"))()
 local window = library:new("逆天了，老弟")
 
