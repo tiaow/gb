@@ -1,4 +1,4 @@
-local library = loadstring(game:HttpGet(""))()
+local library = loadstring(game:HttpGet("https://pastebin.com/raw/nBq2D86q"))()
 local window = library:new("逆天了，老弟")
 
 local creds = window:Tab("信息",'16060333448')
@@ -196,8 +196,9 @@ local credits = creds:section("Doors脚本",true)
     credits:Button("巴掌", function()
     loadstring(game:HttpGet'https://raw.githubusercontent.com/Dusty1234567890/NewGloves/refs/heads/main/Clock')()
     end)
+local win = lib:Window("力量传奇",Color3.fromRGB(0, 255, 0), Enum.KeyCode.E) -- your own keybind 
  local creds = window:Tab("力量传奇",'16060333448')
-local credits = creds:section("岩石功能")
+local credits = creds:Tab("岩石功能")
 local credits2 = creds:section("跑步机功能")
 local credits3 = creds:section("深蹲架功能")
 local credits4 = creds:section("引体向上功能")
@@ -214,8 +215,7 @@ end
 else
 getgenv().place = false
 wait()
-game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(-34.1635208, 3.67689133, 219.640869, 0.599920511, -2.24152163e-09, 0.800059617, 4.46125981e-09, 1, -5.43559087e-10, -0.800059617, 3.89536625e-09, 0.599920511)
-end
+game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(-34.1635208, 3.67689133, 219.640869, 0.599920511, -2.24152163e-09, 0.800059617, 4.46125981e-09, 1, -5.43559087e-10, -0.800059617, 3.89536625e-09, 0.599920511)end
 end)
 
 credits:Toggle("自动打石头0", false, function(rock)
@@ -229,14 +229,12 @@ end
 end
 for i,h in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 if h:IsA("Tool") and h.Name == "Punch" then
-h:Activate()
-end
+h:Activate()end
 end
 game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(7.60643005, 4.02632904, 2104.54004, -0.23040159, -8.53662385e-08, -0.973095655, -4.68743764e-08, 1, -7.66279342e-08, 0.973095655, 2.79580536e-08, -0.23040159)
 end
 if not getgenv().rock then
-game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):UnequipTools()
-end
+game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):UnequipTools()end
 end)
 
 credits:Toggle("自动打石头10", false, function(rock)
@@ -246,8 +244,7 @@ while getgenv().rock do
 wait()
 for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 if v:IsA("Tool") and v.Name == "Punch" then
-game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):EquipTool(v)
-end
+game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):EquipTool(v)end
 end
 for i,h in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 if h:IsA("Tool") and h.Name == "Punch" then
