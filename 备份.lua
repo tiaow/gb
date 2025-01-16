@@ -24,6 +24,20 @@ credits:Toggle("脚本框架变小一点", "", false, function(state)
     credits:Button("关闭脚本",function()
         game:GetService("CoreGui")["frosty"]:Destroy()
     end)
+    credits:Toggle("移除UI辉光", "DHG", false, function(DHG)
+    if DHG then
+        game:GetService("CoreGui")["frosty is cute"].Main.DropShadowHolder.Visible = false
+    else
+        game:GetService("CoreGui")["frosty is cute"].Main.DropShadowHolder.Visible = true
+    end
+end)
+credits:Toggle("彩虹UI", "RBUI", false, function(RBUI)
+    if RBUI then
+        game:GetService("CoreGui")["frosty is cute"].Main.Style = "DropShadow"
+    else
+        game:GetService("CoreGui")["frosty is cute"].Main.Style = "Custom"
+    end
+end)
 local creds = window:Tab("通用",'16060333448')
 
 local credits = creds:section("内容",true)                                                            
