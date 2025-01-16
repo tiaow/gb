@@ -236,7 +236,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(41.69497
  credits:Button("冰霜宝箱", function()
  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2573.37939453125, 3.6662492752075195, -550.3751831054688) end)
  
- creds:section("健身房传送",true
+ creds:section("健身房传送",true)
  credits:Button("传送到出生点", function()
       		      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(7, 3, 108)
 end)
