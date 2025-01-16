@@ -1,4 +1,4 @@
-local library = loadstring(game:HttpGet("https://pastebin.com/raw/nBq2D86q"))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Eazvy/UILibs/refs/heads/main/Librarys/Apple/Example"))()
 local window = library:new("逆天了，老弟")
 
 local creds = window:Tab("信息",'16060333448')
