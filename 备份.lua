@@ -1,4 +1,5 @@
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Eazvy/UILibs/refs/heads/main/Librarys/Apple/Example"))()
+local library = loadstring(game:HttpGet("local Orionlab =
+loadstring(game:HttpGet("https://github.com/Eazvy/UILibs/tree/main/Librarys"))()"))()
 local window = library:new("逆天了，老弟")
 
 local creds = window:Tab("信息",'16060333448')
