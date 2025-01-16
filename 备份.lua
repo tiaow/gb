@@ -1,29 +1,3 @@
-  if getgenv().ED_AntiKick then
-	return
-end
-
-getgenv().ED_AntiKick = {
-	Enabled = true, -- Set to false if you want to disable the Anti-Kick.
-	SendNotifications = true, -- Set to true if you want to get notified for every event
-	CheckCaller = true -- Set to true if you want to disable kicking by other executed scripts
-}
-
-local dropdown = {}
-local playernamedied = ""
-local teleportConnection
-
-for i, player in pairs(game.Players:GetPlayers()) do
-    dropdown[i] = player.Name
-end
-
-function Notify(top, text, ico, dur)
-  game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = top,
-    Text = text,
-    Icon = ico,
-    Duration = dur,
-  })
-end
 local library = loadstring(game:HttpGet("https://pastebin.com/raw/nBq2D86q"))()
 local window = library:new("逆天了，老弟")
 
@@ -50,33 +24,6 @@ credits:Toggle("脚本框架变小一点", "", false, function(state)
     credits:Button("关闭脚本",function()
         game:GetService("CoreGui")["frosty"]:Destroy()
     end)
-    
-  if getgenv().ED_AntiKick then
-	return
-end
-
-getgenv().ED_AntiKick = {
-	Enabled = true, -- Set to false if you want to disable the Anti-Kick.
-	SendNotifications = true, -- Set to true if you want to get notified for every event
-	CheckCaller = true -- Set to true if you want to disable kicking by other executed scripts
-}
-
-local dropdown = {}
-local playernamedied = ""
-local teleportConnection
-
-for i, player in pairs(game.Players:GetPlayers()) do
-    dropdown[i] = player.Name
-end
-
-function Notify(top, text, ico, dur)
-  game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = top,
-    Text = text,
-    Icon = ico,
-    Duration = dur,
-  })
-end
 local creds = window:Tab("通用",'16060333448')
 
 local credits = creds:section("内容",true)                                                            
@@ -90,6 +37,7 @@ credits:Button("刷新列表", function()
     refreshPlayerList()
     credits:SetOptions(AllPlayers)
 end)
-local creds = window:Tab("通用",'16060333448')
+local creds = window:Tab("通用2",'16060333448')
 local credits = creds:section("内容",true)    
-credits:Button("传送", function()game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(39.674766540527344, 5016.0483984375, 24.1953226743164) end)
+credits:Button("传送", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(39.674766540527344, 5016.0483984375, 24.1953226743164) end)
