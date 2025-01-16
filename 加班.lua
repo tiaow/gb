@@ -227,6 +227,7 @@ local credits = creds:section("Doors脚本",true)
  local credits = creds:section("力量传奇脚本",true)    
  credits:Button("力量传奇",function()    loadstring(game:HttpGet('https://raw.githubusercontent.com/jynzl/main/main/Musclas%20Legenos.lua'))()end)
  credits:Button("超级推荐",function()    loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/%E5%8A%9B%E9%87%8F%E4%BC%A0%E5%A5%87.lua"))()end)
+ 
  creds:section("宝箱传送",true)
  credits:Button("群组宝箱", function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(41.69497299194336, 3.6662418842315674, 408.0653991699219) end)
@@ -234,9 +235,39 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(41.69497
  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-139.77784729003906, 3.6662497520446777, -278.7207946777344) end)
  credits:Button("冰霜宝箱", function()
  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2573.37939453125, 3.6662492752075195, -550.3751831054688) end)
- creds:section("健身房传送",true)
- credits:Button("冰霜健身房(重生1)", function()
- game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2623.022216796875, 3.7162489891052246, -409.0733337402344) end)
+ 
+ creds:section("健身房传送",true
+ credits:Button("传送到出生点", function()
+      		      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(7, 3, 108)
+end)
+
+credits:Button("传送到冰霜健身房", function()
+      		      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2543, 13, -410)
+end)
+ 
+credits:Button("传送到神话健身房", function()
+      		      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2177, 13, 1070)
+end)
+ 
+credits:Button("传送到永恒健身房", function()
+      		      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-6686, 13, -1284)
+end)
+ 
+credits:Button("传送到传说健身房", function()
+      		      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4676, 997, -3915)
+end)
+ 
+credits:Button("传送到肌肉之王健身房", function()
+      		      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-8554, 22, -5642)
+end)
+ 
+credits:Button("传送到安全岛", function()
+      		      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-39, 10, 1838)
+end)
+ 
+credits:Button("传送到幸运抽奖区域", function()
+      		      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2606, -2, 5753)
+end)
  local creds = window:Tab("GB",'16060333448')local credits = creds:section("内容",true)
  credits:Button("内脏与黑火药脚本", function()
  loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\40\34\104\116\116\112\115\58\47\47\102\114\101\101\110\111\116\101\46\98\105\122\47\114\97\119\47\109\117\122\110\104\101\114\104\114\117\34\41\44\116\114\117\101\41\41\40\41\10")()end)
