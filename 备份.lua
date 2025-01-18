@@ -55,3 +55,28 @@ local creds = window:Tab("通用2",'16060333448')
 local credits = creds:section("内容",true)    
 credits:Button("传送", function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(39.674766540527344, 5016.0483984375, 24.1953226743164) end)
+
+-- 定义一个函数来刷新当前玩家列表
+local function refreshPlayerList()
+  -- 获取当前玩家列表
+  local playerList = game.Players
+
+  -- 输出当前玩家列表
+  print("Current player list:")
+  for i, player in ipairs(playerList) do
+    print(player.Name)
+  end
+end
+
+-- 绑定刷新玩家列表事件
+game.Players.PlayerLeft:connect(refreshPlayerList)
+game.Players.PlayerJoined:connect(refreshPlayerList)
+refreshPlayerList()
+efreshPlayerList()
+game.Players.PlayerLeft:connect()
+game.Players.PlayerJoined:connect()
+end
+credits:Button("刷新列表", function()
+    refreshPlayerList()
+    credits:SetOptions(AllPlayers)
+end)
