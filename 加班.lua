@@ -102,17 +102,8 @@ end)
         "踏空行走",
         function()
             loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Float'))()
-        end
-    )
-    credits:Button({
-        Name = "FE刷99消音器手枪",
- Callback = function()
-loadstring(game:HttpGet("https://github.com/xiaoSB33/M416/raw/main/FE.lua", true))()
-  end
-}) 
- credits:Toggle({
-        Name = "透视",
-        Callback = function()
+        end)
+ credits:Toggle("透视",function()
       if _G.Reantheajfdfjdgse then
     return
 end
@@ -173,14 +164,10 @@ while task.wait() do
         v.FillColor = color
     end
 end
-          end    
-})  
-credits:Button({
-        Name = "消音手枪🥵",
- Callback = function()
+end)
+    credits:Button({"消音手枪🥵",function()
 loadstring(game:HttpGet("https://github.com/xiaoSB33/M416/raw/main/FE.lua", true))()
-  end
-})
+ end)
   
     credits:Button(
     "键盘⌨️",
@@ -193,8 +180,7 @@ loadstring(game:HttpGet("https://github.com/xiaoSB33/M416/raw/main/FE.lua", true
     credits:Button("甩人",function()
     loadstring(game:HttpGet("https://pastebin.com/raw/zqyDSUWX"))()
 end)
-   
-    credits:Button("工具挂",function()loadstring(game:HttpGet("https://raw.githubusercontent.com/Bebo-Mods/BeboScripts/main/StandAwekening.lua"))()end)
+  
     credits:Button("iw指令", function()  loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()end)
     
 
