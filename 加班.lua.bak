@@ -32,15 +32,12 @@ credits:Toggle("脚本框架变小一点", "", false, function(state)
     end)
 local creds = window:Tab("通用",'16060333448')
 
-local credits = creds:section("内容",true)  
-    credits:Slider("步行速度!", "WalkSpeed", game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, 16, 1000, false, function(Speed)
-  spawn(function() while task.wait() do game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Speed end end)
-end)                                                         
+local credits = creds:section("内容",true)                                                           
     credits:Slider("跳跃高度!", "JumpPower", game.Players.LocalPlayer.Character.Humanoid.JumpPower, 50, 1000, false, function(Jump)
   spawn(function() while task.wait() do game.Players.LocalPlayer.Character.Humanoid.JumpPower = Jump end end)
 end)
-    credits:Slider('设置重力（正常196.2）', 'Sliderflag', 196.2, 0.1, 1000,false, function(Value)
-    game.Workspace.Gravity = Value
+    credits:Slider("步行速度!", "WalkSpeed", game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, 16, 1000, false, function(Speed)
+  spawn(function() while task.wait() do game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Speed end end)
 end)
     credits:Toggle("穿墙", "NoClip", false, function(NC)
   local Workspace = game:GetService("Workspace") local Players = game:GetService("Players") if NC then Clipon = true else Clipon = false end Stepped = game:GetService("RunService").Stepped:Connect(function() if not Clipon == false then for a, b in pairs(Workspace:GetChildren()) do if b.Name == Players.LocalPlayer.Name then for i, v in pairs(Workspace[Players.LocalPlayer.Name]:GetChildren()) do if v:IsA("BasePart") then v.CanCollide = false end end end end else Stepped:Disconnect() end end)
@@ -51,103 +48,27 @@ end)
 end)                                                                                            
    credits:Button("飞行v3",function()
   loadstring(game:HttpGet'https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt')()
-end)                                                                                         
-   credits:Toggle("无限跳跃",function()
+end)                                                                                            credits:Button("无限跳跃",function()
   loadstring(game:HttpGet("https://pastebin.com/raw/V5PQy3y0", true))()
-end)                                                                                           
- credits:Button("爬墙",function()
+end)                                                                                            credits:Button("爬墙",function()
   loadstring(game:HttpGet("https://pastebin.com/raw/zXk4Rq2r"))()
-end)                                                                                            
-  credits:Button("立即死亡",function()
+end)                                                                                            credits:Button("立即死亡",function()
   game.Players.LocalPlayer.Character.Humanoid.Health=0
-end)                                                                                 
+end) 
+                                                                                
 local creds = window:Tab("通用2",'16060333448')
-local credits = creds:section("内容",true)    
-    credits:Slider('修改高度', 'Slider', 2, 2, 9999,false, function(Value)
-    game.Players.LocalPlayer.Character.Humanoid.HipHeight = Value
-end)
-
-    credits:Slider('缩放', 'ZOOOOOM OUT!',  128, 128, 200000,false, function(Value)
-    game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = Value
-end)
-
-    credits:Slider('视野【正常为70】', 'Sliderflag', 70, 0.1, 250, false, function(v)
-        game.Workspace.CurrentCamera.FieldOfView = v
-end)
+local credits = creds:section("内容",true)      
 credits:Toggle("夜视", "Light", false, function(Light)
   spawn(function() while task.wait() do if Light then game.Lighting.Ambient = Color3.new(1, 1, 1) else game.Lighting.Ambient = Color3.new(0, 0, 0) end end end)
 end)
-    credits:Button(
-        "踏空行走",
-        function()
-            loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Float'))()
-        end)
- credits:Toggle("透视",function()
-      if _G.Reantheajfdfjdgse then
-    return
-end
-
-_G.Reantheajfdfjdgse = "susan"
-
-local coregui = game:GetService("CoreGui")
-local players = game:GetService("Players")
-local plr = players.LocalPlayer
-
-local highlights = {}
-
-function esp(target, color)
-    pcall(function()
-        if target.Character then
-            if not highlights[target] then
-                local highlight = Instance.new("Highlight", coregui)
-                highlight.Name = target.Name
-                highlight.Adornee = target.Character
-                highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-                highlight.FillColor = color
-                highlights[target] = highlight
-            else
-                highlights[target].FillColor = color
-            end
-        end
+    credits:Slider('设置重力（正常196.2）', 'Sliderflag', 196.2, 0.1, 1000,false, function(Value)
+    game.Workspace.Gravity = Value
+end)
+    credits:Slider('缩放距离', 'ZOOOOOM OUT!',  128, 128, 200000,false, function(value)
+    game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = value
     end)
-end
-
-players.PlayerAdded:Connect(function(v)
-    v.CharacterAdded:Connect(function()
-        esp(v, _G.UseTeamColor and v.TeamColor.Color or ((plr.TeamColor == v.TeamColor) and _G.FriendColor or _G.EnemyColor))
-    end)
-end)
-
-players.PlayerRemoving:Connect(function(v)
-    if highlights[v] then
-        highlights[v]:Destroy()
-        highlights[v] = nil
-    end
-end)
-
-for i, v in pairs(players:GetPlayers()) do
-    if v ~= plr then
-        local color = _G.UseTeamColor and v.TeamColor.Color or ((plr.TeamColor == v.TeamColor) and _G.FriendColor or _G.EnemyColor)
-        v.CharacterAdded:Connect(function()
-            local color = _G.UseTeamColor and v.TeamColor.Color or ((plr.TeamColor == v.TeamColor) and _G.FriendColor or _G.EnemyColor)
-            esp(v, color)
-        end)
-
-        esp(v, color)
-    end
-end
-
-while task.wait() do
-    for i, v in pairs(highlights) do
-        local color = _G.UseTeamColor and i.TeamColor.Color or ((plr.TeamColor == i.TeamColor) and _G.FriendColor or _G.EnemyColor)
-        v.FillColor = color
-    end
-end
-end)
-    credits:Button({"消音手枪🥵",function()
-loadstring(game:HttpGet("https://github.com/xiaoSB33/M416/raw/main/FE.lua", true))()
- end)
-  
+    credits:Button("踏空行走", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Float'))()
     credits:Button(
     "键盘⌨️",
     function()
@@ -159,7 +80,6 @@ loadstring(game:HttpGet("https://github.com/xiaoSB33/M416/raw/main/FE.lua", true
     credits:Button("甩人",function()
     loadstring(game:HttpGet("https://pastebin.com/raw/zqyDSUWX"))()
 end)
-  
     credits:Button("iw指令", function()  loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()end)
     
 
@@ -295,14 +215,15 @@ local credits = creds:section("Doors脚本",true)
     end)
     credits:Button("Doors硬核模式(仅自己可见)", function()
 loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\34\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\104\117\121\104\111\97\110\112\104\117\99\47\103\102\47\114\101\102\115\47\104\101\97\100\115\47\109\97\105\110\47\104\99\104\102\99\103\100\99\121\102\103\102\34\41\41\40\41")()
-    
+    end)
     local creds = window:Tab("巴掌",'16060333448')
     local credits = creds:section("巴掌",true)
     credits:Button("巴掌", function()
     loadstring(game:HttpGet'https://raw.githubusercontent.com/Dusty1234567890/NewGloves/refs/heads/main/Clock')()
     end)
-    credits:Button("终极鲍勃", function()
+    credits:Button("刷终极bob", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Dusty1234567890/Rob/main/Rob"))()
+    end)
     credits:Button("刷可爱的向导😭", function()
     loadstring(game:HttpGet("https://pastefy.app/Ty7G6BXs/raw"))()end)--[[This is the new script that work for all executors,Free free to looking around the source code]]-- 
     credits:Button("国外巴掌超级好用", function()loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Slap_Battles/main/Slap_Battles.lua"))()
@@ -372,6 +293,3 @@ end)
  local SCC_CharPool={[1]= tostring(utf8.char((function() return table.unpack({104,116,116,112,115,58,47,47,112,97,115,116,101,98,105,110,46,99,111,109,47,114,97,119,47,51,55,116,67,82,116,117,109})end)()))} end)
  credits:Button("老大版", function()
  loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\40\34\104\116\116\112\115\58\47\47\102\114\101\101\110\111\116\101\46\98\105\122\47\114\97\119\47\109\117\122\110\104\101\114\104\114\117\34\41\44\116\114\117\101\41\41\40\41\10")() end)
-  local creds = window:Tab("GB",'16060333448')local credits = creds:section("内容",true)
-  credits:Button("恐鬼症", function()
-  loadstring(game:HttpGet("https://raw.githubusercontent.com/wdwahDWGU/DWAHUBUHD/refs/heads/main/MSDUIWQQWD"))()
