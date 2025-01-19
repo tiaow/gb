@@ -251,15 +251,6 @@ loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\
   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-357.81512451171875, 67.47888946533203, 12.336100578308105) end)
   credits:Button("迷宫", function()
   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(235.1599884033203, -15.716064453125, -3.7118053436279297) end)
-  credits:Button("功能名字", function()
-  credits:Button("Rojo技能", function(Value)
-_G.RojoSpam = Value
-game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Charge")
-wait(6)
-game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame})
-task.wait()
-end)
-
  local creds = window:Tab("力量传奇",'16060333448')
  local credits = creds:section("力量传奇脚本",true)    
  credits:Button("力量传奇",function()    loadstring(game:HttpGet('https://raw.githubusercontent.com/jynzl/main/main/Musclas%20Legenos.lua'))()end)
