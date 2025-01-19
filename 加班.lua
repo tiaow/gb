@@ -48,11 +48,14 @@ end)
 end)                                                                                            
    credits:Button("飞行v3",function()
   loadstring(game:HttpGet'https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt')()
-end)                                                                                            credits:Button("无限跳跃",function()
+end)                                                                                         
+   credits:Toggle("无限跳跃",function()
   loadstring(game:HttpGet("https://pastebin.com/raw/V5PQy3y0", true))()
-end)                                                                                            credits:Button("爬墙",function()
+end)                                                                                           
+ credits:Toggle("爬墙",function()
   loadstring(game:HttpGet("https://pastebin.com/raw/zXk4Rq2r"))()
-end)                                                                                            credits:Button("立即死亡",function()
+end)                                                                                            
+  credits:Button("立即死亡",function()
   game.Players.LocalPlayer.Character.Humanoid.Health=0
 end)                                                                                 
 local creds = window:Tab("通用2",'16060333448')
@@ -66,6 +69,27 @@ end)
     credits:Slider('缩放距离', 'ZOOOOOM OUT!',  128, 128, 200000,false, function(value)
     game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = value
     end)
+    credits:Textbox("自定义头部大小", "arg", "输入",function(Value)
+_G.HeadSize = Value
+_G.Disabled = true
+game:GetService('RunService').RenderStepped:connect(function()
+if _G.Disabled then
+for i,v in next, game:GetService('Players'):GetPlayers() do
+if v.Name ~= game:GetService('Players').LocalPlayer.Name then
+pcall(function()
+v.Character.Head.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
+v.Character.Head.Transparency = 1
+v.Character.Head.BrickColor = BrickColor.new("Red")
+v.Character.Head.Material = "Neon"
+v.Character.Head.CanCollide = false
+v.Character.Head.Massless = true
+end)
+end
+end
+end
+end)    
+end) 
+
     credits:Button(
     "键盘⌨️",
     function()
@@ -80,6 +104,7 @@ end)
    
     credits:Button("工具挂",function()loadstring(game:HttpGet("https://raw.githubusercontent.com/Bebo-Mods/BeboScripts/main/StandAwekening.lua"))()end)
     credits:Button("iw指令", function()  loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()end)
+    
 
    local creds = window:Tab("传送",'16060333448')                  
 local credits = creds:section("传送功能",true)
@@ -211,14 +236,16 @@ local credits = creds:section("Doors脚本",true)
     credits:Button("BoBHub汉化", function()
  loadstring(game:HttpGet("\104\116\116\112\115\58\47\47\112\97\115\116\101\98\105\110\46\99\111\109\47\114\97\119\47\54\53\84\119\84\56\106\97"))()
     end)
+    credits:Button("Doors硬核模式(仅自己可见)", function()
+loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\34\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\104\117\121\104\111\97\110\112\104\117\99\47\103\102\47\114\101\102\115\47\104\101\97\100\115\47\109\97\105\110\47\104\99\104\102\99\103\100\99\121\102\103\102\34\41\41\40\41")()
+    
     local creds = window:Tab("巴掌",'16060333448')
     local credits = creds:section("巴掌",true)
     credits:Button("巴掌", function()
     loadstring(game:HttpGet'https://raw.githubusercontent.com/Dusty1234567890/NewGloves/refs/heads/main/Clock')()
     end)
-    credits:Button("巴掌超级推荐", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/ihfrdhjh/refs/heads/main/%E5%B7%B4%E6%8E%8C%E5%A4%A7%E6%88%98(1).lua"))()
-    end)
+    credits:Button("终极鲍勃", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Dusty1234567890/Rob/main/Rob"))()
     credits:Button("刷可爱的向导😭", function()
     loadstring(game:HttpGet("https://pastefy.app/Ty7G6BXs/raw"))()end)--[[This is the new script that work for all executors,Free free to looking around the source code]]-- 
     credits:Button("国外巴掌超级好用", function()loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Slap_Battles/main/Slap_Battles.lua"))()
@@ -289,3 +316,6 @@ end)
  local SCC_CharPool={[1]= tostring(utf8.char((function() return table.unpack({104,116,116,112,115,58,47,47,112,97,115,116,101,98,105,110,46,99,111,109,47,114,97,119,47,51,55,116,67,82,116,117,109})end)()))} end)
  credits:Button("老大版", function()
  loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\40\34\104\116\116\112\115\58\47\47\102\114\101\101\110\111\116\101\46\98\105\122\47\114\97\119\47\109\117\122\110\104\101\114\104\114\117\34\41\44\116\114\117\101\41\41\40\41\10")() end)
+  local creds = window:Tab("GB",'16060333448')local credits = creds:section("内容",true)
+  credits:Button("恐鬼症", function()
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/wdwahDWGU/DWAHUBUHD/refs/heads/main/MSDUIWQQWD"))()
