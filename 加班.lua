@@ -53,20 +53,15 @@ end)
    credits:Toggle("无限跳跃",function()
   loadstring(game:HttpGet("https://pastebin.com/raw/V5PQy3y0", true))()
 end)                                                                                           
- credits:Toggle("爬墙",function()
+ credits:Button("爬墙",function()
   loadstring(game:HttpGet("https://pastebin.com/raw/zXk4Rq2r"))()
 end)                                                                                            
   credits:Button("立即死亡",function()
   game.Players.LocalPlayer.Character.Humanoid.Health=0
 end)                                                                                 
-    credits:Button(
-        "踏空行走",
-        function()
-            loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Float'))()
-        end
-    )
+    credits:Button("踏空行走", function()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Float'))()
 
-    
 local creds = window:Tab("通用2",'16060333448')
 local credits = creds:section("内容",true)      
 credits:Toggle("夜视", "Light", false, function(Light)
@@ -78,11 +73,7 @@ end)
     credits:Slider('缩放距离', 'ZOOOOOM OUT!',  128, 128, 200000,false, function(value)
     game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = value
     end)
-    Tab:AddSlider("视野大小",50,300,fov,1, function(Value)
-        fov = Value
-        FOVring.Radius = Value
-    end
-})
+
     credits:Button(
     "键盘⌨️",
     function()
