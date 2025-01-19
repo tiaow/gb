@@ -231,7 +231,7 @@ loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\
     end)
   local credits = creds:section("传送",true)
   credits:Button("出生点", function()
-  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-904.4163208007812, 328.17510986328125, -5.1554718017578125)
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-904.4163208007812, 328.17510986328125, -5.1554718017578125)end)
   credits:Button("默认巴掌竞技场", function()
   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(132.99984741210938, 359.9842224121094, -21.03009605407715)end)
   credits:Button("巴掌竞技场", function()
