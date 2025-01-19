@@ -32,13 +32,48 @@ credits:Toggle("脚本框架变小一点", "", false, function(state)
     end)
 local creds = window:Tab("通用",'16060333448')
 
-local credits = creds:section("内容",true)                                                           
+local credits = creds:section("内容",true)  
+    credits:Slider("步行速度!", "WalkSpeed", game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, 16, 1000, false, function(Speed)
+  spawn(function() while task.wait() do game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Speed end end)
+end)                                                         
     credits:Slider("跳跃高度!", "JumpPower", game.Players.LocalPlayer.Character.Humanoid.JumpPower, 50, 1000, false, function(Jump)
   spawn(function() while task.wait() do game.Players.LocalPlayer.Character.Humanoid.JumpPower = Jump end end)
 end)
-    credits:Slider("步行速度!", "WalkSpeed", game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, 16, 1000, false, function(Speed)
-  spawn(function() while task.wait() do game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Speed end end)
+    credits:Slider('设置重力（正常196.2）', 'Sliderflag', 196.2, 0.1, 1000,false, function(Value)
+    game.Workspace.Gravity = Value
 end)
+    credits:Slider('修改高度', 'Slider', 2, 2, 9999,false, function(Value)
+    game.Players.LocalPlayer.Character.Humanoid.HipHeight = Value
+end)
+
+    credits:Slider('缩放', 'ZOOOOOM OUT!',  128, 128, 200000,false, function(Value)
+    game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = Value
+end)
+
+    credits:Slider('视野【正常为70】', 'Sliderflag', 70, 0.1, 250, false, function(v)
+        game.Workspace.CurrentCamera.FieldOfView = v
+end)
+    credits:Textbox("自定义头部大小", "arg", "输入",function(Value)
+_G.HeadSize = Value
+_G.Disabled = true
+game:GetService('RunService').RenderStepped:connect(function()
+if _G.Disabled then
+for i,v in next, game:GetService('Players'):GetPlayers() do
+if v.Name ~= game:GetService('Players').LocalPlayer.Name then
+pcall(function()
+v.Character.Head.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
+v.Character.Head.Transparency = 1
+v.Character.Head.BrickColor = BrickColor.new("Red")
+v.Character.Head.Material = "Neon"
+v.Character.Head.CanCollide = false
+v.Character.Head.Massless = true
+end)
+end
+end
+end
+end)    
+end) 
+
     credits:Toggle("穿墙", "NoClip", false, function(NC)
   local Workspace = game:GetService("Workspace") local Players = game:GetService("Players") if NC then Clipon = true else Clipon = false end Stepped = game:GetService("RunService").Stepped:Connect(function() if not Clipon == false then for a, b in pairs(Workspace:GetChildren()) do if b.Name == Players.LocalPlayer.Name then for i, v in pairs(Workspace[Players.LocalPlayer.Name]:GetChildren()) do if v:IsA("BasePart") then v.CanCollide = false end end end end else Stepped:Disconnect() end end)
 end)
@@ -63,33 +98,90 @@ local credits = creds:section("内容",true)
 credits:Toggle("夜视", "Light", false, function(Light)
   spawn(function() while task.wait() do if Light then game.Lighting.Ambient = Color3.new(1, 1, 1) else game.Lighting.Ambient = Color3.new(0, 0, 0) end end end)
 end)
-    credits:Slider('设置重力（正常196.2）', 'Sliderflag', 196.2, 0.1, 1000,false, function(Value)
-    game.Workspace.Gravity = Value
-end)
-    credits:Slider('缩放距离', 'ZOOOOOM OUT!',  128, 128, 200000,false, function(value)
-    game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = value
-    end)
-    credits:Textbox("自定义头部大小", "arg", "输入",function(Value)
-_G.HeadSize = Value
-_G.Disabled = true
-game:GetService('RunService').RenderStepped:connect(function()
-if _G.Disabled then
-for i,v in next, game:GetService('Players'):GetPlayers() do
-if v.Name ~= game:GetService('Players').LocalPlayer.Name then
-pcall(function()
-v.Character.Head.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
-v.Character.Head.Transparency = 1
-v.Character.Head.BrickColor = BrickColor.new("Red")
-v.Character.Head.Material = "Neon"
-v.Character.Head.CanCollide = false
-v.Character.Head.Massless = true
-end)
+    credits:Button(
+        "踏空行走",
+        function()
+            loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Float'))()
+        end
+    )
+    credits:Button({
+        Name = "FE刷99消音器手枪",
+ Callback = function()
+loadstring(game:HttpGet("https://github.com/xiaoSB33/M416/raw/main/FE.lua", true))()
+  end
+}) 
+ credits:Toggle({
+        Name = "透视",
+        Callback = function()
+      if _G.Reantheajfdfjdgse then
+    return
 end
-end
-end
-end)    
-end) 
 
+_G.Reantheajfdfjdgse = "susan"
+
+local coregui = game:GetService("CoreGui")
+local players = game:GetService("Players")
+local plr = players.LocalPlayer
+
+local highlights = {}
+
+function esp(target, color)
+    pcall(function()
+        if target.Character then
+            if not highlights[target] then
+                local highlight = Instance.new("Highlight", coregui)
+                highlight.Name = target.Name
+                highlight.Adornee = target.Character
+                highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+                highlight.FillColor = color
+                highlights[target] = highlight
+            else
+                highlights[target].FillColor = color
+            end
+        end
+    end)
+end
+
+players.PlayerAdded:Connect(function(v)
+    v.CharacterAdded:Connect(function()
+        esp(v, _G.UseTeamColor and v.TeamColor.Color or ((plr.TeamColor == v.TeamColor) and _G.FriendColor or _G.EnemyColor))
+    end)
+end)
+
+players.PlayerRemoving:Connect(function(v)
+    if highlights[v] then
+        highlights[v]:Destroy()
+        highlights[v] = nil
+    end
+end)
+
+for i, v in pairs(players:GetPlayers()) do
+    if v ~= plr then
+        local color = _G.UseTeamColor and v.TeamColor.Color or ((plr.TeamColor == v.TeamColor) and _G.FriendColor or _G.EnemyColor)
+        v.CharacterAdded:Connect(function()
+            local color = _G.UseTeamColor and v.TeamColor.Color or ((plr.TeamColor == v.TeamColor) and _G.FriendColor or _G.EnemyColor)
+            esp(v, color)
+        end)
+
+        esp(v, color)
+    end
+end
+
+while task.wait() do
+    for i, v in pairs(highlights) do
+        local color = _G.UseTeamColor and i.TeamColor.Color or ((plr.TeamColor == i.TeamColor) and _G.FriendColor or _G.EnemyColor)
+        v.FillColor = color
+    end
+end
+          end    
+})  
+credits:Button({
+        Name = "消音手枪🥵",
+ Callback = function()
+loadstring(game:HttpGet("https://github.com/xiaoSB33/M416/raw/main/FE.lua", true))()
+  end
+})
+  
     credits:Button(
     "键盘⌨️",
     function()
@@ -253,7 +345,6 @@ loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\
  local creds = window:Tab("力量传奇",'16060333448')
  local credits = creds:section("力量传奇脚本",true)    
  credits:Button("力量传奇",function()    loadstring(game:HttpGet('https://raw.githubusercontent.com/jynzl/main/main/Musclas%20Legenos.lua'))()end)
- credits:Button("超级推荐",function()    loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/%E5%8A%9B%E9%87%8F%E4%BC%A0%E5%A5%87.lua"))()end)
  
  local credits = creds:section("宝箱传送",true)
  credits:Button("群组宝箱", function()
