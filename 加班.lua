@@ -54,7 +54,8 @@ end)                                                                            
   loadstring(game:HttpGet("https://pastebin.com/raw/zXk4Rq2r"))()
 end)                                                                                            credits:Button("立即死亡",function()
   game.Players.LocalPlayer.Character.Humanoid.Health=0
-end)                                                                                 
+end) 
+                                                                                
 local creds = window:Tab("通用2",'16060333448')
 local credits = creds:section("内容",true)      
 credits:Toggle("夜视", "Light", false, function(Light)
@@ -212,7 +213,7 @@ local credits = creds:section("Doors脚本",true)
     end)
     credits:Button("Doors硬核模式(仅自己可见)", function()
 loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\34\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\104\117\121\104\111\97\110\112\104\117\99\47\103\102\47\114\101\102\115\47\104\101\97\100\115\47\109\97\105\110\47\104\99\104\102\99\103\100\99\121\102\103\102\34\41\41\40\41")()
-    
+    end)
     local creds = window:Tab("巴掌",'16060333448')
     local credits = creds:section("巴掌",true)
     credits:Button("巴掌", function()
@@ -228,7 +229,6 @@ loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\
  local creds = window:Tab("力量传奇",'16060333448')
  local credits = creds:section("力量传奇脚本",true)    
  credits:Button("力量传奇",function()    loadstring(game:HttpGet('https://raw.githubusercontent.com/jynzl/main/main/Musclas%20Legenos.lua'))()end)
- credits:Button("超级推荐",function()    loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/%E5%8A%9B%E9%87%8F%E4%BC%A0%E5%A5%87.lua"))()end)
  
  local credits = creds:section("宝箱传送",true)
  credits:Button("群组宝箱", function()
