@@ -55,7 +55,7 @@ end)
    credits:Toggle("无限跳跃",function()
   loadstring(game:HttpGet("https://pastebin.com/raw/V5PQy3y0", true))()
 end)                                                                                           
- credits:Toggle("爬墙",function()
+ credits:Button("爬墙",function()
   loadstring(game:HttpGet("https://pastebin.com/raw/zXk4Rq2r"))()
 end)                                                                                            
   credits:Button("立即死亡",function()
@@ -74,27 +74,6 @@ end)
     credits:Slider('视野【正常为70】', 'Sliderflag', 70, 0.1, 250, false, function(v)
         game.Workspace.CurrentCamera.FieldOfView = v
 end)
-    credits:Textbox("自定义头部大小", "arg", "输入",function(Value)
-_G.HeadSize = Value
-_G.Disabled = true
-game:GetService('RunService').RenderStepped:connect(function()
-if _G.Disabled then
-for i,v in next, game:GetService('Players'):GetPlayers() do
-if v.Name ~= game:GetService('Players').LocalPlayer.Name then
-pcall(function()
-v.Character.Head.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
-v.Character.Head.Transparency = 1
-v.Character.Head.BrickColor = BrickColor.new("Red")
-v.Character.Head.Material = "Neon"
-v.Character.Head.CanCollide = false
-v.Character.Head.Massless = true
-end)
-end
-end
-end
-end)    
-end) 
-  
 credits:Toggle("夜视", "Light", false, function(Light)
   spawn(function() while task.wait() do if Light then game.Lighting.Ambient = Color3.new(1, 1, 1) else game.Lighting.Ambient = Color3.new(0, 0, 0) end end end)
 end)
