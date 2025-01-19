@@ -235,7 +235,7 @@ loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\
   credits:Button("默认巴掌竞技场", function()
   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(132.99984741210938, 359.9842224121094, -21.03009605407715)end)
   credits:Button("巴掌竞技场", function()
-  CFrame.new(10.45071792602539, -5.172852039337158, 22.651708602905273)end)
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(10.45071792602539, -5.172852039337158, 22.651708602905273)end)
   credits:Button("锁链上", function()
   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-121.70960998535156, -4.560846328735352, 119.67999267578125)end)
   credits:Button("云朵岛", function()
