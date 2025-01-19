@@ -50,7 +50,7 @@ end)
   loadstring(game:HttpGet'https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt')()
 end)                                                                                            credits:Button("无限跳跃",function()
   loadstring(game:HttpGet("https://pastebin.com/raw/V5PQy3y0", true))()
-end)                                                                                            credits:Toggle("爬墙",function()
+end)                                                                                            credits:Button("爬墙",function()
   loadstring(game:HttpGet("https://pastebin.com/raw/zXk4Rq2r"))()
 end)                                                                                            credits:Button("立即死亡",function()
   game.Players.LocalPlayer.Character.Humanoid.Health=0
@@ -67,6 +67,17 @@ end)
     credits:Slider('缩放距离', 'ZOOOOOM OUT!',  128, 128, 200000,false, function(value)
     game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = value
     end)
+        credits:Button(
+        "踏空行走",
+        function()
+            loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Float'))()
+        end
+    )
+        credits:Slider("视野大小",50,300,fov,1, function(Value)
+        Value
+        FOVring.Radius = Value
+    end
+})
     credits:Button(
     "键盘⌨️",
     function()
