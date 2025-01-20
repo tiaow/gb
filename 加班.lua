@@ -13,17 +13,6 @@ local bin = creds:section("玩家信息",true)
   
     bin:Label("你的用户名:"..game.Players.LocalPlayer.Character.Name)
     bin:Label("你的注入器:"..identifyexecutor())
-    bin:Label("你的账号注册时间:"..game:GetService.("Players").LocalPlayer.AccountAge
-idenifyexecutor())
-    bin:Label("服务器ID"game.PlaceId)
--- 服务器ID
-    bin:Label("服务器名字"game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name)
--- 服务器名字
-    bin:Label("用户名ID")game:GetService("Players").LocalPlayer.UserId
-    game:GetService("Players").LocalPlayer.CharacterAppearanceId)
--- 用户ID，注册时分配的，不可变
-    bin:Label("客户端ID")game:GetService("RbxAnalyticsService"):GetClientd())
--- 客户端ID，删除再下载游戏就会变
     local bin = creds:section("作者信息",true)
     bin:Label("作者:条纹大地")
     bin:Label("缝合脚本")
