@@ -54,9 +54,10 @@ end)                                                                            
 end)                                                                                            credits:Button("立即死亡",function()
   game.Players.LocalPlayer.Character.Humanoid.Health=0
 end) 
+    
+    credits:Textbox("重力设置!", "Gravity", "输入", function()  spawn(function() while task.wait() do game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new end end) end)
     credits:Button("复制当前位置", function()
-    setclipboard(tostring(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame))
-        end)                                                                        
+    setclipboard('game:GetService("Players").LocalPlayer.Character:MoveTo(Vector3.new('..tostring(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position)..'))')                                                             end)
 local creds = window:Tab("通用2",'16060333448')
 local credits = creds:section("内容",true)      
 credits:Toggle("夜视", "Light", false, function(Light)
