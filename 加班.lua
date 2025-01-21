@@ -8,9 +8,6 @@ local library = loadstring(game:HttpGet("https://pastebin.com/raw/nBq2D86q"))()
 local window = library:new("逆天了，老弟")
 
 local creds = window:Tab("信息",'16060333448')
-
-local bin = creds:section("玩家信息",true)
-  
     local bin = creds:section("作者信息",true)
     bin:Label("作者:条纹大地")
     bin:Label("缝合脚本")
