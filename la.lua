@@ -1,17 +1,45 @@
 local player = game.Players.LocalPlayer
-local mainScreenGui = player:WaitForChild("StarterGui"):WaitForChild("MainScreenGui")
-local blackSquareFrame = mainScreenGui:WaitForChild("BlackSquareFrame")
-local customImageButton = blackSquareFrame:WaitForChild("CustomImageButton")
 local tweenService = game:GetService("TweenService")
+local mainScreenGui
+local blackSquareFrame
+local customImageButton
 
--- 设置自定义图片
-customImageButton.Image = ("https://github.com/tiaow/ihv/blob/main/Image_1736837216588.jpg")
+local function getUIElements()
+    local success, err = pcall(function()
+        mainScreenGui = player:WaitForChild("StarterGui"):WaitForChild("MainScreenGui")
+    end)
+    if not success then
+        warn("无法获取 MainScreenGui: ", err)
+        return false
+    end
 
--- 初始隐藏方块和图片
+    success, err = pcall(function()
+        blackSquareFrame = mainScreenGui:WaitForChild("BlackSquareFrame")
+    end)
+    if not success then
+        warn("无法获取 BlackSquareFrame: ", err)
+        return false
+    end
+
+    success, err = pcall(function()
+        customImageButton = blackSquareFrame:WaitForChild("CustomImageButton")
+    end)
+    if not success then
+        warn("无法获取 CustomImageButton: ", err)
+        return false
+    end
+
+    return true
+end
+
+if not getUIElements() then
+    return
+end
+
+customImageButton.Image = "rbxassetid://112396419286940"
 blackSquareFrame.Visible = false
 customImageButton.Visible = false
 
--- 方块淡入函数
 local function fadeInSquare()
     blackSquareFrame.Visible = true
     local tweenInfo = TweenInfo.new(
@@ -26,8 +54,8 @@ local function fadeInSquare()
     tween:Play()
 end
 
--- 图片淡入函数
 local function fadeInImage()
+    task.wait(0.1)
     customImageButton.Visible = true
     local tweenInfo = TweenInfo.new(
         0.3,
@@ -40,27 +68,35 @@ local function fadeInImage()
     tween:Play()
 end
 
--- 假设这里有一个函数模拟“点击脚本”的操作
 local function clickScript()
     fadeInSquare()
     fadeInImage()
 end
 
--- 用于存储原始的旋转角度
 local originalRotation
-
--- 点击音效
 local clickSound = Instance.new("Sound")
-clickSound.SoundId = ("rbxassetid://4767345400") -- 替换为实际音效ID
+clickSound.SoundId = "rbxassetid://4767345400"
 clickSound.Parent = customImageButton
+
+local function rotateImage()
+    local tweenInfo = TweenInfo.new(
+        0.3,
+        Enum.EasingStyle.Linear,
+        Enum.EasingDirection.Out
+    )
+    local newRotation = (originalRotation or 0) + 180
+    local tween = tweenService:Create(customImageButton, tweenInfo, {
+        Rotation = newRotation
+    })
+    tween:Play()
+    tween.Completed:Connect(function()
+        originalRotation = newRotation
+    end)
+end
 
 customImageButton.MouseButton1Click:Connect(function()
     clickSound:Play()
-    if not originalRotation then
-        originalRotation = customImageButton.Rotation
-        customImageButton.Rotation = originalRotation + 180
-    else
-        customImageButton.Rotation = originalRotation
-        originalRotation = nil
-    end
+    rotateImage()
 end)
+
+clickScript()
