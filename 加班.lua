@@ -1,9 +1,3 @@
-if _G.LoadedA then
-    warn("请勿重复加载")
-    return
-else
-    _G.LoadedA = true
-end
 local library = loadstring(game:HttpGet("https://pastebin.com/raw/nBq2D86q"))()
 local window = library:new("逆天了，老弟")
 
@@ -88,10 +82,6 @@ end)
 
    local creds = window:Tab("传送",'16060333448')                  
 local credits = creds:section("传送功能",true)
-    if getgenv().ED_AntiKick then
-	return
-end
-
 getgenv().ED_AntiKick = {
 	Enabled = true, -- Set to false if you want to disable the Anti-Kick.
 	SendNotifications = true, -- Set to true if you want to get notified for every event
@@ -259,6 +249,97 @@ loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\
    credits:Button("终点", function()
    game:GetService("Players").LocalPlayer.Character:MoveTo(Vector3.new(58.005775451660156, 44.20683670043945, 175.5221710205078))
    end)
+    local credits = creds:section("巴掌部分功能",true)
+    credits:Toggle("自动刷砖块","Toggle", false, function(Value)
+ReplicaFarm = Value
+while ReplicaFarm do
+for i, v in pairs(workspace:GetChildren()) do
+                if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
+                end
+            end
+task.wait()
+game:GetService("ReplicatedStorage").lbrick:FireServer()
+task.wait(4)
+end
+end)
+credits:Toggle("反板砖","Toggle", false, function(Value)
+AntiBrick = Value
+while AntiBrick do
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == "Union" then
+                        v.CanTouch = false
+                    end
+                end
+task.wait()
+end
+end)
+credits:Toggle("防踢","Toggle", false, function(Value)
+AntiKick = Value
+while AntiKick do
+for i,v in pairs(game.CoreGui.RobloxPromptGui.promptOverlay:GetDescendants()) do
+                    if v.Name == "ErrorPrompt" then
+AK:Set(false)
+game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, game.Players.LocalPlayer)
+                    end
+                end
+task.wait()
+end
+end)
+credits:Toggle("防击飞","Toggle", false, function(Value)
+AntiRagdoll = Value
+if AntiRagdoll then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+game.Players.LocalPlayer.CharacterAdded:Connect(function()
+game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Changed:Connect(function()
+if game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == true and AntiRagdoll then
+repeat task.wait() game.Players.LocalPlayer.Character.Torso.Anchored = true
+until game.Players.LocalPlayer.Character:WaitForChild("Ragdolled").Value == false
+game.Players.LocalPlayer.Character.Torso.Anchored = false
+end
+end)
+end)
+end
+end)
+credits:Toggle("自动刷bob","Toggle", false, function(Value)
+ReplicaFarm = Value
+while ReplicaFarm do
+for i, v in pairs(workspace:GetChildren()) do
+                if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
+                end
+            end
+task.wait()
+game:GetService("ReplicatedStorage").Duplicate:FireServer()
+task.wait(7)
+end
+end)
+credits:Toggle("自动捡飞行宝珠","Toggle", false, function(Value)
+Jetfarm = Value
+while Jetfarm do
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == "JetOrb" and v:FindFirstChild("TouchInterest") then
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 1)
+                    end
+                end
+task.wait()
+end
+end)
+credits:Toggle("自动拾取黄金果实","Toggle", false, function(Value)
+SlappleFarm = Value
+while SlappleFarm do
+for i, v in ipairs(workspace.Arena.island5.Slapples:GetDescendants()) do
+                if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and v.Name == "Glove" and v:FindFirstChildWhichIsA("TouchTransmitter") then
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 0)
+        firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 1)
+                end
+            end
+task.wait()
+end
+end)
+
+
  local creds = window:Tab("力量传奇",'16060333448')
  local credits = creds:section("力量传奇脚本",true)    
  credits:Button("力量传奇",function()    loadstring(game:HttpGet('https://raw.githubusercontent.com/jynzl/main/main/Musclas%20Legenos.lua'))()end)
