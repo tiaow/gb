@@ -221,6 +221,27 @@ loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\
     loadstring(game:HttpGet("https://pastefy.app/Ty7G6BXs/raw"))()end)--[[This is the new script that work for all executors,Free free to looking around the source code]]-- 
     credits:Button("国外巴掌超级好用", function()loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Slap_Battles/main/Slap_Battles.lua"))()
     end)
+     local credits = creds:section("遗忘之地答案",false)
+    credits:Button("How old is your account in day?答你加入roblox的时间有多久", function() end)
+    credits:Button("What is the badge name for the Glitch glove?答案: 010100100101010101001110", function() end)
+    credits:Button("Did you forget that you repressed your memories?答案:是", function() end)
+    credits:Button("What glove has exactly 9750 slap requirements to unlock ?答案: coil", function() end)
+    credits:Button("How many players were present in this server when you were sent here?回答你进来是服务器有多少人", function() end)
+    credits:Button("What colour is your name in the Roblox chat?你聊天框友发言的颜色", function()end)
+    credits:Button("When was Slap Battles first published to Roblox?答案: 16/2/2021", function()end)
+    credits:Button("Simon Says Riddle me this and speak it out. What has a bottom at the top?答案: A leg (在聊天栏里输入)", function()end)
+    credits:Button("simon says jump off the map to collect your reward.直接跳虚空", function() end)
+    credits:Button("Do you know who I am?答案A forgotten memory", function() end)
+    credits:Button("We'll play simon says at the end. Do you understand ?答案:是", function()end)
+    credits:Button("Whom ultimately controls this realm?答案Tencell", function()end)
+    credits:Button("How many gloves stands are in Slap Battles right now?答案: 210", function()end)
+    credits:Button("1=3, 2=3, 3=5,4=4,5=4, what does 6=?答案: 3", function()end)
+    credits:Button("What is the chance of getting bob from答案 1/7500", function()end)
+    credits:Button("How many slaps do you have?你自己的耳光数量，排行榜上有", function()end)
+    credits:Button("hat glove can't you hit when it isin't there?答案elude", function()end)
+    
+    
+    
   local credits = creds:section("传送",false)
   credits:Button("出生点", function()
   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-904.4163208007812, 328.17510986328125, -5.1554718017578125)end)
@@ -249,21 +270,9 @@ loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\
    credits:Button("终点", function()
    game:GetService("Players").LocalPlayer.Character:MoveTo(Vector3.new(58.005775451660156, 44.20683670043945, 175.5221710205078))
    end)
-    local credits = creds:section("巴掌部分功能",true)
-    credits:Toggle("自动刷砖块","Toggle", false, function(Value)
-ReplicaFarm = Value
-while ReplicaFarm do
-for i, v in pairs(workspace:GetChildren()) do
-                if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
-game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
-                end
-            end
-task.wait()
-game:GetService("ReplicatedStorage").lbrick:FireServer()
-task.wait(4)
-end
-end)
-credits:Toggle("反板砖","Toggle", false, function(Value)
+   local creds = window:Tab("巴掌2",'16060333448')
+    local credits = creds:section("防",false)
+    credits:Toggle("反板砖","Toggle", false, function(Value)
 AntiBrick = Value
 while AntiBrick do
 for i,v in pairs(game.Workspace:GetChildren()) do
@@ -299,6 +308,113 @@ game.Players.LocalPlayer.Character.Torso.Anchored = false
 end
 end)
 end)
+end
+end)
+    credits:Toggle("反Null","Toggle", false, function(Value)
+AntiNull = Value
+while AntiNull do
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == "Imp" and v:FindFirstChild("Body") then
+shared.gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Body,true)
+end
+end
+task.wait()
+end
+end)
+credits:Toggle("反上帝技能","Toggle", false, function(Value)
+AntiTimestop = Value
+while AntiTimestop do
+                for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v.ClassName == "Part" then
+                        v.Anchored = false
+                    end
+                end
+task.wait()
+end
+end)
+
+credits:Toggle("反鱿鱼","Toggle", false, function(Value)
+AntiSquid = Value
+if AntiSquid == false then
+        game.Players.LocalPlayer.PlayerGui.SquidInk.Enabled = true
+        end
+while AntiSquid do
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("SquidInk") then
+        game.Players.LocalPlayer.PlayerGui.SquidInk.Enabled = false
+end
+task.wait()
+end
+end)
+
+credits:Toggle("反神圣杰克","Toggle", false, function(Value)
+game.Players.LocalPlayer.PlayerScripts.HallowJackAbilities.Disabled = Value
+end)
+
+credits:Toggle("反传送带","Toggle", false, function(Value)
+game.Players.LocalPlayer.PlayerScripts.ConveyorVictimized.Disabled = Value
+end)
+credits:Toggle("反虚空(锦标赛也有效果)","Toggle", false, function(Value)
+game.Workspace.dedBarrier.CanCollide = Value
+game.Workspace.TAntiVoid.CanCollide = Value
+end)
+credits:Toggle("防死亡屏障","Toggle", false, function(Value)
+if Value == true then
+for i,v in pairs(game.Workspace.DEATHBARRIER:GetChildren()) do
+                    if v.ClassName == "Part" and v.Name == "BLOCK" then
+                        v.CanTouch = false
+                    end
+                end
+workspace.DEATHBARRIER.CanTouch = false
+workspace.DEATHBARRIER2.CanTouch = false
+workspace.dedBarrier.CanTouch = false
+workspace.ArenaBarrier.CanTouch = false
+workspace.AntiDefaultArena.CanTouch = false
+else
+for i,v in pairs(game.Workspace.DEATHBARRIER:GetChildren()) do
+                    if v.ClassName == "Part" and v.Name == "BLOCK" then
+                        v.CanTouch = true
+                    end
+                end
+workspace.DEATHBARRIER.CanTouch = true
+workspace.DEATHBARRIER2.CanTouch = true
+workspace.dedBarrier.CanTouch = true
+workspace.ArenaBarrier.CanTouch = true
+workspace.AntiDefaultArena.CanTouch = true
+end
+end)
+
+credits:Toggle("反巴西","Toggle", false, function(Value)
+if Value == true then
+for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+                        v.CanTouch = false
+                end
+else
+for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+                        v.CanTouch = true
+                end
+end
+end)
+
+credits:Toggle("反死亡方块","Toggle", false, function(Value)
+if Value == true then
+        workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].CanTouch = false
+        else
+                workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].CanTouch = true
+        end
+end)
+
+    local credits = creds:section("自动",false)
+    credits:Toggle("自动刷砖块","Toggle", false, function(Value)
+ReplicaFarm = Value
+while ReplicaFarm do
+for i, v in pairs(workspace:GetChildren()) do
+                if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
+                end
+            end
+task.wait()
+game:GetService("ReplicatedStorage").lbrick:FireServer()
+task.wait(4)
 end
 end)
 credits:Toggle("自动刷bob","Toggle", false, function(Value)
