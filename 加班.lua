@@ -440,7 +440,7 @@ game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
             end
 task.wait()
 game:GetService("ReplicatedStorage").Duplicate:FireServer()
-task.wait(0)
+task.wait()
 end
 end)
 credits:Toggle("自动捡飞行宝珠","Toggle", false, function(Value)
