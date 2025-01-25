@@ -430,6 +430,19 @@ game:GetService("ReplicatedStorage").Duplicate:FireServer()
 task.wait(7)
 end
 end)
+credits:Toggle("自动刷bob快速(配上上帝效果更好)","Toggle", false, function(Value)
+ReplicaFarm = Value
+while ReplicaFarm do
+for i, v in pairs(workspace:GetChildren()) do
+                if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
+game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
+                end
+            end
+task.wait()
+game:GetService("ReplicatedStorage").Duplicate:FireServer()
+task.wait(0)
+end
+end)
 credits:Toggle("自动捡飞行宝珠","Toggle", false, function(Value)
 Jetfarm = Value
 while Jetfarm do
