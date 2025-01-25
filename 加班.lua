@@ -467,7 +467,115 @@ for i, v in ipairs(workspace.Arena.island5.Slapples:GetDescendants()) do
 task.wait()
 end
 end)
+credits:Toggle("自动捡相位球","Toggle", false, function(Value)
+Phasefarm = Value
+while Phasefarm do
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == "PhaseOrb" and v:FindFirstChild("TouchInterest") then
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 1)
+                    end
+                end
+task.wait()
+end
+end)
+credits:Toggle("自动捡糖果","Toggle",false, function(Value)
+CandyCornFarm = Value
+while CandyCornFarm do
+for i, v in pairs(workspace.CandyCorns:GetChildren()) do
+                if v:FindFirstChildWhichIsA("TouchTransmitter") then
+v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                end
+            end
+task.wait()
+end
+end)
 
+credits:Toggle("获取炼金术师材料","Toggle", false, function(Value)
+AlchemistIngredients = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
+while AlchemistIngredients do
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Mushroom")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Glowing Mushroom")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Fire Flower")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Winter Rose")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Dark Root")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Dire Flower")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Autumn Sprout")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Elder Wood")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Hazel Lily")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Wild Vine")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Jade Stone")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Lamp Grass")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Plane Flower")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Blood Rose")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Red Crystal")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Blue Crystal")
+task.wait()
+end
+end
+end)
+
+credits:Toggle("自动加入竞技场","Toggle", false, function(Value)
+AutoEnterArena = Value
+while AutoEnterArena do
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1, 1)
+    end
+task.wait()
+end
+end)
+
+credits:Toggle("自动光波球","Toggle", false, function(Value)
+if Person == nil then
+Person = game.Players.LocalPlayer.Name
+end
+_G.RojoSpam = Value
+while _G.RojoSpam do
+game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players[Person].Character.HumanoidRootPart.CFrame})
+task.wait()
+end
+end)
+
+ local credits = creds:section("杂项",true)
+ credits:Button("获取计数器手套", function()
+fireclickdetector(game.Workspace.CounterLever.ClickDetector)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,100,0)
+wait(0.2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+wait(121)
+for i,v in pairs(workspace.Maze:GetDescendants()) do
+if v:IsA("ClickDetector") then
+fireclickdetector(v)
+end
+end
+end)
+
+credits:Toggle("地牢亮度","Toggle" ,false, function(Value)
+ Light = Value
+    if not Light then
+        game.Lighting.Ambient = Color3.new(0, 0, 0)
+    end
+end)
+
+credits:Toggle("无限反转","Toggle", false, function(Value)
+_G.InfReverse = Value
+while _G.InfReverse do
+game:GetService("ReplicatedStorage").ReverseAbility:FireServer()
+wait(6)
+end
+end)
+
+credits:Toggle("彩虹角色(装备黄金手套)","Toggle", false, function(Value)
+_G.Rainbow = Value
+while _G.Rainbow do
+for i = 0,1,0.001*25 do
+game:GetService("ReplicatedStorage").Goldify:FireServer(false, BrickColor.new(Color3.fromHSV(i,1,1)))
+task.wait()
+end
+end
+end)
 
  local creds = window:Tab("力量传奇",'16060333448')
  local credits = creds:section("力量传奇脚本",true)    
