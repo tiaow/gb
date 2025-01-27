@@ -2,8 +2,13 @@ function Notify(Title1, Text1, Icon1)
   game:GetService("StarterGui"):SetCore("SendNotification", {    Title = Title1,    Text = Text1,    Icon = Icon1})
   end
   Notify("条脚本", "作者条纹", "rbxassetid://17360377302", 3)
+  wait(0.5)
   Notify("脚本开启成功", "祝你玩的开心","rbxassetid://17360377302",3)
+  wait(0.5)
+  Notify("打不开的话", "说明在更新","rbxassetid://17360377302",3)
+  wait(0.5)
   Notify("启动成功", "祝你玩的开心","rbxassetid://17360377302",3)
+  wait(1)
 local library = loadstring(game:HttpGet("https://pastebin.com/raw/nBq2D86q"))()
 local window = library:new("逆天了，老弟")
 
