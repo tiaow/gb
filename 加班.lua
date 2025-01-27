@@ -57,6 +57,17 @@ local credits = creds:section("内容",true)
 credits:Toggle("夜视", "Light", false, function(Light)
   spawn(function() while task.wait() do if Light then game.Lighting.Ambient = Color3.new(1, 1, 1) else game.Lighting.Ambient = Color3.new(0, 0, 0) end end end)
 end)
+Tab:AddButton(
+	"防止掉线（反挂机）",
+	function()
+	wait(2)
+	print("Anti Afk On")
+		local vu = game:GetService("VirtualUser")
+		game:GetService("Players").LocalPlayer.Idled:connect(function()
+		   vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+		   wait(1)
+		   vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+  	end)
     credits:Slider('设置重力（正常196.2）', 'Sliderflag', 196.2, 0.1, 1000,false, function(Value)
     game.Workspace.Gravity = Value
 end)
@@ -430,7 +441,7 @@ game:GetService("ReplicatedStorage").Duplicate:FireServer()
 task.wait(7)
 end
 end)
-credits:Toggle("自动刷bob快速(配上上帝效果更好)","Toggle", false, function(Value)
+credits:Button("自动刷bob快速(配上上帝效果更好)",function(Value)
 ReplicaFarm = Value
 while ReplicaFarm do
 for i, v in pairs(workspace:GetChildren()) do
@@ -443,6 +454,7 @@ game:GetService("ReplicatedStorage").Duplicate:FireServer()
 task.wait()
 end
 end)
+
 credits:Toggle("自动捡飞行宝珠","Toggle", false, function(Value)
 Jetfarm = Value
 while Jetfarm do
