@@ -1,4 +1,4 @@
-
+-- 作者的条纹
 local player = game.Players.LocalPlayer
 local screenGui = Instance.new('ScreenGui')
 screenGui.Name = 'CoordinateScreenGui'
