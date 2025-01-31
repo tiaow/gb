@@ -25,11 +25,7 @@ function Notify(Title1, Text1, Icon1)
     music.SoundId = musicId
     music:Play()
   wait(1)
-    local musicId = "rbxassetid://3848738542"
-    local music = Instance.new("Sound", game.Workspace)
-    music.SoundId = musicId
-    music:Play()
-  wait()
+
 local library = loadstring(game:HttpGet("https://pastebin.com/raw/nBq2D86q"))()
 local window = library:new("条脚本")
 local creds = window:Tab("信息",'106133116600295')
@@ -82,13 +78,6 @@ end)
 		game.Players.LocalPlayer.Character.Humanoid.MaxHealth = Value
 	end	 
 )
-credits:Button("功能名字", function()
-    local musicId = "rbxassetid://3848738542"
-    local music = Instance.new("Sound", game.Workspace)
-    music.SoundId = musicId
-    music:Play()
-end)
-
     credits:Slider(
     "血量",
     "",
@@ -160,7 +149,11 @@ local credits = creds:section("工具",true)
     credits:Button("Dex", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/renlua/Script-Tutorial/refs/heads/main/dex.lua"))()
     end)
-    
+    local creds = window:Tab("音乐",'106133116600295')
+    local credits = creds:section("工具",true)
+    credits:Button("音乐脚本", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/%E5%8A%A0%E7%8F%AD%20(1).lua"))()
+    end)
    local creds = window:Tab("传送",'106133116600295')                  
 local credits = creds:section("传送功能",true)
 getgenv().ED_AntiKick = {
