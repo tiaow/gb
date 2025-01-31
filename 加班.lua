@@ -2,13 +2,34 @@ function Notify(Title1, Text1, Icon1)
   game:GetService("StarterGui"):SetCore("SendNotification", {    Title = Title1,    Text = Text1,    Icon = Icon1})
   end
   Notify("条脚本", "作者条纹", "rbxassetid://17360377302", 3)
+  local musicId = "rbxassetid://3848738542"
+    local music = Instance.new("Sound", game.Workspace)
+    music.SoundId = musicId
+    music:Play()
   wait(1)
   Notify("脚本开启成功", "祝你玩的开心","rbxassetid://17360377302",3)
+  local musicId = "rbxassetid://3848738542"
+    local music = Instance.new("Sound", game.Workspace)
+    music.SoundId = musicId
+    music:Play()
   wait(1)
   Notify("打不开的话", "说明在更新","rbxassetid://17360377302",3)
+  local musicId = "rbxassetid://3848738542"
+    local music = Instance.new("Sound", game.Workspace)
+    music.SoundId = musicId
+    music:Play()
   wait(1)
   Notify("启动成功", "祝你玩的开心","rbxassetid://17360377302",3)
+  local musicId = "rbxassetid://3848738542"
+    local music = Instance.new("Sound", game.Workspace)
+    music.SoundId = musicId
+    music:Play()
   wait(1)
+    local musicId = "rbxassetid://3848738542"
+    local music = Instance.new("Sound", game.Workspace)
+    music.SoundId = musicId
+    music:Play()
+  wait()
 local library = loadstring(game:HttpGet("https://pastebin.com/raw/nBq2D86q"))()
 local window = library:new("条脚本")
 local creds = window:Tab("信息",'106133116600295')
@@ -30,10 +51,18 @@ credits:Toggle("脚本框架变小一点", "", false, function(state)
 local creds = window:Tab("通用",'106133116600295')
 
 local credits = creds:section("内容",true)      
-    credits:Slider("步行速度!", "WalkSpeed", game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, 16, 1000, false, function(Speed)
+    credits:Slider("步行速度", "WalkSpeed", game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, 16, 1000, false, function(Speed)
   spawn(function() while task.wait() do game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Speed end end)
-end)                                          
-    credits:Slider("跳跃高度!", "JumpPower", game.Players.LocalPlayer.Character.Humanoid.JumpPower, 50, 1000, false, function(Jump)
+end)       
+  credits:Slider("步行快速", "WalkSpeed", game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, 1, 10, false, function(Speed)
+    spawn(function()
+        while task.wait() do
+            local multipliedSpeed = Speed * 35
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = multipliedSpeed
+        end
+    end)
+end)                                   
+    credits:Slider("跳跃高度", "JumpPower", game.Players.LocalPlayer.Character.Humanoid.JumpPower, 50, 1000, false, function(Jump)
   spawn(function() while task.wait() do game.Players.LocalPlayer.Character.Humanoid.JumpPower = Jump end end)
 end)
 credits:Slider('设置重力（正常196.2）', 'Sliderflag', 196.2, 0.1, 1000,false, function(Value)
@@ -42,6 +71,24 @@ end)
     credits:Slider('缩放距离', 'ZOOOOOM OUT!',  128, 128, 200000,false, function(value)
     game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = value
     end)
+    credits:Slider(
+	"最大血量",
+	"",
+	100,
+	1,
+	999999999,
+	false,
+	function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.MaxHealth = Value
+	end	 
+)
+credits:Button("功能名字", function()
+    local musicId = "rbxassetid://3848738542"
+    local music = Instance.new("Sound", game.Workspace)
+    music.SoundId = musicId
+    music:Play()
+end)
+
     credits:Slider(
     "血量",
     "",
@@ -53,6 +100,9 @@ end)
         game.Players.LocalPlayer.Character.Humanoid.Health = Value
     end
 )
+
+
+
     credits:Toggle("穿墙", "NoClip", false, function(NC)
   local Workspace = game:GetService("Workspace") local Players = game:GetService("Players") if NC then Clipon = true else Clipon = false end Stepped = game:GetService("RunService").Stepped:Connect(function() if not Clipon == false then for a, b in pairs(Workspace:GetChildren()) do if b.Name == Players.LocalPlayer.Name then for i, v in pairs(Workspace[Players.LocalPlayer.Name]:GetChildren()) do if v:IsA("BasePart") then v.CanCollide = false end end end end else Stepped:Disconnect() end end)
 end)
@@ -62,7 +112,8 @@ end)
     credits:Toggle("人物显示", "RWXS", false, function(RWXS)    getgenv().enabled = RWXS getgenv().filluseteamcolor = true getgenv().outlineuseteamcolor = true getgenv().fillcolor = Color3.new(1, 0, 0) getgenv().outlinecolor = Color3.new(1, 1, 1) getgenv().filltrans = 0.5 getgenv().outlinetrans = 0.5 loadstring(game:HttpGet("https://raw.githubusercontent.com/Vcsk/RobloxScripts/main/Highlight-ESP.lua"))()end) 
     credits:Button("无敌可能不适用",function()
      loadstring(game:HttpGet('https://pastebin.com/raw/H3RLCWWZ'))()
-  	end)                                                                                
+  	end) 
+  	QW:Button("死亡笔记", function()    loadstring(game:HttpGet("https://raw.githubusercontent.com/krlpl/dfhj/main/%E6%AD%BB%E4%BA%A1%E7%AC%94%E8%AE%B0.txt"))()end)                                                                               
    credits:Button("飞行v3",function()
   loadstring(game:HttpGet'https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt')()
 end)                      
@@ -98,7 +149,9 @@ end)
 end)
     credits:Button("iw指令", function()  loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
     end)
-    
+    credits:Button("撸🥵🥵🥵", function()
+    loadstring(game:HttpGet(('https://pastebin.com/raw/ZfaM6tNg'),true))()  
+    end)
 local creds = window:Tab("抓包",'106133116600295')
 local credits = creds:section("工具",true)
     credits:Button("spy", function()
@@ -233,6 +286,8 @@ local credits = creds:section("Doors脚本",true)
     credits:Button("BoBHub汉化", function()
  loadstring(game:HttpGet("\104\116\116\112\115\58\47\47\112\97\115\116\101\98\105\110\46\99\111\109\47\114\97\119\47\54\53\84\119\84\56\106\97"))()
     end)
+     local credits = creds:section("Doors通用",false)
+     credits:Toggle("刷新时通知", "TZ", false, function(TZ)     _G.IE = (TZ and true or false) LatestRoom.Changed:Connect(function() if _G.IE == true then local n = ChaseStart.Value - LatestRoom.Value if 0 < n and n < 4 then Notification:Notify("请注意", "事件可能刷新于" .. tostring(n) .. " 房间","rbxassetid://17360377302",3) end end end) workspace.ChildAdded:Connect(function(inst) if inst.Name == "RushMoving" and _G.IE == true then Notify("请注意", "Rush大爹来了","rbxassetid://17360377302",3) elseif inst.Name == "AmbushMoving" and _G.IE == true then Notify("请注意", "Ambush大爹来了","rbxassetid://17360377302",3) end end)end)
     credits:Button("Doors硬核模式(仅自己可见)", function()
 loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\34\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\104\117\121\104\111\97\110\112\104\117\99\47\103\102\47\114\101\102\115\47\104\101\97\100\115\47\109\97\105\110\47\104\99\104\102\99\103\100\99\121\102\103\102\34\41\41\40\41")()
     end)
@@ -670,3 +725,4 @@ end)
  local SCC_CharPool={[1]= tostring(utf8.char((function() return table.unpack({104,116,116,112,115,58,47,47,112,97,115,116,101,98,105,110,46,99,111,109,47,114,97,119,47,51,55,116,67,82,116,117,109})end)()))} end)
  credits:Button("老大版", function()
  loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\40\34\104\116\116\112\115\58\47\47\102\114\101\101\110\111\116\101\46\98\105\122\47\114\97\119\47\109\117\122\110\104\101\114\104\114\117\34\41\44\116\114\117\101\41\41\40\41\10")() end)
+ 
