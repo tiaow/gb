@@ -26,7 +26,7 @@ function Notify(Title1, Text1, Icon1)
     music:Play()
   wait(1)
 
-local library = loadstring(game:HttpGet("https://pastebin.com/raw/nBq2D86q"))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/renlua/block/main/UI/%E5%BD%A9%E8%99%B9UI.lua"))()
 local window = library:new("条脚本")
 local creds = window:Tab("信息",'106133116600295')
     local bin = creds:section("作者信息",true)
@@ -34,13 +34,6 @@ local creds = window:Tab("信息",'106133116600295')
     bin:Label("缝合脚本")
     bin:Label("QQ:1023929190")
 local credits = creds:section("关闭",true)
-credits:Toggle("脚本框架变小一点", "", false, function(state)
-        if state then
-        game:GetService("CoreGui")["frosty"].Main.Style = "DropShadow"
-        else
-            game:GetService("CoreGui")["frosty"].Main.Style = "Custom"
-        end
-    end)
     credits:Button("关闭脚本",function()
         game:GetService("CoreGui")["frosty"]:Destroy()
     end)
