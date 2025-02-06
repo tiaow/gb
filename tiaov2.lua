@@ -27,12 +27,46 @@ function Notify(Title1, Text1, Icon1)
   wait(1)
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/renlua/block/main/UI/%E5%BD%A9%E8%99%B9UI.lua"))()
-local window = library:new("条脚本")
+local window = library:new("条脚本v2")
 local creds = window:Tab("信息",'106133116600295')
     local bin = creds:section("作者信息",true)
     bin:Label("作者:条纹大地")
     bin:Label("缝合脚本")
     bin:Label("QQ:1023929190")
+    local positionLabel = bin:Label("你的位置'X: %.2f Y: %.2f Z: %.2f'")
+local player = game.Players.LocalPlayer
+
+local function updateCoordinateDisplay()
+    local function updatePosition()
+        local character = player.Character
+        if character then
+            local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+            if humanoidRootPart then
+                local position = humanoidRootPart.Position
+                positionLabel.Text = string.format('X: %.2f Y: %.2f Z: %.2f', position.X, position.Y, position.Z)
+            else
+                warn("未能找到HumanoidRootPart")
+            end
+        end
+    end
+
+    -- 首次更新
+    updatePosition()
+
+    -- 连接CharacterAppearanceLoaded事件，在角色重生时更新
+    player.CharacterAppearanceLoaded:Connect(updatePosition)
+
+    -- 异步执行持续更新位置
+    spawn(function()
+        while true do
+            updatePosition()
+            task.wait(0)
+        end
+    end)
+end
+
+updateCoordinateDisplay()
+
 local credits = creds:section("关闭",true)
     credits:Button("关闭脚本",function()
         game:GetService("CoreGui")["frosty"]:Destroy()
@@ -52,6 +86,9 @@ credits:Slider('设置重力（正常196.2）', 'Sliderflag', 196.2, 0.1, 1000,f
 end)
     credits:Slider('缩放距离', 'ZOOOOOM OUT!',  128, 128, 200000,false, function(value)
     game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = value
+    end)
+    credits:Slider('视界（正常70）', 'Sliderflag', 70, 0.1, 250, false, function(v)
+        game.Workspace.CurrentCamera.FieldOfView = v
     end)
     credits:Slider(
 	"最大血量",
@@ -102,6 +139,12 @@ end)
     credits:Button("反挂机v2",function()  loadstring(game:HttpGet("https://pastebin.com/raw/9fFu43FF"))()end)                 
     credits:Button("透视", function()  local Players = game:GetService("Players"):GetChildren() local RunService = game:GetService("RunService") local highlight = Instance.new("Highlight") highlight.Name = "Highlight" for i, v in pairs(Players) do repeat wait() until v.Character if not v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") then local highlightClone = highlight:Clone() highlightClone.Adornee = v.Character highlightClone.Parent = v.Character:FindFirstChild("HumanoidRootPart") highlightClone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop highlightClone.Name = "Highlight" end end game.Players.PlayerAdded:Connect(function(player) repeat wait() until player.Character if not player.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") then local highlightClone = highlight:Clone() highlightClone.Adornee = player.Character highlightClone.Parent = player.Character:FindFirstChild("HumanoidRootPart") highlightClone.Name = "Highlight" end end) game.Players.PlayerRemoving:Connect(function(playerRemoved) playerRemoved.Character:FindFirstChild("HumanoidRootPart").Highlight:Destroy() end) RunService.Heartbeat:Connect(function() for i, v in pairs(Players) do repeat wait() until v.Character if not v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") then local highlightClone = highlight:Clone() highlightClone.Adornee = v.Character highlightClone.Parent = v.Character:FindFirstChild("HumanoidRootPart") highlightClone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop highlightClone.Name = "Highlight" task.wait() end end end)end)       
                               
+    credits:Button("音乐脚本", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/%E5%8A%A0%E7%8F%AD%20(1).lua"))()
+    end)
+    credits:Button("阿尔宙斯自瞄", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/chillz-workshop/main/Arceus%20Aimbot.lua"))()
+    end)
     credits:Button("爬墙",function()
   loadstring(game:HttpGet("https://pastebin.com/raw/zXk4Rq2r"))()
 end)                                                                                            credits:Button("立即死亡",function()
@@ -138,34 +181,29 @@ local credits = creds:section("工具",true)
     credits:Button("Dex", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/renlua/Script-Tutorial/refs/heads/main/dex.lua"))()
     end)
-    local creds = window:Tab("音乐",'106133116600295')
-    local credits = creds:section("工具",true)
-    credits:Button("音乐脚本", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/%E5%8A%A0%E7%8F%AD%20(1).lua"))()
-    end)
-    
-   local creds = window:Tab("传送",'106133116600295')                  
-local credits = creds:section("传送功能",true)
+local creds = window:Tab("传送", '106133116600295')
+local credits = creds:section("传送功能", true)
 getgenv().ED_AntiKick = {
-	Enabled = true, -- Set to false if you want to disable the Anti-Kick.
-	SendNotifications = true, -- Set to true if you want to get notified for every event
-	CheckCaller = true -- Set to true if you want to disable kicking by other executed scripts
+    Enabled = true,
+    SendNotifications = true,
+    CheckCaller = true
 }
 local dropdown = {}
 local playernamedied = ""
 local teleportConnection
+local selectedDirection = ""
 
 for i, player in pairs(game.Players:GetPlayers()) do
     dropdown[i] = player.Name
 end
 
 function Notify(top, text, ico, dur)
-  game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = top,
-    Text = text,
-    Icon = ico,
-    Duration = dur,
-  })
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = top,
+        Text = text,
+        Icon = ico,
+        Duration = dur,
+    })
 end
 
 credits:Dropdown("选择玩家", 'Dropdown', dropdown, function(v)
@@ -174,11 +212,10 @@ end)
 
 game.Players.ChildAdded:Connect(function(player)
     dropdown[player.UserId] = player.Name
-    Players:AddOption(player.Name)
+    dropdown[#dropdown + 1] = player.Name
 end)
 
 game.Players.ChildRemoved:Connect(function(player)
-    Players:RemoveOption(player.Name)
     for k, v in pairs(dropdown) do
         if v == player.Name then
             dropdown[k] = nil
@@ -186,11 +223,44 @@ game.Players.ChildRemoved:Connect(function(player)
     end
 end)
 
+local directionDropdown = {
+    "上面",
+    "下面",
+    "左边",
+    "右边",
+    "前面",
+    "后面"
+}
+
+credits:Dropdown("选择方向", 'DirectionDropdown', directionDropdown, function(v)
+    selectedDirection = v
+    print("选择的方向: ", selectedDirection)
+end)
+
+local function getDirectionOffset(direction)
+    local offset = Vector3.new()
+    if direction == "上面" then
+        offset = Vector3.new(0, 3, 0)
+    elseif direction == "下面" then
+        offset = Vector3.new(0, -3, 0)
+    elseif direction == "左边" then
+        offset = Vector3.new(-3, 0, 0)
+    elseif direction == "右边" then
+        offset = Vector3.new(3, 0, 0)
+    elseif direction == "前面" then
+        offset = Vector3.new(0, 0, 3)
+    elseif direction == "后面" then
+        offset = Vector3.new(0, 0, -3)
+    end
+    return offset
+end
+
 credits:Button("传送到玩家旁边一次", function()
     local HumRoot = game.Players.LocalPlayer.Character.HumanoidRootPart
     local tp_player = game.Players:FindFirstChild(playernamedied)
     if tp_player and tp_player.Character and tp_player.Character.HumanoidRootPart then
-        HumRoot.CFrame = tp_player.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
+        local offset = getDirectionOffset(selectedDirection)
+        HumRoot.CFrame = tp_player.Character.HumanoidRootPart.CFrame + offset
         Notify("提示", "成功", "rbxassetid://", 5)
     else
         Notify("提示", "没有目标", "rbxassetid://", 5)
@@ -201,7 +271,8 @@ credits:Button("把玩家传送过来", function()
     local HumRoot = game.Players.LocalPlayer.Character.HumanoidRootPart
     local tp_player = game.Players:FindFirstChild(playernamedied)
     if tp_player and tp_player.Character and tp_player.Character.HumanoidRootPart then
-        tp_player.Character.HumanoidRootPart.CFrame = HumRoot.CFrame + Vector3.new(0, 3, 0)
+        local offset = getDirectionOffset(selectedDirection)
+        tp_player.Character.HumanoidRootPart.CFrame = HumRoot.CFrame + offset
         Notify("提示", "已传送过来", "rbxassetid://", 5)
     else
         Notify("提示", "没有目标", "rbxassetid://", 5)
@@ -212,13 +283,14 @@ credits:Toggle("查看玩家", 'Toggleflag', false, function(state)
     if state then
         game:GetService('Workspace').CurrentCamera.CameraSubject =
             game:GetService('Players'):FindFirstChild(playernamedied).Character.Humanoid
-            Notify("提示", "已查看", "rbxassetid://", 5)
+        Notify("提示", "已查看", "rbxassetid://", 5)
     else
         Notify("提示", "已关闭", "rbxassetid://", 5)
         local lp = game.Players.LocalPlayer
         game:GetService('Workspace').CurrentCamera.CameraSubject = lp.Character.Humanoid
     end
 end)
+
 credits:Toggle("循环传送玩家", "Toggle", false, function(Value)
     if Value then
         local localPlayer = game.Players.LocalPlayer
@@ -227,12 +299,13 @@ credits:Toggle("循环传送玩家", "Toggle", false, function(Value)
             local function doTeleport()
                 local HumRoot = localPlayer.Character.HumanoidRootPart
                 local tp_player = targetPlayer.Character.HumanoidRootPart
-                HumRoot.CFrame = tp_player.CFrame + Vector3.new(0, 3, 0)
+                local offset = getDirectionOffset(selectedDirection)
+                HumRoot.CFrame = tp_player.CFrame + offset
             end
-            
+
             local RunService = game:GetService("RunService")
             local teleportTimer = 0
-            local teleportInterval = 0.01  
+            local teleportInterval = 0.01
             teleportConnection = RunService.Heartbeat:Connect(function(dt)
                 teleportTimer = teleportTimer + dt
                 if teleportTimer >= teleportInterval then
@@ -240,12 +313,12 @@ credits:Toggle("循环传送玩家", "Toggle", false, function(Value)
                     teleportTimer = 0
                 end
             end)
-            
+
         else
             Notify("提示", "玩家或角色不存在，无法启动循环传送", "rbxassetid://", 5)
         end
     else
-        
+
         if teleportConnection then
             teleportConnection:Disconnect()
             teleportConnection = nil
@@ -274,6 +347,7 @@ local credits = creds:section("Doors脚本",true)
     credits:Button("Doors硬核模式(仅自己可见)", function()
 loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\34\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\104\117\121\104\111\97\110\112\104\117\99\47\103\102\47\114\101\102\115\47\104\101\97\100\115\47\109\97\105\110\47\104\99\104\102\99\103\100\99\121\102\103\102\34\41\41\40\41")()
     end)
+    end
     local creds = window:Tab("巴掌",'106133116600295')
     local credits = creds:section("巴掌",true)
     credits:Button("巴掌", function()
@@ -712,5 +786,4 @@ end)
 local credits = creds:section("内容",true)
 credits:Button("压力情云", function()
 loadstring(utf8.char((function() return table.unpack({108,111,97,100,115,116,114,105,110,103,40,103,97,109,101,58,72,116,116,112,71,101,116,40,34,104,116,116,112,115,58,47,47,114,97,119,46,103,105,116,104,117,98,117,115,101,114,99,111,110,116,101,110,116,46,99,111,109,47,67,104,105,110,97,81,89,47,45,47,109,97,105,110,47,37,69,54,37,56,51,37,56,53,37,69,52,37,66,65,37,57,49,34,41,41,40,41})end)()))()end)
- 
  
