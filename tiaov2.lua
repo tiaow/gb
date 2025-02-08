@@ -20,7 +20,7 @@ function Notify(Title1, Text1, Icon1)
     music:Play()
   wait(1)
   Notify("启动成功", "祝你玩的开心","rbxassetid://17360377302",3)
-  local musicId = "rbxassetid://3848738542"
+  local musicId = "rbxassetid://18103562975"
     local music = Instance.new("Sound", game.Workspace)
     music.SoundId = musicId
     music:Play()
@@ -173,6 +173,12 @@ end)
     end)
     credits:Button("撸🥵🥵🥵", function()
     loadstring(game:HttpGet("https://pastefy.app/wa3v2Vgm/raw"))() end)
+    credits:Button("🗿🗿🗿🗿", function()
+    local musicId = "rbxassetid://18103562975"
+    local music = Instance.new("Sound", game.Workspace)
+    music.SoundId = musicId
+    music:Play()
+    end)
 local creds = window:Tab("抓包",'106133116600295')
 local credits = creds:section("工具",true)
     credits:Button("spy", function()
@@ -240,85 +246,130 @@ end)
 local function getDirectionOffset(direction)
     local offset = Vector3.new()
     if direction == "上面" then
-        offset = Vector3.new(0, 3, 0)
+        offset = Vector3.new(0, 2, 0)
     elseif direction == "下面" then
-        offset = Vector3.new(0, -3, 0)
+        offset = Vector3.new(0, -2, 0)
     elseif direction == "左边" then
-        offset = Vector3.new(-3, 0, 0)
+        offset = Vector3.new(-1, 0, 0)
     elseif direction == "右边" then
-        offset = Vector3.new(3, 0, 0)
+        offset = Vector3.new(1, 0, 0)
     elseif direction == "前面" then
-        offset = Vector3.new(0, 0, 3)
+        offset = Vector3.new(0, 0, 1)
     elseif direction == "后面" then
-        offset = Vector3.new(0, 0, -3)
+        offset = Vector3.new(0, 0, -1)
     end
     return offset
 end
 
+-- 优化后的“传送到玩家旁边一次”按钮功能
 credits:Button("传送到玩家旁边一次", function()
-    local HumRoot = game.Players.LocalPlayer.Character.HumanoidRootPart
-    local tp_player = game.Players:FindFirstChild(playernamedied)
-    if tp_player and tp_player.Character and tp_player.Character.HumanoidRootPart then
-        local offset = getDirectionOffset(selectedDirection)
-        HumRoot.CFrame = tp_player.Character.HumanoidRootPart.CFrame + offset
-        Notify("提示", "成功", "rbxassetid://", 5)
-    else
-        Notify("提示", "没有目标", "rbxassetid://", 5)
+    local localPlayer = game.Players.LocalPlayer
+    if not localPlayer then
+        Notify("提示", "本地玩家对象不存在", "rbxassetid://18103562975", 5)
+        return
     end
+
+    local offset = getDirectionOffset(selectedDirection)
+    HumRoot.CFrame = targetHumanoidRootPart.CFrame + offset
+    Notify("提示", "成功", "rbxassetid://", 5)
 end)
 
+-- 优化后的“把玩家传送过来”按钮功能
 credits:Button("把玩家传送过来", function()
-    local HumRoot = game.Players.LocalPlayer.Character.HumanoidRootPart
-    local tp_player = game.Players:FindFirstChild(playernamedied)
-    if tp_player and tp_player.Character and tp_player.Character.HumanoidRootPart then
-        local offset = getDirectionOffset(selectedDirection)
-        tp_player.Character.HumanoidRootPart.CFrame = HumRoot.CFrame + offset
-        Notify("提示", "已传送过来", "rbxassetid://", 5)
-    else
-        Notify("提示", "没有目标", "rbxassetid://", 5)
+    local localPlayer = game.Players.LocalPlayer
+    if not localPlayer then
+        Notify("提示", "本地玩家对象不存在", "rbxassetid://", 5)
+        return
     end
+    local localCharacter = localPlayer.Character
+    if not localCharacter then
+        Notify("提示", "本地玩家角色未加载", "rbxassetid://", 5)
+        return
+    end
+    local HumRoot = localCharacter.HumanoidRootPart
+    if not HumRoot then
+        Notify("提示", "本地玩家角色的HumanoidRootPart不存在", "rbxassetid://", 5)
+        return
+    end
+    local tp_player = game.Players:FindFirstChild(playernamedied)
+    if not tp_player then
+        Notify("提示", "目标玩家不存在", "rbxassetid://", 5)
+        return
+    end
+    local targetCharacter = tp_player.Character
+    if not targetCharacter then
+        Notify("提示", "目标玩家角色未加载", "rbxassetid://", 5)
+        return
+    end
+    local targetHumanoidRootPart = targetCharacter.HumanoidRootPart
+    if not targetHumanoidRootPart then
+        Notify("提示", "目标玩家角色的HumanoidRootPart不存在", "rbxassetid://", 5)
+        return
+    end
+    local offset = getDirectionOffset(selectedDirection)
+    targetHumanoidRootPart.CFrame = HumRoot.CFrame + offset
+    Notify("提示", "已传送过来", "rbxassetid://", 5)
 end)
 
 credits:Toggle("查看玩家", 'Toggleflag', false, function(state)
     if state then
-        game:GetService('Workspace').CurrentCamera.CameraSubject =
-            game:GetService('Players'):FindFirstChild(playernamedied).Character.Humanoid
-        Notify("提示", "已查看", "rbxassetid://", 5)
+        local targetPlayer = game.Players:FindFirstChild(playernamedied)
+        if targetPlayer and targetPlayer.Character and targetPlayer.Character.Humanoid then
+            game:GetService('Workspace').CurrentCamera.CameraSubject = targetPlayer.Character.Humanoid
+            Notify("提示", "已查看", "rbxassetid://", 5)
+        else
+            Notify("提示", "目标玩家或其角色不可用", "rbxassetid://", 5)
+        end
     else
         Notify("提示", "已关闭", "rbxassetid://", 5)
         local lp = game.Players.LocalPlayer
-        game:GetService('Workspace').CurrentCamera.CameraSubject = lp.Character.Humanoid
+        if lp.Character and lp.Character.Humanoid then
+            game:GetService('Workspace').CurrentCamera.CameraSubject = lp.Character.Humanoid
+        end
     end
 end)
 
 credits:Toggle("循环传送玩家", "Toggle", false, function(Value)
     if Value then
         local localPlayer = game.Players.LocalPlayer
-        local targetPlayer = game.Players:FindFirstChild(playernamedied)
-        if localPlayer and targetPlayer and localPlayer.Character and targetPlayer.Character then
-            local function doTeleport()
-                local HumRoot = localPlayer.Character.HumanoidRootPart
-                local tp_player = targetPlayer.Character.HumanoidRootPart
-                local offset = getDirectionOffset(selectedDirection)
-                HumRoot.CFrame = tp_player.CFrame + offset
-            end
-
-            local RunService = game:GetService("RunService")
-            local teleportTimer = 0
-            local teleportInterval = 0.01
-            teleportConnection = RunService.Heartbeat:Connect(function(dt)
-                teleportTimer = teleportTimer + dt
-                if teleportTimer >= teleportInterval then
-                    doTeleport()
-                    teleportTimer = 0
-                end
-            end)
-
-        else
-            Notify("提示", "玩家或角色不存在，无法启动循环传送", "rbxassetid://", 5)
+        if not localPlayer then
+            Notify("提示", "本地玩家对象不存在", "rbxassetid://", 5)
+            return
         end
-    else
+        local localCharacter = localPlayer.Character
+        if not localCharacter then
+            Notify("提示", "本地玩家角色未加载", "rbxassetid://", 5)
+            return
+        end
+        local targetPlayer = game.Players:FindFirstChild(playernamedied)
+        if not targetPlayer then
+            Notify("提示", "目标玩家不存在", "rbxassetid://", 5)
+            return
+        end
+        local targetCharacter = targetPlayer.Character
+        if not targetCharacter then
+            Notify("提示", "目标玩家角色未加载", "rbxassetid://", 5)
+            return
+        end
+        local function doTeleport()
+            local HumRoot = localCharacter.HumanoidRootPart
+            local tp_player = targetCharacter.HumanoidRootPart
+            local offset = getDirectionOffset(selectedDirection)
+            HumRoot.CFrame = tp_player.CFrame + offset
+        end
 
+        local RunService = game:GetService("RunService")
+        local teleportTimer = 0
+        local teleportInterval = 0.01
+        teleportConnection = RunService.Heartbeat:Connect(function(dt)
+            teleportTimer = teleportTimer + dt
+            if teleportTimer >= teleportInterval then
+                doTeleport()
+                teleportTimer = 0
+            end
+        end)
+
+    else
         if teleportConnection then
             teleportConnection:Disconnect()
             teleportConnection = nil
