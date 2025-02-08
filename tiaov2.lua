@@ -147,7 +147,8 @@ end)
     end)
     credits:Button("爬墙",function()
   loadstring(game:HttpGet("https://pastebin.com/raw/zXk4Rq2r"))()
-end)                                                                                            credits:Button("立即死亡",function()
+end)                                                                                           
+ credits:Button("立即死亡",function()
   game.Players.LocalPlayer.Character.Humanoid.Health=0
 end)
     credits:Button("复制当前位置", function()
@@ -268,7 +269,31 @@ credits:Button("传送到玩家旁边一次", function()
         Notify("提示", "本地玩家对象不存在", "rbxassetid://18103562975", 5)
         return
     end
-
+local localCharacter = localPlayer.Character
+    if not localCharacter then
+        Notify("提示", "本地玩家角色未加载", "rbxassetid://", 5)
+        return
+    end
+    local HumRoot = localCharacter.HumanoidRootPart
+    if not HumRoot then
+        Notify("提示", "本地玩家角色的HumanoidRootPart不存在", "rbxassetid://", 5)
+        return
+    end
+    local tp_player = game.Players:FindFirstChild(playernamedied)
+    if not tp_player then
+        Notify("提示", "目标玩家不存在", "rbxassetid://", 5)
+        return
+    end
+    local targetCharacter = tp_player.Character
+    if not targetCharacter then
+        Notify("提示", "目标玩家角色未加载", "rbxassetid://", 5)
+        return
+    end
+    local targetHumanoidRootPart = targetCharacter.HumanoidRootPart
+    if not targetHumanoidRootPart then
+        Notify("提示", "目标玩家角色的HumanoidRootPart不存在", "rbxassetid://", 5)
+        return
+    end
     local offset = getDirectionOffset(selectedDirection)
     HumRoot.CFrame = targetHumanoidRootPart.CFrame + offset
     Notify("提示", "成功", "rbxassetid://", 5)
@@ -387,9 +412,6 @@ local credits = creds:section("伐木大亨",true)
    end)
    local creds = window:Tab("Doors",'106133116600295')
 local credits = creds:section("Doors脚本",true)
-    credits:Button("Ms", function()
-    getgenv().Spy="mspaint" loadstring(game:HttpGet("https://raw.githubusercontent.com/XiaoXuAnZang/XKscript/refs/heads/main/DOORS.txt"))()
-    end)
     credits:Button("BoBHub汉化", function()
  loadstring(game:HttpGet("\104\116\116\112\115\58\47\47\112\97\115\116\101\98\105\110\46\99\111\109\47\114\97\119\47\54\53\84\119\84\56\106\97"))()
     end)
@@ -398,7 +420,6 @@ local credits = creds:section("Doors脚本",true)
     credits:Button("Doors硬核模式(仅自己可见)", function()
 loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\34\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\104\117\121\104\111\97\110\112\104\117\99\47\103\102\47\114\101\102\115\47\104\101\97\100\115\47\109\97\105\110\47\104\99\104\102\99\103\100\99\121\102\103\102\34\41\41\40\41")()
     end)
-    end
     local creds = window:Tab("巴掌",'106133116600295')
     local credits = creds:section("巴掌",true)
     credits:Button("巴掌", function()
@@ -833,8 +854,9 @@ end)
  local SCC_CharPool={[1]= tostring(utf8.char((function() return table.unpack({104,116,116,112,115,58,47,47,112,97,115,116,101,98,105,110,46,99,111,109,47,114,97,119,47,51,55,116,67,82,116,117,109})end)()))} end)
  credits:Button("老大版", function()
  loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\40\34\104\116\116\112\115\58\47\47\102\114\101\101\110\111\116\101\46\98\105\122\47\114\97\119\47\109\117\122\110\104\101\114\104\114\117\34\41\44\116\114\117\101\41\41\40\41\10")() end)
- local creds = window:Tab("通用",'106133116600295')
+ local creds = window:Tab("压力",'106133116600295')
 local credits = creds:section("内容",true)
 credits:Button("压力情云", function()
-loadstring(utf8.char((function() return table.unpack({108,111,97,100,115,116,114,105,110,103,40,103,97,109,101,58,72,116,116,112,71,101,116,40,34,104,116,116,112,115,58,47,47,114,97,119,46,103,105,116,104,117,98,117,115,101,114,99,111,110,116,101,110,116,46,99,111,109,47,67,104,105,110,97,81,89,47,45,47,109,97,105,110,47,37,69,54,37,56,51,37,56,53,37,69,52,37,66,65,37,57,49,34,41,41,40,41})end)()))()end)
+loadstring(utf8.char((function() return table.unpack({108,111,97,100,115,116,114,105,110,103,40,103,97,109,101,58,72,116,116,112,71,101,116,40,34,104,116,116,112,115,58,47,47,114,97,119,46,103,105,116,104,117,98,117,115,101,114,99,111,110,116,101,110,116,46,99,111,109,47,67,104,105,110,97,81,89,47,45,47,109,97,105,110,47,37,69,54,37,56,51,37,56,53,37,69,52,37,66,65,37,57,49,34,41,41,40,41})end)()))()
+end)
  setupOtherUIComponents()
