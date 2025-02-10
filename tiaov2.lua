@@ -101,7 +101,8 @@ end)
 	false,
 	function(Value)
 		game.Players.LocalPlayer.Character.Humanoid.MaxHealth = Value
-	end)
+	end	 
+)
     credits:Slider(
     "血量",
     "",
@@ -111,7 +112,8 @@ end)
     false,
     function(Value)
         game.Players.LocalPlayer.Character.Humanoid.Health = Value
-    end)
+    end
+)
 
 
 
@@ -190,7 +192,6 @@ local credits = creds:section("工具",true)
     end)
 local creds = window:Tab("传送", '106133116600295')
 local credits = creds:section("传送功能", true)
-
 getgenv().ED_AntiKick = {
     Enabled = true,
     SendNotifications = true,
@@ -412,6 +413,7 @@ credits:Toggle("循环传送玩家", "Toggle", false, function(Value)
         Notify("提示", "已停止循环传送玩家", "rbxassetid://", 5)
     end
 end)
+
 local creds = window:Tab("伐木大亨2",'106133116600295')
 local credits = creds:section("伐木大亨",true)
   credits:Button("LuaWareL", function()
