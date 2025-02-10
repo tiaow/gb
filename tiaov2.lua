@@ -192,6 +192,7 @@ local credits = creds:section("工具",true)
     end)
 local creds = window:Tab("传送", '106133116600295')
 local credits = creds:section("传送功能", true)
+
 getgenv().ED_AntiKick = {
     Enabled = true,
     SendNotifications = true,
@@ -249,7 +250,7 @@ credits:Dropdown("选择方向", 'DirectionDropdown', directionDropdown, functio
 end)
 
 -- 总的偏移量输入框
-credits:TextBox("总偏移量", 'TotalOffsetTextBox', "0", function(value)
+credits:Textbox("总偏移量", 'TotalOffsetTextBox', "0", function(value)
     totalOffset = tonumber(value) or 0
 end)
 
