@@ -90,6 +90,8 @@ end)
     credits:Slider('视界（正常70）', 'Sliderflag', 70, 0.1, 250, false, function(v)
         game.Workspace.CurrentCamera.FieldOfView = v
     end)
+   
+
     credits:Slider(
 	"最大血量",
 	"",
@@ -199,6 +201,7 @@ local dropdown = {}
 local playernamedied = ""
 local teleportConnection
 local selectedDirection = ""
+local totalOffset = 0
 
 for i, player in pairs(game.Players:GetPlayers()) do
     dropdown[i] = player.Name
@@ -236,7 +239,8 @@ local directionDropdown = {
     "左边",
     "右边",
     "前面",
-    "后面"
+    "后面",
+    "中间"
 }
 
 credits:Dropdown("选择方向", 'DirectionDropdown', directionDropdown, function(v)
@@ -244,20 +248,27 @@ credits:Dropdown("选择方向", 'DirectionDropdown', directionDropdown, functio
     print("选择的方向: ", selectedDirection)
 end)
 
+-- 总的偏移量输入框
+credits:TextBox("总偏移量", 'TotalOffsetTextBox', "0", function(value)
+    totalOffset = tonumber(value) or 0
+end)
+
 local function getDirectionOffset(direction)
     local offset = Vector3.new()
     if direction == "上面" then
-        offset = Vector3.new(0, 2, 0)
+        offset = Vector3.new(0, totalOffset, 0)
     elseif direction == "下面" then
-        offset = Vector3.new(0, -2, 0)
+        offset = Vector3.new(0, -totalOffset, 0)
     elseif direction == "左边" then
-        offset = Vector3.new(-1, 0, 0)
+        offset = Vector3.new(-totalOffset, 0, 0)
     elseif direction == "右边" then
-        offset = Vector3.new(1, 0, 0)
+        offset = Vector3.new(totalOffset, 0, 0)
     elseif direction == "前面" then
-        offset = Vector3.new(0, 0, 1)
+        offset = Vector3.new(0, 0, totalOffset)
     elseif direction == "后面" then
-        offset = Vector3.new(0, 0, -1)
+        offset = Vector3.new(0, 0, -totalOffset)
+    elseif direction == "中间" then
+        offset = Vector3.new(0, 0, 0)
     end
     return offset
 end
@@ -266,10 +277,10 @@ end
 credits:Button("传送到玩家旁边一次", function()
     local localPlayer = game.Players.LocalPlayer
     if not localPlayer then
-        Notify("提示", "本地玩家对象不存在", "rbxassetid://18103562975", 5)
+        Notify("提示", "本地玩家对象不存在", "rbxassetid://", 5)
         return
     end
-local localCharacter = localPlayer.Character
+    local localCharacter = localPlayer.Character
     if not localCharacter then
         Notify("提示", "本地玩家角色未加载", "rbxassetid://", 5)
         return
@@ -788,7 +799,33 @@ task.wait()
 end
 end
 end)
+credits:Button("自动打老鼠", function()
+Notify("提示", "启动成功", "rbxassetid://17360377302", 3)
+  local musicId = "rbxassetid://3848738542"
+    local music = Instance.new("Sound", game.Workspace)
+    music.SoundId = musicId
+    music:Play()
+while true wait(0.1) do
+local args = {
+    [1] = workspace.Game.Buildings.Farm.Farm.Hitbox
+}
 
+game:GetService("ReplicatedStorage").Remotes.GloveHit:FireServer(unpack(args))
+end)
+credits:Button("自动打树",function()
+Notify("提示", "启动成功", "rbxassetid://17360377302", 3)
+  local musicId = "rbxassetid://3848738542"
+    local music = Instance.new("Sound", game.Workspace)
+    music.SoundId = musicId
+    music:Play()
+while true wait(0.1) do
+
+local args = {
+    [1] = workspace.Game.Enemies.Rat.Head
+}
+
+game:GetService("ReplicatedStorage").Remotes.GloveHit:FireServer(unpack(args))
+end)
  local creds = window:Tab("力量传奇",'106133116600295')
  local credits = creds:section("力量传奇脚本",true)    
  credits:Button("力量传奇",function()    loadstring(game:HttpGet('https://raw.githubusercontent.com/jynzl/main/main/Musclas%20Legenos.lua'))()end)
