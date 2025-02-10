@@ -101,8 +101,7 @@ end)
 	false,
 	function(Value)
 		game.Players.LocalPlayer.Character.Humanoid.MaxHealth = Value
-	end	 
-)
+	end)
     credits:Slider(
     "血量",
     "",
@@ -112,8 +111,7 @@ end)
     false,
     function(Value)
         game.Players.LocalPlayer.Character.Humanoid.Health = Value
-    end
-)
+    end)
 
 
 
