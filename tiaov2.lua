@@ -800,33 +800,6 @@ task.wait()
 end
 end
 end)
-credits:Button("自动打老鼠", function()
-Notify("提示", "启动成功", "rbxassetid://17360377302", 3)
-  local musicId = "rbxassetid://3848738542"
-    local music = Instance.new("Sound", game.Workspace)
-    music.SoundId = musicId
-    music:Play()
-while true wait(0.1) do
-local args = {
-    [1] = workspace.Game.Buildings.Farm.Farm.Hitbox
-}
-
-game:GetService("ReplicatedStorage").Remotes.GloveHit:FireServer(unpack(args))
-end)
-credits:Button("自动打树",function()
-Notify("提示", "启动成功", "rbxassetid://17360377302", 3)
-  local musicId = "rbxassetid://3848738542"
-    local music = Instance.new("Sound", game.Workspace)
-    music.SoundId = musicId
-    music:Play()
-while true wait(0.1) do
-
-local args = {
-    [1] = workspace.Game.Enemies.Rat.Head
-}
-
-game:GetService("ReplicatedStorage").Remotes.GloveHit:FireServer(unpack(args))
-end)
  local creds = window:Tab("力量传奇",'106133116600295')
  local credits = creds:section("力量传奇脚本",true)    
  credits:Button("力量传奇",function()    loadstring(game:HttpGet('https://raw.githubusercontent.com/jynzl/main/main/Musclas%20Legenos.lua'))()end)
