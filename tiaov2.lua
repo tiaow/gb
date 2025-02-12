@@ -33,9 +33,40 @@ local creds = window:Tab("信息",'106133116600295')
     bin:Label("作者:条纹大地")
     bin:Label("缝合脚本")
     bin:Label("QQ:1023929190")
-    local positionLabel = bin:Label("你的位置'X: %.2f Y: %.2f Z: %.2f'")
+
+local bin = creds:section("玩家", true)
+local positionLabel = bin:Label("你的位置'X: %.2f Y: %.2f Z: %.2f'")
+local fpsLabel = bin:Label("当前帧率: 计算中...")
+local pingLabel = bin:Label("当前 Ping: 计算中...")
+local timeLabel = bin:Label("当前时间: 计算中...")
+local usTimeLabel = bin:Label("美国时间: 计算中...")
+local initialPlayersLabel = bin:Label("初始玩家人数: 计算中...")
+local currentPlayersLabel = bin:Label("当前玩家人数: 计算中...")
+local serverInfoLabel = bin:Label("服务器信息: 计算中...")
+local speedLabel = bin:Label("速度: 计算中...")
+local jumpLabel = bin:Label("跳跃高度: 计算中...")
+local playerCodeLabel = bin:Label("slap埃及密码: 计算中...")
 local player = game.Players.LocalPlayer
 
+-- 玩家人数代码映射表
+local playerCodeMap = {
+    [1] = 1118,
+    [2] = 1143,
+    [3] = 1168,
+    [4] = 1193,
+    [5] = 1218,
+    [6] = 1243,
+    [7] = 1268,
+    [8] = 1293,
+    [9] = 1318,
+    [10] = 1343,
+    [11] = 1368,
+    [12] = 1393,
+    [13] = 1418,
+    [14] = 1443
+}
+
+-- 更新玩家位置显示
 local function updateCoordinateDisplay()
     local function updatePosition()
         local character = player.Character
@@ -67,6 +98,155 @@ end
 
 updateCoordinateDisplay()
 
+-- 计算帧率（FPS）
+local function updateFPS()
+    local lastTick = tick()
+    local frameCount = 0
+
+    spawn(function()
+        while true do
+            local currentTick = tick()
+            frameCount = frameCount + 1
+
+            -- 每秒更新一次帧率
+            if currentTick - lastTick >= 1 then
+                local fps = math.floor(frameCount / (currentTick - lastTick))
+                fpsLabel.Text = "当前帧率: " .. fps
+                frameCount = 0
+                lastTick = currentTick
+            end
+
+            task.wait(0)
+        end
+    end)
+end
+
+updateFPS()
+
+-- 计算当前 Ping
+local function updatePing()
+    spawn(function()
+        while true do
+            local stats = game:GetService("Stats")
+            local ping = stats.Network.ServerStatsItem["Data Ping"]:GetValue()
+            pingLabel.Text = "当前 Ping: " .. math.floor(ping) .. " ms"
+            task.wait(0) -- 每秒更新一次
+        end
+    end)
+end
+
+updatePing()
+
+-- 显示当前时间（中国时间）
+local function updateTime()
+    spawn(function()
+        while true do
+            local currentTime = os.date("%Y-%m-%d %H:%M:%S") -- 格式化时间
+            timeLabel.Text = "当前时间: " .. currentTime
+            task.wait(1) -- 每秒更新一次
+        end
+    end)
+end
+
+updateTime()
+
+-- 显示美国时间
+local function updateUSTime()
+    spawn(function()
+        while true do
+            local usTime = os.date("!%Y-%m-%d %H:%M:%S", os.time() - 5 * 3600) -- UTC-5（美国东部时间）
+            usTimeLabel.Text = "美国时间: " .. usTime
+            task.wait(1) -- 每秒更新一次
+        end
+    end)
+end
+
+updateUSTime()
+
+-- 显示初始玩家人数
+local function updateInitialPlayers()
+    local initialPlayers = #game.Players:GetPlayers()
+    initialPlayersLabel.Text = "初始玩家人数: " .. initialPlayers
+end
+
+updateInitialPlayers()
+
+-- 显示当前玩家人数（持续更新）
+local function updateCurrentPlayers()
+    spawn(function()
+        while true do
+            local currentPlayers = #game.Players:GetPlayers()
+            currentPlayersLabel.Text = "当前玩家人数: " .. currentPlayers
+            task.wait(1) -- 每秒更新一次
+        end
+    end)
+end
+
+updateCurrentPlayers()
+
+-- 显示服务器信息
+local function updateServerInfo()
+    spawn(function()
+        while true do
+            local serverId = game.JobId
+            serverInfoLabel.Text = "服务器信息: ID=" .. serverId
+            task.wait(1) -- 每秒更新一次
+        end
+    end)
+end
+
+updateServerInfo()
+
+
+-- 显示玩家速度
+local function updateSpeed()
+    spawn(function()
+        while true do
+            local character = player.Character
+            if character then
+                local humanoid = character:FindFirstChild("Humanoid")
+                if humanoid then
+                    speedLabel.Text = "速度: " .. humanoid.WalkSpeed
+                end
+            end
+            task.wait(0) -- 每秒更新一次
+        end
+    end)
+end
+
+updateSpeed()
+
+-- 显示玩家跳跃高度
+local function updateJump()
+    spawn(function()
+        while true do
+            local character = player.Character
+            if character then
+                local humanoid = character:FindFirstChild("Humanoid")
+                if humanoid then
+                    jumpLabel.Text = "跳跃高度: " .. humanoid.JumpPower
+                end
+            end
+            task.wait(0) -- 每秒更新一次
+        end
+    end)
+end
+
+updateJump()
+
+-- 显示玩家人数代码（持续更新）
+local function updatePlayerCode()
+    spawn(function()
+        while true do
+            local currentPlayers = #game.Players:GetPlayers()
+            local code = playerCodeMap[currentPlayers] or "未知"
+            playerCodeLabel.Text = "slap埃及密码: " .. code
+            task.wait(1) -- 每秒更新一次
+        end
+    end)
+end
+
+updatePlayerCode()
 local credits = creds:section("关闭",true)
     credits:Button("关闭脚本",function()
         game:GetService("CoreGui")["frosty"]:Destroy()
@@ -427,13 +607,13 @@ local credits = creds:section("Doors脚本",true)
     credits:Button("BoBHub汉化", function()
  loadstring(game:HttpGet("\104\116\116\112\115\58\47\47\112\97\115\116\101\98\105\110\46\99\111\109\47\114\97\119\47\54\53\84\119\84\56\106\97"))()
     end)
-     local credits = creds:section("Doors通用",false)
+     local credits = creds:section("Doors通用",true)
      credits:Toggle("刷新时通知", "TZ", false, function(TZ)     _G.IE = (TZ and true or false) LatestRoom.Changed:Connect(function() if _G.IE == true then local n = ChaseStart.Value - LatestRoom.Value if 0 < n and n < 4 then Notification:Notify("请注意", "事件可能刷新于" .. tostring(n) .. " 房间","rbxassetid://17360377302",3) end end end) workspace.ChildAdded:Connect(function(inst) if inst.Name == "RushMoving" and _G.IE == true then Notify("请注意", "Rush大爹来了","rbxassetid://17360377302",3) elseif inst.Name == "AmbushMoving" and _G.IE == true then Notify("请注意", "Ambush大爹来了","rbxassetid://17360377302",3) end end)end)
     credits:Button("Doors硬核模式(仅自己可见)", function()
 loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\34\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\104\117\121\104\111\97\110\112\104\117\99\47\103\102\47\114\101\102\115\47\104\101\97\100\115\47\109\97\105\110\47\104\99\104\102\99\103\100\99\121\102\103\102\34\41\41\40\41")()
     end)
     local creds = window:Tab("巴掌",'106133116600295')
-    local credits = creds:section("巴掌",true)
+    local credits = creds:section("巴掌脚本",false)
     credits:Button("巴掌", function()
     loadstring(game:HttpGet'https://raw.githubusercontent.com/Dusty1234567890/NewGloves/refs/heads/main/Clock')()
     end)
@@ -444,7 +624,8 @@ loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\
     loadstring(game:HttpGet("https://pastefy.app/Ty7G6BXs/raw"))()end)--[[This is the new script that work for all executors,Free free to looking around the source code]]-- 
     credits:Button("国外巴掌超级好用", function()loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Slap_Battles/main/Slap_Battles.lua"))()
     end)
-    local bin = creds:section("遗忘之地答案",true)
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/%E8%87%AA%E5%8A%A8%E6%89%93%E8%80%81%E9%BC%A0.lua"))() end)
+    local bin = creds:section("遗忘之地答案",false)
     bin:Label("How old is your account in day?")
     bin:Label("回答你加入roblox时间多久")
     bin:Label("What is the badge name for the Glitch glove?")
@@ -776,7 +957,7 @@ task.wait()
 end
 end)
 
- local credits = creds:section("杂项",true)
+ local credits = creds:section("杂项",false)
  credits:Button("获取计数器手套", function()
 fireclickdetector(game.Workspace.CounterLever.ClickDetector)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,100,0)
@@ -815,10 +996,10 @@ end
 end
 end)
  local creds = window:Tab("力量传奇",'106133116600295')
- local credits = creds:section("力量传奇脚本",true)    
+ local credits = creds:section("力量传奇脚本",false)    
  credits:Button("力量传奇",function()    loadstring(game:HttpGet('https://raw.githubusercontent.com/jynzl/main/main/Musclas%20Legenos.lua'))()end)
  
- local credits = creds:section("宝箱传送",true)
+ local credits = creds:section("宝箱传送",false)
  credits:Button("群组宝箱", function()
  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(41.69497299194336, 3.6662418842315674, 408.0653991699219) 
  end)
@@ -841,7 +1022,7 @@ end)
  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-7904.09326171875, 0.6366544365882874, 2996.31298828125)
  end)
  
- local credits = creds:section("健身房传送",true)
+ local credits = creds:section("健身房传送",false)
  credits:Button("传送到出生点", function()
       		      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(7, 3, 108)
 end)
