@@ -43,6 +43,7 @@ local usTimeLabel = bin:Label("美国时间: 计算中...")
 local initialPlayersLabel = bin:Label("初始玩家人数: 计算中...")
 local currentPlayersLabel = bin:Label("当前玩家人数: 计算中...")
 local serverInfoLabel = bin:Label("服务器信息: 计算中...")
+local serverNameLabel = bin:Label("服务器名字: 计算中...")
 local speedLabel = bin:Label("速度: 计算中...")
 local jumpLabel = bin:Label("跳跃高度: 计算中...")
 local playerCodeLabel = bin:Label("slap埃及密码: 计算中...")
@@ -116,7 +117,7 @@ local function updateFPS()
                 lastTick = currentTick
             end
 
-            task.wait(0)
+            task.wait()
         end
     end)
 end
@@ -130,7 +131,7 @@ local function updatePing()
             local stats = game:GetService("Stats")
             local ping = stats.Network.ServerStatsItem["Data Ping"]:GetValue()
             pingLabel.Text = "当前 Ping: " .. math.floor(ping) .. " ms"
-            task.wait(0) -- 每秒更新一次
+            task.wait(1) -- 每秒更新一次
         end
     end)
 end
@@ -197,6 +198,22 @@ end
 
 updateServerInfo()
 
+-- 显示服务器名字
+local function updateServerName()
+    spawn(function()
+        while true do
+            local serverName = game:GetService("ReplicatedStorage"):FindFirstChild("ServerName") -- 假设服务器名字存储在 ReplicatedStorage 中
+            if serverName then
+                serverNameLabel.Text = "服务器名字: " .. serverName.Value
+            else
+                serverNameLabel.Text = "服务器名字: 未知"
+            end
+            task.wait(1) -- 每秒更新一次
+        end
+    end)
+end
+
+updateServerName()
 
 -- 显示玩家速度
 local function updateSpeed()
@@ -209,7 +226,7 @@ local function updateSpeed()
                     speedLabel.Text = "速度: " .. humanoid.WalkSpeed
                 end
             end
-            task.wait(0) -- 每秒更新一次
+            task.wait(1) -- 每秒更新一次
         end
     end)
 end
@@ -227,7 +244,7 @@ local function updateJump()
                     jumpLabel.Text = "跳跃高度: " .. humanoid.JumpPower
                 end
             end
-            task.wait(0) -- 每秒更新一次
+            task.wait(1) -- 每秒更新一次
         end
     end)
 end
