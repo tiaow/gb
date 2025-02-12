@@ -33,7 +33,7 @@ local creds = window:Tab("信息",'106133116600295')
     bin:Label("作者:条纹大地")
     bin:Label("缝合脚本")
     bin:Label("QQ:1023929190")
-
+    
 local bin = creds:section("玩家", true)
 local positionLabel = bin:Label("你的位置'X: %.2f Y: %.2f Z: %.2f'")
 local fpsLabel = bin:Label("当前帧率: 计算中...")
@@ -44,8 +44,6 @@ local initialPlayersLabel = bin:Label("初始玩家人数: 计算中...")
 local currentPlayersLabel = bin:Label("当前玩家人数: 计算中...")
 local serverInfoLabel = bin:Label("服务器信息: 计算中...")
 local serverNameLabel = bin:Label("服务器名字: 计算中...")
-local speedLabel = bin:Label("速度: 计算中...")
-local jumpLabel = bin:Label("跳跃高度: 计算中...")
 local playerCodeLabel = bin:Label("slap埃及密码: 计算中...")
 local player = game.Players.LocalPlayer
 
@@ -215,42 +213,6 @@ end
 
 updateServerName()
 
--- 显示玩家速度
-local function updateSpeed()
-    spawn(function()
-        while true do
-            local character = player.Character
-            if character then
-                local humanoid = character:FindFirstChild("Humanoid")
-                if humanoid then
-                    speedLabel.Text = "速度: " .. humanoid.WalkSpeed
-                end
-            end
-            task.wait(1) -- 每秒更新一次
-        end
-    end)
-end
-
-updateSpeed()
-
--- 显示玩家跳跃高度
-local function updateJump()
-    spawn(function()
-        while true do
-            local character = player.Character
-            if character then
-                local humanoid = character:FindFirstChild("Humanoid")
-                if humanoid then
-                    jumpLabel.Text = "跳跃高度: " .. humanoid.JumpPower
-                end
-            end
-            task.wait(1) -- 每秒更新一次
-        end
-    end)
-end
-
-updateJump()
-
 -- 显示玩家人数代码（持续更新）
 local function updatePlayerCode()
     spawn(function()
@@ -264,10 +226,11 @@ local function updatePlayerCode()
 end
 
 updatePlayerCode()
-local credits = creds:section("关闭",true)
-    credits:Button("关闭脚本",function()
-        game:GetService("CoreGui")["frosty"]:Destroy()
-    end)
+
+local credits = creds:section("关闭", true)
+credits:Button("关闭脚本", function()
+    window:Destroy() -- 直接销毁窗口
+end)
 local creds = window:Tab("通用",'106133116600295')
 
 local credits = creds:section("内容",true)      
