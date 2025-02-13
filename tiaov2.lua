@@ -605,6 +605,9 @@ loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\
     end)
     credits:Button("国外巴掌超级好用", function()loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Slap_Battles/main/Slap_Battles.lua"))()
     end)
+    credits:Button("国外巴掌可以刷巴掌", function()
+    loadstring(game:HttpGet("https://rawscripts.net/raw/FREE-LIMITED-Slap-Battles-VINQ-Royale-ROYALE-25956"))()
+    end)
     credits:Button("自动老鼠", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/%E8%87%AA%E5%8A%A8%E6%89%93%E8%80%81%E9%BC%A0.lua"))() end)
     local bin = creds:section("遗忘之地答案",false)
@@ -843,7 +846,58 @@ game:GetService("ReplicatedStorage").Duplicate:FireServer()
 task.wait()
 end
 end)
+credits:Button("点一下加10个枕头", function()
+local args = {
+    [1] = "AddPillow"
+}
 
+game:GetService("ReplicatedStorage").Events.PillowEvent:FireServer(unpack(args))
+local args = {
+    [1] = "AddPillow"
+}
+
+game:GetService("ReplicatedStorage").Events.PillowEvent:FireServer(unpack(args))
+local args = {
+    [1] = "AddPillow"
+}
+
+game:GetService("ReplicatedStorage").Events.PillowEvent:FireServer(unpack(args))
+local args = {
+    [1] = "AddPillow"
+}
+
+game:GetService("ReplicatedStorage").Events.PillowEvent:FireServer(unpack(args))
+local args = {
+    [1] = "AddPillow"
+}
+
+game:GetService("ReplicatedStorage").Events.PillowEvent:FireServer(unpack(args))
+local args = {
+    [1] = "AddPillow"
+}
+
+game:GetService("ReplicatedStorage").Events.PillowEvent:FireServer(unpack(args))
+local args = {
+    [1] = "AddPillow"
+}
+
+game:GetService("ReplicatedStorage").Events.PillowEvent:FireServer(unpack(args))
+local args = {
+    [1] = "AddPillow"
+}
+
+game:GetService("ReplicatedStorage").Events.PillowEvent:FireServer(unpack(args))
+local args = {
+    [1] = "AddPillow"
+}
+
+game:GetService("ReplicatedStorage").Events.PillowEvent:FireServer(unpack(args))
+local args = {
+    [1] = "AddPillow"
+}
+
+game:GetService("ReplicatedStorage").Events.PillowEvent:FireServer(unpack(args))
+end)
 credits:Toggle("自动捡飞行宝珠","Toggle", false, function(Value)
 Jetfarm = Value
 while Jetfarm do
