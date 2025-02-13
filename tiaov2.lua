@@ -231,7 +231,7 @@ local credits = creds:section("关闭", true)
 credits:Button("关闭脚本", function()
     window:Destroy() -- 直接销毁窗口
 end)
-local creds = window:Tab("通用",'106133116600295')
+local creds = window:Tab("通用",'95464934072515')
 
 local credits = creds:section("内容",true)      
     credits:Slider("步行速度", "WalkSpeed", game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, 16, 1000, false, function(Speed)
@@ -601,7 +601,8 @@ loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Dusty1234567890/Rob/main/Rob"))()
     end)
     credits:Button("刷可爱的向导😭", function()
-    loadstring(game:HttpGet("https://pastefy.app/Ty7G6BXs/raw"))()end)--[[This is the new script that work for all executors,Free free to looking around the source code]]-- 
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/%E8%87%AA%E5%8A%A8%E6%89%93%E5%90%91%E5%AF%BC%E6%B1%89%E5%8C%96.lua"))()
+    end)
     credits:Button("国外巴掌超级好用", function()loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Slap_Battles/main/Slap_Battles.lua"))()
     end)
     credits:Button("自动老鼠", function()
