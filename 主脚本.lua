@@ -579,10 +579,7 @@ credits:Toggle("循环传送玩家", "Toggle", false, function(Value)
         Notify("提示", "已停止循环传送玩家", "rbxassetid://", 5)
     end
 end)
-credits:Testbox("坐标x", function()
-credits:Testbox("坐标y", function()
-credits:Textbox("坐标z", function()
-credits:Button("传送到此坐标", function()
+
 local creds = window:Tab("伐木大亨2",'106133116600295')
 local credits = creds:section("伐木大亨",true)
   credits:Button("LuaWareL", function()
