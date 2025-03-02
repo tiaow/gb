@@ -13,19 +13,6 @@ function Notify(Title1, Text1, Icon1)
     music.SoundId = musicId
     music:Play()
   wait(0.6)
-  Notify("打不开的话", "说明在更新","rbxassetid://17360377302",3)
-  local musicId = "rbxassetid://3848738542"
-    local music = Instance.new("Sound", game.Workspace)
-    music.SoundId = musicId
-    music:Play()
-  wait(0.9)
-  Notify("启动成功", "祝你玩的开心","rbxassetid://17360377302",3)
-  local musicId = "rbxassetid://18103562975"
-    local music = Instance.new("Sound", game.Workspace)
-    music.SoundId = musicId
-    music:Play()
-  wait(1)
-
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/renlua/block/main/UI/%E5%BD%A9%E8%99%B9UI.lua"))()
 local window = library:new("条脚本v2")
 local creds = window:Tab("信息",'106133116600295')
@@ -300,10 +287,35 @@ end)
 end)                      
 credits:Button("隐身道具", function()
   loadstring(game:HttpGet("https://gist.githubusercontent.com/skid123skidlol/cd0d2dce51b3f20ad1aac941da06a1a1/raw/f58b98cce7d51e53ade94e7bb460e4f24fb7e0ff/%257BFE%257D%2520Invisible%2520Tool%2520(can%2520hold%2520tools)",true))()
-end)                                                                                
-  credits:Button("无限跳跃",function()
-  loadstring(game:HttpGet("https://pastebin.com/raw/V5PQy3y0", true))()
-end)  
+end)      
+credits:Button(
+  "加速回血",
+  function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/cbhlyy/lyycbh/main/nengliangtiao"))()
+  end)
+   credits:Toggle(
+    "无限跳跃",
+    "text",
+    false,
+    function(s)
+        getgenv().InfJ = s
+        game:GetService("UserInputService").JumpRequest:connect(
+            function()
+                if InfJ == true then
+                    game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass "Humanoid":ChangeState(
+                        "Jumping"
+                    )
+                end
+            end
+        )
+    end
+)               
+credits:Button(
+    "工具包",
+    function()
+        loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/BTools.txt"))()
+    end
+)                                       
     credits:Button("反挂机v2",function()  loadstring(game:HttpGet("https://pastebin.com/raw/9fFu43FF"))()end)                 
     credits:Button("透视", function()  local Players = game:GetService("Players"):GetChildren() local RunService = game:GetService("RunService") local highlight = Instance.new("Highlight") highlight.Name = "Highlight" for i, v in pairs(Players) do repeat wait() until v.Character if not v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") then local highlightClone = highlight:Clone() highlightClone.Adornee = v.Character highlightClone.Parent = v.Character:FindFirstChild("HumanoidRootPart") highlightClone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop highlightClone.Name = "Highlight" end end game.Players.PlayerAdded:Connect(function(player) repeat wait() until player.Character if not player.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") then local highlightClone = highlight:Clone() highlightClone.Adornee = player.Character highlightClone.Parent = player.Character:FindFirstChild("HumanoidRootPart") highlightClone.Name = "Highlight" end end) game.Players.PlayerRemoving:Connect(function(playerRemoved) playerRemoved.Character:FindFirstChild("HumanoidRootPart").Highlight:Destroy() end) RunService.Heartbeat:Connect(function() for i, v in pairs(Players) do repeat wait() until v.Character if not v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") then local highlightClone = highlight:Clone() highlightClone.Adornee = v.Character highlightClone.Parent = v.Character:FindFirstChild("HumanoidRootPart") highlightClone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop highlightClone.Name = "Highlight" task.wait() end end end)end)       
                               
@@ -342,6 +354,103 @@ end)
     end)
     credits:Button("撸🥵🥵🥵", function()
     loadstring(game:HttpGet("https://pastefy.app/wa3v2Vgm/raw"))() end)
+    credits:Label("转圈")
+    credits:Button(
+    "旋转0",
+    function()
+    local speed = 0
+
+local plr = game:GetService("Players").LocalPlayer
+repeat task.wait() until plr.Character
+local humRoot = plr.Character:WaitForChild("HumanoidRootPart")
+plr.Character:WaitForChild("Humanoid").AutoRotate = false
+local velocity = Instance.new("AngularVelocity")
+velocity.Attachment0 = humRoot:WaitForChild("RootAttachment")
+velocity.MaxTorque = math.huge
+velocity.AngularVelocity = Vector3.new(0, speed, 0)
+velocity.Parent = humRoot
+velocity.Name = "Spinbot"
+    end)          
+    credits:Button(
+    "旋转10",
+    function()
+    local speed = 10
+
+local plr = game:GetService("Players").LocalPlayer
+repeat task.wait() until plr.Character
+local humRoot = plr.Character:WaitForChild("HumanoidRootPart")
+plr.Character:WaitForChild("Humanoid").AutoRotate = false
+local velocity = Instance.new("AngularVelocity")
+velocity.Attachment0 = humRoot:WaitForChild("RootAttachment")
+velocity.MaxTorque = math.huge
+velocity.AngularVelocity = Vector3.new(0, speed, 0)
+velocity.Parent = humRoot
+velocity.Name = "Spinbot"
+    end)          
+    credits:Button(
+    "旋转50",
+    function()
+    local speed = 50
+
+local plr = game:GetService("Players").LocalPlayer
+repeat task.wait() until plr.Character
+local humRoot = plr.Character:WaitForChild("HumanoidRootPart")
+plr.Character:WaitForChild("Humanoid").AutoRotate = false
+local velocity = Instance.new("AngularVelocity")
+velocity.Attachment0 = humRoot:WaitForChild("RootAttachment")
+velocity.MaxTorque = math.huge
+velocity.AngularVelocity = Vector3.new(0, speed, 0)
+velocity.Parent = humRoot
+velocity.Name = "Spinbot"
+    end)          
+    credits:Button(
+    "旋转100",
+    function()
+    local speed = 100
+
+local plr = game:GetService("Players").LocalPlayer
+repeat task.wait() until plr.Character
+local humRoot = plr.Character:WaitForChild("HumanoidRootPart")
+plr.Character:WaitForChild("Humanoid").AutoRotate = false
+local velocity = Instance.new("AngularVelocity")
+velocity.Attachment0 = humRoot:WaitForChild("RootAttachment")
+velocity.MaxTorque = math.huge
+velocity.AngularVelocity = Vector3.new(0, speed, 0)
+velocity.Parent = humRoot
+velocity.Name = "Spinbot"
+    end)          
+    credits:Button(
+    "旋转300",
+    function()
+    local speed = 300
+
+local plr = game:GetService("Players").LocalPlayer
+repeat task.wait() until plr.Character
+local humRoot = plr.Character:WaitForChild("HumanoidRootPart")
+plr.Character:WaitForChild("Humanoid").AutoRotate = false
+local velocity = Instance.new("AngularVelocity")
+velocity.Attachment0 = humRoot:WaitForChild("RootAttachment")
+velocity.MaxTorque = math.huge
+velocity.AngularVelocity = Vector3.new(0, speed, 0)
+velocity.Parent = humRoot
+velocity.Name = "Spinbot"
+    end)          
+    credits:Button(
+    "旋转500",
+    function()
+    local speed = 500
+
+local plr = game:GetService("Players").LocalPlayer
+repeat task.wait() until plr.Character
+local humRoot = plr.Character:WaitForChild("HumanoidRootPart")
+plr.Character:WaitForChild("Humanoid").AutoRotate = false
+local velocity = Instance.new("AngularVelocity")
+velocity.Attachment0 = humRoot:WaitForChild("RootAttachment")
+velocity.MaxTorque = math.huge
+velocity.AngularVelocity = Vector3.new(0, speed, 0)
+velocity.Parent = humRoot
+velocity.Name = "Spinbot"
+    end)          
     credits:Button("🗿🗿🗿🗿", function()
     local musicId = "rbxassetid://18103562975"
     local music = Instance.new("Sound", game.Workspace)
@@ -1161,4 +1270,3 @@ game:GetService("ReplicatedStorage").Remotes.StoreItem:FireServer(unpack(args))
 task.wait()
 end
 end)
- setupOtherUIComponents()
