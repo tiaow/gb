@@ -230,11 +230,8 @@ end
 
 updatePlayerCode()
 
-local credits = creds:section("关闭", true)
-credits:Button("关闭脚本", function()
 
 local creds = window:Tab("通用",'95464934072515')
-
 local credits = creds:section("内容",true)      
     credits:Slider("步行速度", "WalkSpeed", game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, 16, 1000, false, function(Speed)
   spawn(function() while task.wait() do game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Speed end end)
