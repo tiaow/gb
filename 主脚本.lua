@@ -1,18 +1,34 @@
-function Notify(Title1, Text1, Icon1)
-  game:GetService("StarterGui"):SetCore("SendNotification", {    Title = Title1,    Text = Text1,    Icon = Icon1})
-  end
-  Notify("条脚本", "作者条纹", "rbxassetid://17360377302", 3)
-  local musicId = "rbxassetid://3848738542"
+
+  local NotificationHolder = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Module.Lua"))() 
+ local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Client.Lua"))()
+ wait(0.5) 
+ Notification:Notify( 
+     {Title = "条脚本", Description = "作者条纹"}, 
+     {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"}, 
+     {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(255, 84, 84)} 
+ ) 
+   local musicId = "rbxassetid://3848738542"
     local music = Instance.new("Sound", game.Workspace)
     music.SoundId = musicId
     music:Play()
-  wait(0.7)
-  Notify("脚本开启成功", "祝你玩的开心","rbxassetid://17360377302",3)
-  local musicId = "rbxassetid://3848738542"
+ wait(1) 
+ Notification:Notify( 
+     {Title = "脚本启动成功", Description = "准备好了！祝你玩的开心"}, 
+     {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 10, Type = "image"}, 
+     {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(255, 84, 84)} 
+ )
+   local musicId = "rbxassetid://3848738542"
     local music = Instance.new("Sound", game.Workspace)
     music.SoundId = musicId
     music:Play()
-  wait(0.6)
+ wait(1)
+
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local TextButton = Instance.new("TextButton")
+local UITextSizeConstraint = Instance.new("UITextSizeConstraint")
+local UICorner = Instance.new("UICorner")
+
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/renlua/block/main/UI/%E5%BD%A9%E8%99%B9UI.lua"))()
 local window = library:new("条脚本v2")
 local creds = window:Tab("信息",'106133116600295')
@@ -216,14 +232,7 @@ updatePlayerCode()
 
 local credits = creds:section("关闭", true)
 credits:Button("关闭脚本", function()
-    window:Destroy() -- 直接销毁窗口
-end)
-Notify("提示", "关闭不了","rbxassetid://17360377302",3)
-  local musicId = "rbxassetid://3848738542"
-    local music = Instance.new("Sound", game.Workspace)
-    music.SoundId = musicId
-    music:Play()
-  wait(1)
+
 local creds = window:Tab("通用",'95464934072515')
 
 local credits = creds:section("内容",true)      
@@ -281,10 +290,23 @@ end)
      loadstring(game:HttpGet('https://pastebin.com/raw/H3RLCWWZ'))()
   	end) 
   	credits:Button("死亡笔记", function()   
-  	 loadstring(game:HttpGet("https://raw.githubusercontent.com/krlpl/dfhj/main/%E6%AD%BB%E4%BA%A1%E7%AC%94%E8%AE%B0.txt"))()end)                                                                               
+  	 loadstring(game:HttpGet("https://raw.githubusercontent.com/krlpl/dfhj/main/%E6%AD%BB%E4%BA%A1%E7%AC%94%E8%AE%B0.txt"))()end)                       credits:Button("黑洞脚本", function()                 
+  	 loadstring(game:HttpGet("https://raw.githubusercontent.com/XSKMS/XSK/refs/heads/main/HeiDongscript.lua"))()
+  	 end)                                       
    credits:Button("飞行v3",function()
   loadstring(game:HttpGet'https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt')()
 end)                      
+credits:Toggle('上帝模式', 'No Description', false, function(Value)
+        if Value then
+            local LP = game:GetService"Players".LocalPlayer
+            local HRP = LP.Character.HumanoidRootPart
+            local Clone = HRP:Clone()
+            Clone.Parent = LP.Character
+        else
+            game.Players.LocalPlayer.Character.Head:Destroy()
+        end
+    end)
+
 credits:Button("隐身道具", function()
   loadstring(game:HttpGet("https://gist.githubusercontent.com/skid123skidlol/cd0d2dce51b3f20ad1aac941da06a1a1/raw/f58b98cce7d51e53ade94e7bb460e4f24fb7e0ff/%257BFE%257D%2520Invisible%2520Tool%2520(can%2520hold%2520tools)",true))()
 end)      
@@ -315,7 +337,16 @@ credits:Button(
     function()
         loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/BTools.txt"))()
     end
-)                                       
+)              
+credits:Button("子弹追踪",function()
+  loadstring(game:HttpGet("https://pastebin.com/raw/1AJ69eRG"))()
+end)
+credits:Button("飞车",function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/63T0fkBm"))()
+end)
+credits:Button("吸人",function()
+    loadstring(game:HttpGet("https://shz.al/~HHAKS"))()
+end)                         
     credits:Button("反挂机v2",function()  loadstring(game:HttpGet("https://pastebin.com/raw/9fFu43FF"))()end)                 
     credits:Button("透视", function()  local Players = game:GetService("Players"):GetChildren() local RunService = game:GetService("RunService") local highlight = Instance.new("Highlight") highlight.Name = "Highlight" for i, v in pairs(Players) do repeat wait() until v.Character if not v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") then local highlightClone = highlight:Clone() highlightClone.Adornee = v.Character highlightClone.Parent = v.Character:FindFirstChild("HumanoidRootPart") highlightClone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop highlightClone.Name = "Highlight" end end game.Players.PlayerAdded:Connect(function(player) repeat wait() until player.Character if not player.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") then local highlightClone = highlight:Clone() highlightClone.Adornee = player.Character highlightClone.Parent = player.Character:FindFirstChild("HumanoidRootPart") highlightClone.Name = "Highlight" end end) game.Players.PlayerRemoving:Connect(function(playerRemoved) playerRemoved.Character:FindFirstChild("HumanoidRootPart").Highlight:Destroy() end) RunService.Heartbeat:Connect(function() for i, v in pairs(Players) do repeat wait() until v.Character if not v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") then local highlightClone = highlight:Clone() highlightClone.Adornee = v.Character highlightClone.Parent = v.Character:FindFirstChild("HumanoidRootPart") highlightClone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop highlightClone.Name = "Highlight" task.wait() end end end)end)       
                               
@@ -352,6 +383,9 @@ end)
 end)
     credits:Button("iw指令", function()  loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
     end)
+    credits:Button("玩家加入游戏提示",function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/boyscp/scriscriptsc/main/bbn.lua"))()
+end)
     credits:Button("撸🥵🥵🥵", function()
     loadstring(game:HttpGet("https://pastefy.app/wa3v2Vgm/raw"))() end)
     credits:Label("转圈")
@@ -451,12 +485,98 @@ velocity.AngularVelocity = Vector3.new(0, speed, 0)
 velocity.Parent = humRoot
 velocity.Name = "Spinbot"
     end)          
+    credits:Label("范围")
+    credits:Button(
+    "范围",
+    function()
+        _G.HeadSize = 20
+_G.Disabled = true
+
+game:GetService('RunService').RenderStepped:connect(function()
+if _G.Disabled then
+for i,v in next, game:GetService('Players'):GetPlayers() do
+if v.Name ~= game:GetService('Players').LocalPlayer.Name then
+pcall(function()
+v.Character.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
+v.Character.HumanoidRootPart.Transparency = 0.7
+v.Character.HumanoidRootPart.BrickColor = BrickColor.new("Really blue")
+v.Character.HumanoidRootPart.Material = "Neon"
+v.Character.HumanoidRootPart.CanCollide = false
+end)
+end
+end
+end
+end)
+    end
+)
+
+credits:Button(
+    "中级范围",
+    function()
+        _G.HeadSize = 100
+_G.Disabled = true
+
+game:GetService('RunService').RenderStepped:connect(function()
+if _G.Disabled then
+for i,v in next, game:GetService('Players'):GetPlayers() do
+if v.Name ~= game:GetService('Players').LocalPlayer.Name then
+pcall(function()
+v.Character.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
+v.Character.HumanoidRootPart.Transparency = 0.7
+v.Character.HumanoidRootPart.BrickColor = BrickColor.new("Really red")
+v.Character.HumanoidRootPart.Material = "Neon"
+v.Character.HumanoidRootPart.CanCollide = false
+end)
+end
+end
+end
+end)
+    end
+)
+credits:Button(
+    "高级范围",
+    function()
+        _G.HeadSize = 500
+_G.Disabled = true
+
+game:GetService('RunService').RenderStepped:connect(function()
+if _G.Disabled then
+for i,v in next, game:GetService('Players'):GetPlayers() do
+if v.Name ~= game:GetService('Players').LocalPlayer.Name then
+pcall(function()
+v.Character.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
+v.Character.HumanoidRootPart.Transparency = 0.7
+v.Character.HumanoidRootPart.BrickColor = BrickColor.new("Really red")
+v.Character.HumanoidRootPart.Material = "Neon"
+v.Character.HumanoidRootPart.CanCollide = false
+end)
+end
+end
+end
+end)
+    end
+)
     credits:Button("🗿🗿🗿🗿", function()
     local musicId = "rbxassetid://18103562975"
     local music = Instance.new("Sound", game.Workspace)
     music.SoundId = musicId
     music:Play()
     end)
+     local creds = window:Tab("音频",'106133116600295')
+local credits = creds:section("内容",true)
+credits:Button("彩虹瀑布",function()
+    local sound = Instance.new("Sound")
+    sound.SoundId = "rbxassetid://1837879082"
+    sound.Parent = game.Workspace
+    sound:Play()
+    end)
+    credits:Button("防空警报", function()
+    local sound = Instance.new("Sound")
+    sound.SoundId = "rbxassetid://792323017"
+    sound.Parent = game.Workspace
+    sound:Play()
+    end)
+    
 local creds = window:Tab("抓包",'106133116600295')
 local credits = creds:section("工具",true)
     credits:Button("spy", function()
@@ -465,6 +585,16 @@ local credits = creds:section("工具",true)
     credits:Button("Dex", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/renlua/Script-Tutorial/refs/heads/main/dex.lua"))()
     end)
+    credits:Button("nb的dex", function()
+getgenv().Key = "Bash" loadstring(game:HttpGet("https://raw.githubusercontent.com/crceck123/roblox-script/main/MC_IY%20Dex.txt"))()
+end)
+
+credits:Button("redz", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/realredz/DEX-Explorer/refs/heads/main/Mobile.lua"))()
+end)
+credits:Button("小云 翻译dex", function()
+loadstring(game:HttpGet("https://github.com/XiaoYunCN/VIP/raw/main/DexV2%20Mobile", true))()
+end)
 local creds = window:Tab("传送", '106133116600295')
 local credits = creds:section("传送功能", true)
 getgenv().ED_AntiKick = {
@@ -1270,3 +1400,12 @@ game:GetService("ReplicatedStorage").Remotes.StoreItem:FireServer(unpack(args))
 task.wait()
 end
 end)
+ Notification:Notify( 
+     {Title = "提示", Description = "已全部加载好"}, 
+     {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 3, Type = "image"}, 
+     {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(255, 84, 84)} 
+ )
+  local musicId = "rbxassetid://3848738542"
+    local music = Instance.new("Sound", game.Workspace)
+    music.SoundId = musicId
+    music:Play()
