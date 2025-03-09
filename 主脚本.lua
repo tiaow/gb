@@ -273,6 +273,24 @@ end)
         game.Players.LocalPlayer.Character.Humanoid.Health = Value
     end
 )
+credits:Textbox("快速跑步（死后重置）建议用2", "tpwalking", "输入", function(king)
+local tspeed = king
+local hb = game:GetService("RunService").Heartbeat
+local tpwalking = true
+local player = game:GetService("Players")
+local lplr = player.LocalPlayer
+local chr = lplr.Character
+local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
+while tpwalking and hb:Wait() and chr and hum and hum.Parent do
+  if hum.MoveDirection.Magnitude > 0 then
+    if tspeed then
+      chr:TranslateBy(hum.MoveDirection * tonumber(tspeed))
+    else
+      chr:TranslateBy(hum.MoveDirection)
+    end
+  end
+end
+end)
 
 
 
