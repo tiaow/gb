@@ -231,7 +231,7 @@ end
 updatePlayerCode()
 
 
-local creds = window:Tab("通用",'95464934072515')
+local creds = window:Tab("通用",'7743875962')
 local credits = creds:section("内容",true)      
     credits:Slider("步行速度", "WalkSpeed", game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, 16, 1000, false, function(Speed)
   spawn(function() while task.wait() do game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Speed end end)
@@ -833,7 +833,23 @@ credits:Toggle("循环传送玩家", "Toggle", false, function(Value)
         Notify("提示", "已停止循环传送玩家", "rbxassetid://", 5)
     end
 end)
-
+ local creds = window:Tab("骨折模拟器",'106133116600295')
+local credits = creds:section("传送(人物往下坠时使用)",true)
+credits:Button("传送到1万米高空", function()
+game:GetService("Players").LocalPlayer.Character:MoveTo(Vector3.new(2415.21875, 10000.1722717285156, 804.8123779296875))
+end)
+credits:Button("传送到2万米高空", function()
+game:GetService("Players").LocalPlayer.Character:MoveTo(Vector3.new(2415.21875, 20000.1722717285156, 804.8123779296875))
+end)
+credits:Button("传送到3万米高空", function()
+game:GetService("Players").LocalPlayer.Character:MoveTo(Vector3.new(2415.21875, 30000.1722717285156, 804.8123779296875))
+end)
+credits:Button("传送到4万米高空", function()
+game:GetService("Players").LocalPlayer.Character:MoveTo(Vector3.new(2415.21875, 40000.1722717285156, 804.8123779296875))
+end)
+credits:Button("传送到5万米高空", function()
+game:GetService("Players").LocalPlayer.Character:MoveTo(Vector3.new(2415.21875, 50000.1722717285156, 804.8123779296875))
+end)
 local creds = window:Tab("伐木大亨2",'106133116600295')
 local credits = creds:section("伐木大亨",true)
   credits:Button("LuaWareL", function()
@@ -1415,6 +1431,45 @@ game:GetService("ReplicatedStorage").Remotes.StoreItem:FireServer(unpack(args))
 task.wait()
 end
 end)
+ local creds = window:Tab("愚蠢的boss战",'106133116600295')
+local credits = creds:section("内容",true)
+credits:Toggle("重复选择地图1", "Toggle", false,function(Value)
+Tui = Value
+while Tui do
+local args = {
+    [1] = 1
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Voting"):WaitForChild("AddVote"):FireServer(unpack(args))
+
+task.wait(0.1)
+end
+end)
+credits:Toggle("重复选择地图2", "Toggle", false,function(Value)
+Tui2 = Value
+while Tui2 do
+local args = {
+    [1] = 2
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Voting"):WaitForChild("AddVote"):FireServer(unpack(args))
+
+task.wait(0.1)
+end
+end)
+credits:Toggle("重复选择地图3", "Toggle", false,function(Value)
+Tui3 = Value
+while Tui3 do
+local args = {
+    [1] = 3
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Voting"):WaitForChild("AddVote"):FireServer(unpack(args))
+
+task.wait(0.1)
+end
+end)
+
  Notification:Notify( 
      {Title = "提示", Description = "已全部加载好"}, 
      {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 3, Type = "image"}, 
