@@ -1469,7 +1469,21 @@ game:GetService("ReplicatedStorage"):WaitForChild("Voting"):WaitForChild("AddVot
 task.wait(0.1)
 end
 end)
-
+credits:Button("自动拿剑", function()
+game:GetService("Players").LocalPlayer.Character:MoveTo(Vector3.new(-277.4253234863281, -190.99954223632812, 4584.76025390625))
+wait(0.5)
+game:GetService("Players").LocalPlayer.Character:MoveTo(Vector3.new(0.6678761839866638, 385.0029602050781, 4068.994384765625))
+wait(0.5)
+game:GetService("Players").LocalPlayer.Character:MoveTo(Vector3.new(281.1895751953125, -231.7993621826172, 4485.98681640625))
+wait(0.5)
+game:GetService("Players").LocalPlayer.Character:MoveTo(Vector3.new(-83.74762725830078, -1.400247573852539, 4696.58935546875))
+wait(0.5)
+game:GetService("Players").LocalPlayer.Character:MoveTo(Vector3.new(-314.7559814453125, 95.80094146728516, 4214.927734375))
+wait(0.5)
+game:GetService("Players").LocalPlayer.Character:MoveTo(Vector3.new(-556.3639526367188, 137.80137634277344, 4439.85791015625))
+wait(0.5)
+game:GetService("Players").LocalPlayer.Character:MoveTo(Vector3.new(98.12287902832031, -30.200422286987305, 4419.1708984375))
+end)
  Notification:Notify( 
      {Title = "提示", Description = "已全部加载好"}, 
      {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 3, Type = "image"}, 
