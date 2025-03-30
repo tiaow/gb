@@ -1387,6 +1387,8 @@ local credits = creds:section("更改数值",true)
 credits:Textbox("赢得胜场", "输入数字", "0", function(Value)
     game:GetService("Players").LocalPlayer.leaderstats.Wins.Value = tonumber(Value) or 0
 end)
+
+
 -- 配置参数（已修改为3x3x3）
 local TARGET_SIZE = Vector3.new(3, 3, 3)  -- 调整为3倍
 local POSITION_OFFSET = 1.2               -- 同步缩小位置偏移量
@@ -1420,7 +1422,7 @@ local function scaleHeads(scale)
     end
 end
 
-section:Toggle("放大僵尸头部", "Toggle", false, function(state)
+credits:Toggle("放大头部", "Toggle", false, function(state)
     isActive = state
     
     if state then
@@ -1510,7 +1512,7 @@ local function createInstantHighlight(bank)
 end
 
 -- 主控制逻辑
-section:Toggle("启用银行高亮", "toggle_esp", false, function(state)
+credits:Toggle("启用银行高亮", "toggle_esp", false, function(state)
     isActive = state
     
     if state then
