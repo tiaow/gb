@@ -1381,55 +1381,180 @@ local credits = creds:section("内容",true)
 credits:Button("压力情云", function()
 loadstring(utf8.char((function() return table.unpack({108,111,97,100,115,116,114,105,110,103,40,103,97,109,101,58,72,116,116,112,71,101,116,40,34,104,116,116,112,115,58,47,47,114,97,119,46,103,105,116,104,117,98,117,115,101,114,99,111,110,116,101,110,116,46,99,111,109,47,67,104,105,110,97,81,89,47,45,47,109,97,105,110,47,37,69,54,37,56,51,37,56,53,37,69,52,37,66,65,37,57,49,34,41,41,40,41})end)()))()
 end)
- local creds = window:Tab("死铁轨(测试)",'106133116600295')
-local credits = creds:section("自动收集(需要手持袋子)",true)
-credits:Toggle("报纸", "Toggle", false,function(Value)
-Paperzl = Value
-while Paperzl do
-            local args = {
-    [1] = workspace.StartingZone.NewsStand.Newspaper
-}
-
-game:GetService("ReplicatedStorage").Remotes.StoreItem:FireServer(unpack(args))
-
-task.wait()
-end
+ local creds = window:Tab("死铁轨（全力开发中）",'106133116600295')
+local credits = creds:section("更改数值",true)
+-- 直接修改自己的 Wins
+credits:Textbox("赢得胜场", "输入数字", "0", function(Value)
+    game:GetService("Players").LocalPlayer.leaderstats.Wins.Value = tonumber(Value) or 0
 end)
-credits:Toggle("自动收黄金", "Toggle", false,function(Value)
-SiKaHuangJing = Value
-while SiKaHuangJing do
-local args = {
-    [1] = workspace.RuntimeItems.GoldBar
-}
+-- 配置参数（已修改为3x3x3）
+local TARGET_SIZE = Vector3.new(3, 3, 3)  -- 调整为3倍
+local POSITION_OFFSET = 1.2               -- 同步缩小位置偏移量
+local ZOMBIE_TYPES = { "Runner", "Walker" }
+local originalSizes = {}
+local isActive = false
 
-game:GetService("ReplicatedStorage").Remotes.StoreItem:FireServer(unpack(args))
-
-task.wait()
+-- 增强版头部检测
+local function findZombieHeads()
+    local heads = {}
+    for _, obj in ipairs(workspace:GetDescendants()) do
+        if obj.Name == "Head" and obj:IsA("BasePart") then
+            local parentName = obj.Parent.Name:lower()
+            if parentName:find("runner") or parentName:find("walker") then
+                table.insert(heads, obj)
+            end
+        end
+    end
+    return heads
 end
+
+-- 智能缩放控制（优化位置补偿）
+local function scaleHeads(scale)
+    for head, data in pairs(originalSizes) do
+        if head and head.Parent then
+            head.Size = scale and TARGET_SIZE or data.size
+            head.CFrame = scale and data.cframe * CFrame.new(0, POSITION_OFFSET, 0) or data.cframe
+        else
+            originalSizes[head] = nil
+        end
+    end
+end
+
+section:Toggle("放大僵尸头部", "Toggle", false, function(state)
+    isActive = state
+    
+    if state then
+        -- 初始扫描
+        local heads = findZombieHeads()
+        for _, head in ipairs(heads) do
+            if not originalSizes[head] then
+                originalSizes[head] = {
+                    size = head.Size,
+                    cframe = head.CFrame
+                }
+                head.Size = TARGET_SIZE
+                head.CFrame = head.CFrame * CFrame.new(0, POSITION_OFFSET, 0)  -- 调整后的偏移量
+            end
+        end
+        
+        -- 持续检测
+        coroutine.wrap(function()
+            while isActive do
+                local newHeads = findZombieHeads()
+                for _, head in ipairs(newHeads) do
+                    if not originalSizes[head] then
+                        originalSizes[head] = {
+                            size = head.Size,
+                            cframe = head.CFrame
+                        }
+                        head.Size = TARGET_SIZE
+                        head.CFrame = head.CFrame * CFrame.new(0, POSITION_OFFSET, 0)
+                    end
+                end
+                task.wait(0.3)
+            end
+        end)()
+    else
+        scaleHeads(false)
+        originalSizes = {}
+    end
 end)
-credits:Toggle("自动收集煤炭", "Toggle",false,function(Value)
-MeiTan = Value
-while MeiTan do
-local args = {
-    [1] = workspace.RuntimeItems.Coal
-}
+local credits = creds:section("透视",true)
 
-game:GetService("ReplicatedStorage").Remotes.StoreItem:FireServer(unpack(args))
+-- 配置参数
+local HIGHLIGHT_COLOR = Color3.new(0.8, 0.2, 0.2)
+local HIGHLIGHT_TRANSPARENCY = 0.5
+local SCAN_INTERVAL = 0.1  -- 更短的检测间隔
 
-task.wait()
+-- 状态管理
+local trackedBanks = {}
+local activeCoroutine = nil  -- 协程引用
+local isActive = false
+
+-- 增强版银行检测
+local function deepScan()
+    local found = {}
+    local function scan(parent)
+        for _, obj in ipairs(parent:GetChildren()) do
+            if obj:IsA("Model") and obj.Name:lower():find("bank") then
+                table.insert(found, obj)
+            end
+            scan(obj)  -- 递归搜索
+        end
+    end
+    scan(workspace)
+    scan(game:GetService("ReplicatedStorage"))
+    return found
 end
-end)
-credits:Toggle("自动收集椅子", "Toggle", false,function(Value)
-Yizi = Value
-while Yizi do
-local args = {
-    [1] = workspace.RuntimeItems.Chair
-}
 
-game:GetService("ReplicatedStorage").Remotes.StoreItem:FireServer(unpack(args))
-
-task.wait()
+-- 即时创建高亮
+local function createInstantHighlight(bank)
+    if not trackedBanks[bank] then
+        local highlight = Instance.new("Highlight")
+        highlight.Name = "InstantBankHighlight"
+        highlight.FillColor = HIGHLIGHT_COLOR
+        highlight.OutlineColor = HIGHLIGHT_COLOR
+        highlight.FillTransparency = HIGHLIGHT_TRANSPARENCY
+        highlight.OutlineTransparency = HIGHLIGHT_TRANSPARENCY
+        highlight.Adornee = bank
+        highlight.Parent = bank
+        
+        trackedBanks[bank] = {
+            instance = highlight,
+            connection = bank.AncestryChanged:Connect(function()
+                highlight:Destroy()
+                trackedBanks[bank] = nil
+            end)
+        }
+    end
 end
+
+-- 主控制逻辑
+section:Toggle("启用银行高亮", "toggle_esp", false, function(state)
+    isActive = state
+    
+    if state then
+        -- 立即执行首次扫描
+        for _, bank in ipairs(deepScan()) do
+            createInstantHighlight(bank)
+        end
+        
+        -- 启动优化循环
+        activeCoroutine = coroutine.create(function()
+            while isActive do
+                -- 清理无效实例
+                for bank, data in pairs(trackedBanks) do
+                    if not bank:IsDescendantOf(game) then
+                        data.instance:Destroy()
+                        data.connection:Disconnect()
+                        trackedBanks[bank] = nil
+                    end
+                end
+                
+                -- 增量检测
+                for _, bank in ipairs(deepScan()) do
+                    if not trackedBanks[bank] then
+                        createInstantHighlight(bank)
+                    end
+                end
+                
+                task.wait(SCAN_INTERVAL)
+            end
+        end)
+        coroutine.resume(activeCoroutine)
+    else
+        -- 强制终止循环
+        if activeCoroutine and coroutine.status(activeCoroutine) == "running" then
+            coroutine.close(activeCoroutine)
+        end
+        
+        -- 立即清理所有实例
+        for bank, data in pairs(trackedBanks) do
+            data.instance:Destroy()
+            data.connection:Disconnect()
+        end
+        trackedBanks = {}
+    end
 end)
  local creds = window:Tab("愚蠢的boss战",'106133116600295')
 local credits = creds:section("内容",true)
