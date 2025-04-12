@@ -288,7 +288,7 @@ function library.new(library, name, theme)
             Main,
             {0.3, "Sine", "InOut"},
             {
-                Size = UDim2.new(0, 609, 0, (toggled and 505 or 0))
+                Size = UDim2.new(0, 609, 0, (toggled and 550 or 0))
             }
         )
     end
@@ -298,7 +298,7 @@ function library.new(library, name, theme)
     TabMain.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     TabMain.BackgroundTransparency = 1.000
     TabMain.Position = UDim2.new(0.217000037, 0, 0, 3)
-    TabMain.Size = UDim2.new(0, 448, 0, 353)
+    TabMain.Size = UDim2.new(0, 448, 0, 396)
 
     MainC.CornerRadius = UDim.new(0, 5.5)
     MainC.Name = "MainC"
@@ -308,7 +308,7 @@ function library.new(library, name, theme)
     SB.Parent = Main
     SB.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     SB.BorderColor3 = MainColor
-    SB.Size = UDim2.new(0, 8, 0, 353)
+    SB.Size = UDim2.new(0, 8, 0, 396)
 
     SBC.CornerRadius = UDim.new(0, 6)
     SBC.Name = "SBC"
@@ -321,7 +321,7 @@ function library.new(library, name, theme)
     Side.BorderSizePixel = 0
     Side.ClipsDescendants = true
     Side.Position = UDim2.new(1, 0, 0, 0)
-    Side.Size = UDim2.new(0, 110, 0, 353)
+    Side.Size = UDim2.new(0, 110, 0, 396)
 
     SideG.Color = ColorSequence.new {ColorSequenceKeypoint.new(0.00, zyColor), ColorSequenceKeypoint.new(1.00, zyColor)}
     SideG.Rotation = 90
