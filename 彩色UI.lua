@@ -745,99 +745,117 @@ end)
             end
 
             function section.Toggle(section, text, flag, enabled, callback)
-                local callback = callback or function()
-                    end
-                local enabled = enabled or false
-                assert(text, "No text provided")
-                assert(flag, "No flag provided")
+    local callback = callback or function() end
+    local enabled = enabled or false
+    assert(text, "No text provided")
+    assert(flag, "No flag provided")
 
-                library.flags[flag] = enabled
+    library.flags[flag] = enabled
 
-                local ToggleModule = Instance.new("Frame")
-                local ToggleBtn = Instance.new("TextButton")
-                local ToggleBtnC = Instance.new("UICorner")
-                local ToggleDisable = Instance.new("Frame")
-                local ToggleSwitch = Instance.new("Frame")
-                local ToggleSwitchC = Instance.new("UICorner")
-                local ToggleDisableC = Instance.new("UICorner")
+    local ToggleModule = Instance.new("Frame")
+    local ToggleBtn = Instance.new("TextButton")
+    local ToggleBtnC = Instance.new("UICorner")
+    local ToggleDisable = Instance.new("Frame")
+    local ToggleSwitch = Instance.new("Frame")
+    local ToggleSwitchC = Instance.new("UICorner")
+    local ToggleDisableC = Instance.new("UICorner")
 
-                ToggleModule.Name = "ToggleModule"
-                ToggleModule.Parent = Objs
-                ToggleModule.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                ToggleModule.BackgroundTransparency = 1.000
-                ToggleModule.BorderSizePixel = 0
-                ToggleModule.Position = UDim2.new(0, 0, 0, 0)
-                ToggleModule.Size = UDim2.new(0, 428, 0, 38)
+    -- ========== [核心改动1] 背景板样式 ========== --
+    ToggleDisable.Name = "ToggleDisable"
+    ToggleDisable.Parent = ToggleBtn
+    ToggleDisable.BackgroundColor3 = Background  -- 初始背景色
+    ToggleDisable.BorderSizePixel = 0
+    ToggleDisable.Position = UDim2.new(0.85, 0, 0.2, 0)  -- 调整位置
+    ToggleDisable.Size = UDim2.new(0, 50, 0, 28)         -- 增大宽度（原36→50）
 
-                ToggleBtn.Name = "ToggleBtn"
-                ToggleBtn.Parent = ToggleModule
-                ToggleBtn.BackgroundColor3 = zyColor
-                ToggleBtn.BorderSizePixel = 0
-                ToggleBtn.Size = UDim2.new(0, 428, 0, 38)
-                ToggleBtn.AutoButtonColor = false
-                ToggleBtn.Font = Enum.Font.GothamSemibold
-                ToggleBtn.Text = "   " .. text
-                ToggleBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-                ToggleBtn.TextSize = 16.000
-                ToggleBtn.TextXAlignment = Enum.TextXAlignment.Left
+    -- 背景板圆角（100%圆形胶囊）
+    ToggleDisableC.CornerRadius = UDim.new(1, 0)  -- 原为 UDim.new(0,6)
+    ToggleDisableC.Name = "ToggleDisableC"
+    ToggleDisableC.Parent = ToggleDisable
 
-                ToggleBtnC.CornerRadius = UDim.new(0, 6)
-                ToggleBtnC.Name = "ToggleBtnC"
-                ToggleBtnC.Parent = ToggleBtn
+    -- ========== [核心改动2] 滑动按钮样式 ========== --
+    ToggleSwitch.Name = "ToggleSwitch"
+    ToggleSwitch.Parent = ToggleDisable
+    ToggleSwitch.BackgroundColor3 = Color3.fromRGB(200, 200, 200)  -- 初始灰色
+    ToggleSwitch.Size = UDim2.new(0, 24, 0, 24)  -- 固定为正方形（原24x22→24x24）
+    ToggleSwitch.Position = UDim2.new(0, 2, 0, 2)  -- 居中偏移
 
-                ToggleDisable.Name = "ToggleDisable"
-                ToggleDisable.Parent = ToggleBtn
-                ToggleDisable.BackgroundColor3 = Background
-                ToggleDisable.BorderSizePixel = 0
-                ToggleDisable.Position = UDim2.new(0.901869178, 0, 0.208881587, 0)
-                ToggleDisable.Size = UDim2.new(0, 36, 0, 22)
+    -- 滑动按钮圆角（100%圆形）
+    ToggleSwitchC.CornerRadius = UDim.new(1, 0)  -- 原为 UDim.new(0,6)
+    ToggleSwitchC.Name = "ToggleSwitchC"
+    ToggleSwitchC.Parent = ToggleSwitch
 
-                ToggleSwitch.Name = "ToggleSwitch"
-                ToggleSwitch.Parent = ToggleDisable
-                ToggleSwitch.BackgroundColor3 = beijingColor
-                ToggleSwitch.Size = UDim2.new(0, 24, 0, 22)
-
-                ToggleSwitchC.CornerRadius = UDim.new(0, 6)
-                ToggleSwitchC.Name = "ToggleSwitchC"
-                ToggleSwitchC.Parent = ToggleSwitch
-
-                ToggleDisableC.CornerRadius = UDim.new(0, 6)
-                ToggleDisableC.Name = "ToggleDisableC"
-                ToggleDisableC.Parent = ToggleDisable
-
-                local funcs = {
-                    SetState = function(self, state)
-                        if state == nil then
-                            state = not library.flags[flag]
-                        end
-                        if library.flags[flag] == state then
-                            return
-                        end
-                        services.TweenService:Create(
-                            ToggleSwitch,
-                            TweenInfo.new(0.2),
-                            {
-                                Position = UDim2.new(0, (state and ToggleSwitch.Size.X.Offset / 2 or 0), 0, 0),
-                                BackgroundColor3 = (state and Color3.fromRGB(255, 255, 255) or beijingColor)
-                            }
-                        ):Play()
-                        library.flags[flag] = state
-                        callback(state)
-                    end,
-                    Module = ToggleModule
-                }
-
-                if enabled ~= false then
-                    funcs:SetState(flag, true)
-                end
-
-                ToggleBtn.MouseButton1Click:Connect(
-                    function()
-                        funcs:SetState()
-                    end
-                )
-                return funcs
+    -- ========== [核心改动3] 动画与颜色逻辑 ========== --
+    local funcs = {
+        SetState = function(self, state)
+            if state == nil then
+                state = not library.flags[flag]
             end
+            if library.flags[flag] == state then
+                return
+            end
+
+            -- 背景颜色动画（关闭→深绿）
+            services.TweenService:Create(
+                ToggleDisable,
+                TweenInfo.new(0.2, Enum.EasingStyle.Quad),
+                {
+                    BackgroundColor3 = (state and Color3.fromRGB(0, 200, 0) or Background)  -- 明显绿色
+                }
+            ):Play()
+
+            -- 按钮滑动动画（左→右）
+            services.TweenService:Create(
+                ToggleSwitch,
+                TweenInfo.new(0.2, Enum.EasingStyle.Quad),
+                {
+                    Position = UDim2.new(0, (state and 24 or 2), 0, 2),
+                    BackgroundColor3 = (state and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(200, 200, 200))
+                }
+            ):Play()
+
+            library.flags[flag] = state
+            callback(state)
+        end,
+        Module = ToggleModule
+    }
+
+    -- ========== 其他原有代码（保持结构不变） ========== --
+    ToggleModule.Name = "ToggleModule"
+    ToggleModule.Parent = Objs
+    ToggleModule.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ToggleModule.BackgroundTransparency = 1.000
+    ToggleModule.BorderSizePixel = 0
+    ToggleModule.Position = UDim2.new(0, 0, 0, 0)
+    ToggleModule.Size = UDim2.new(0, 428, 0, 38)
+
+    ToggleBtn.Name = "ToggleBtn"
+    ToggleBtn.Parent = ToggleModule
+    ToggleBtn.BackgroundColor3 = zyColor
+    ToggleBtn.BorderSizePixel = 0
+    ToggleBtn.Size = UDim2.new(0, 428, 0, 38)
+    ToggleBtn.AutoButtonColor = false
+    ToggleBtn.Font = Enum.Font.GothamSemibold
+    ToggleBtn.Text = "   " .. text
+    ToggleBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ToggleBtn.TextSize = 16.000
+    ToggleBtn.TextXAlignment = Enum.TextXAlignment.Left
+
+    ToggleBtnC.CornerRadius = UDim.new(0, 6)
+    ToggleBtnC.Name = "ToggleBtnC"
+    ToggleBtnC.Parent = ToggleBtn
+
+    if enabled ~= false then
+        funcs:SetState(flag, true)
+    end
+
+    ToggleBtn.MouseButton1Click:Connect(
+        function()
+            funcs:SetState()
+        end
+    )
+    return funcs
+end
 
             function section.Keybind(section, text, default, callback)
                 local callback = callback or function()
