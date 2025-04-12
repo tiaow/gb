@@ -297,9 +297,7 @@ function library.new(library, name, theme)
     TabMain.Parent = Main
     TabMain.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     TabMain.BackgroundTransparency = 1.000
-    
-   -- 修改后
-   TabMain.Position = UDim2.new(Side.Size.X.Scale, 0, 0, 3)  -- 根据侧边栏宽度调整
+    TabMain.Position = UDim2.new(0.217000037, 0, 0, 3)
     TabMain.Size = UDim2.new(0, 448, 0, 396)
 
     MainC.CornerRadius = UDim.new(0, 5.5)
@@ -337,7 +335,7 @@ function library.new(library, name, theme)
     TabBtns.BackgroundTransparency = 1.000
     TabBtns.BorderSizePixel = 0
     TabBtns.Position = UDim2.new(0, 0, 0.0973535776, 0)
-    TabBtns.Size = UDim2.new(0, 110, 0, 318)
+   TabBtns.Size = UDim2.new(1, 0, 0, 318)  -- 宽度占满侧边栏)
     TabBtns.CanvasSize = UDim2.new(0, 0, 1, 0)
     TabBtns.ScrollBarThickness = 0
 
