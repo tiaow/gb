@@ -230,7 +230,11 @@ end
 
 updatePlayerCode()
 
-
+ local creds = window:Tab("公告",'106133116600295')
+local credits = creds:section("内容",true)
+credits:Label("增加了穷小子打工记服务器")
+credits:Label("增加了立即互动")
+end)
 local creds = window:Tab("通用",'7743875962')
 local credits = creds:section("内容",true)      
     credits:Slider("步行速度", "WalkSpeed", game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, 16, 1000, false, function(Speed)
@@ -299,7 +303,47 @@ end)
 end)
 credits:Toggle("夜视", "Light", false, function(Light)
   spawn(function() while task.wait() do if Light then game.Lighting.Ambient = Color3.new(1, 1, 1) else game.Lighting.Ambient = Color3.new(0, 0, 0) end end end)
-end)  
+end) 
+credits:Toggle("自动零延迟交互", "Toggle", false, function(Value)
+    enabled = Value
+    
+    -- 清理旧连接
+    for _, conn in pairs(connections) do
+        conn:Disconnect()
+    end
+    connections = {}
+    
+    if enabled then
+        -- 持续检测函数
+        local function processPrompt(prompt)
+            prompt.HoldDuration = 0
+            prompt.Enabled = true  -- 确保提示启用
+            
+            -- 添加属性监听防止被重置
+            local conn = prompt:GetPropertyChangedSignal("HoldDuration"):Connect(function()
+                if prompt.HoldDuration ~= 0 then
+                    prompt.HoldDuration = 0
+                end
+            end)
+            table.insert(connections, conn)
+        end
+        
+        -- 遍历现有提示
+        for _, prompt in ipairs(workspace:GetDescendants()) do
+            if prompt:IsA("ProximityPrompt") then
+                processPrompt(prompt)
+            end
+        end
+        
+        -- 监听新提示
+        local newPromptConn = workspace.DescendantAdded:Connect(function(descendant)
+            if descendant:IsA("ProximityPrompt") then
+                processPrompt(descendant)
+            end
+        end)
+        table.insert(connections, newPromptConn)
+    end
+end) 
     credits:Toggle("人物显示", "RWXS", false, function(RWXS)    getgenv().enabled = RWXS getgenv().filluseteamcolor = true getgenv().outlineuseteamcolor = true getgenv().fillcolor = Color3.new(1, 0, 0) getgenv().outlinecolor = Color3.new(1, 1, 1) getgenv().filltrans = 0.5 getgenv().outlinetrans = 0.5 loadstring(game:HttpGet("https://raw.githubusercontent.com/Vcsk/RobloxScripts/main/Highlight-ESP.lua"))()end) 
     credits:Button("无敌可能不适用",function()
      loadstring(game:HttpGet('https://pastebin.com/raw/H3RLCWWZ'))()
@@ -1610,6 +1654,45 @@ wait(0.5)
 game:GetService("Players").LocalPlayer.Character:MoveTo(Vector3.new(-556.3639526367188, 137.80137634277344, 4439.85791015625))
 wait(0.5)
 game:GetService("Players").LocalPlayer.Character:MoveTo(Vector3.new(98.12287902832031, -30.200422286987305, 4419.1708984375))
+end)
+ local creds = window:Tab("穷小子打工记",'106133116600295')
+local credits = creds:section("内容",true)
+-- 传送系统配置
+local teleportPoints = {
+    ["矿物售卖点"] = Vector3.new(-41.5818, 3.5000, 25.7670),
+    ["饭盒售卖点"] = Vector3.new(-190.9192, 3.9995, -52.3112),
+    ["矿洞(顶部)"] = Vector3.new(-66.3164, 3.5000, 56.8189),
+    ["矿洞(深处)"] = Vector3.new(61.1772, -108.1145, -119.4801),
+    ["买稿子处"] = Vector3.new(-69.0856, 4.0000, 31.4245),
+    ["小区"] = Vector3.new(76.5418, 4.0000, -65.5413),
+    ["蜜雪冰城"] = Vector3.new(190.7056, 3.5000, 14.7399),
+    ["买车处"] = Vector3.new(227.7959, 3.5000, 19.9525),
+    ["买水果处"] = Vector3.new(250.1062, 3.5000, 19.7398),
+    ["小吃街"] = Vector3.new(87.2112, 3.5000, 48.0347)
+}
+
+local selectedPoint = nil  -- 存储当前选择的坐标
+
+-- 创建下拉菜单
+credits:Dropdown("设置传送位置", "请选择目标点", 
+    {"矿物售卖点", "饭盒售卖点", "矿洞(顶部)", "矿洞(深处)", "买稿子处", 
+     "小区", "蜜雪冰城", "买车处", "买水果处", "小吃街"}, 
+    function(selected)
+        selectedPoint = teleportPoints[selected]
+        print("已选择:", selected)
+    end)
+
+-- 添加独立传送按钮
+credits:Button("确认传送", function()
+    if selectedPoint then
+        local character = game:GetService("Players").LocalPlayer.Character
+        if character and character:FindFirstChild("HumanoidRootPart") then
+            character:MoveTo(selectedPoint)
+            library:Notification("传送成功", "已到达："..tostring(selectedPoint))
+        end
+    else
+        library:Notification("传送失败", "请先选择目标位置！")
+    end
 end)
  Notification:Notify( 
      {Title = "提示", Description = "已全部加载好"}, 
