@@ -29,7 +29,7 @@ local TextButton = Instance.new("TextButton")
 local UITextSizeConstraint = Instance.new("UITextSizeConstraint")
 local UICorner = Instance.new("UICorner")
 
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/renlua/block/main/UI/%E5%BD%A9%E8%99%B9UI.lua"))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/%E5%BD%A9%E8%89%B2UI.lua"))()
 local window = library:new("条脚本v2")
 local creds = window:Tab("信息",'106133116600295')
     local bin = creds:section("作者信息",true)
