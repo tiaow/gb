@@ -212,7 +212,7 @@ function library.new(library, name, theme)
     Main.BackgroundColor3 = Background
     Main.BorderColor3 = MainColor
     Main.Position = UDim2.new(0.5, 0, 0.5, 0)
-    Main.Size = UDim2.new(0, 572, 0, 353)
+    Main.Size = UDim2.new(0, 650, 0, 353)
     Main.ZIndex = 1
     Main.Active = true
     Main.Draggable = true
@@ -288,7 +288,7 @@ function library.new(library, name, theme)
             Main,
             {0.3, "Sine", "InOut"},
             {
-                Size = UDim2.new(0, 609, 0, (toggled and 505 or 0))
+                Size = UDim2.new(0, 650, 0, (toggled and 505 or 0))
             }
         )
     end
