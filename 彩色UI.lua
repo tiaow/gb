@@ -1486,7 +1486,15 @@ end
                         DropdownModule.Size = UDim2.new(0, 428, 0, (DropdownModuleL.AbsoluteContentSize.Y + 4))
                     end
                 )
-
+   
+                function library:UpdateTheme(newSettings)
+    -- 遍历所有UI元素应用新颜色
+    for _, obj in pairs(self.elements) do
+        if obj.BackgroundColor3 == self.settings.MainColor then
+            obj.BackgroundColor3 = newSettings.MainColor
+        end
+    end
+end
                 local funcs = {}
                 funcs.AddOption = function(self, option)
                     local Option = Instance.new("TextButton")
