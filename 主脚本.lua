@@ -230,11 +230,6 @@ end
 
 updatePlayerCode()
 
- local creds = window:Tab("公告",'106133116600295')
-local credits = creds:section("内容",true)
-credits:Label("增加了穷小子打工记服务器")
-credits:Label("增加了立即互动")
-end)
 local creds = window:Tab("通用",'7743875962')
 local credits = creds:section("内容",true)      
     credits:Slider("步行速度", "WalkSpeed", game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, 16, 1000, false, function(Speed)
