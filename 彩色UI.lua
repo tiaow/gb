@@ -335,7 +335,7 @@ function library.new(library, name, theme)
     TabBtns.BackgroundTransparency = 1.000
     TabBtns.BorderSizePixel = 0
     TabBtns.Position = UDim2.new(0, 0, 0.0973535776, 0)
-   TabBtns.Size = UDim2.new(1, 0, 0, 318)  -- 宽度占满侧边栏)
+    TabBtns.Size = UDim2.new(0, 110, 0, 318)
     TabBtns.CanvasSize = UDim2.new(0, 0, 1, 0)
     TabBtns.ScrollBarThickness = 0
 
