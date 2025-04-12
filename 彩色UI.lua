@@ -297,7 +297,9 @@ function library.new(library, name, theme)
     TabMain.Parent = Main
     TabMain.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     TabMain.BackgroundTransparency = 1.000
-    TabMain.Position = UDim2.new(0.217000037, 0, 0, 3)
+    
+   -- 修改后
+   TabMain.Position = UDim2.new(Side.Size.X.Scale, 0, 0, 3)  -- 根据侧边栏宽度调整
     TabMain.Size = UDim2.new(0, 448, 0, 396)
 
     MainC.CornerRadius = UDim.new(0, 5.5)
