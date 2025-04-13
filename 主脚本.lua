@@ -342,6 +342,61 @@ credits:Toggle("自动零延迟交互", "Toggle", false, function(Value)
         table.insert(connections, newPromptConn)
     end
 end)
+local autoInteract = false
+local trackedPrompts = {}
+local connections = {}
+
+-- 核心检测函数
+local function processPrompt(prompt)
+    if not trackedPrompts[prompt] then
+        trackedPrompts[prompt] = true
+        
+        -- 创建区域检测连接
+        local conn
+        conn = game:GetService("RunService").Heartbeat:Connect(function()
+            if autoInteract and prompt.Enabled then
+                local char = game.Players.LocalPlayer.Character
+                if char and char:FindFirstChild("HumanoidRootPart") then
+                    local distance = (char.HumanoidRootPart.Position - prompt.Parent.Position).Magnitude
+                    if distance <= prompt.MaxActivationDistance then
+                        -- 自动触发提示
+                        prompt:InputHoldBegin()
+                        prompt:InputHoldEnd()
+                    end
+                end
+            end
+        end)
+        table.insert(connections, conn)
+    end
+end
+
+credits:Toggle("智能自动交互(建议搭配立即互动)", "Toggle", false, function(value)
+    autoInteract = value
+    
+    -- 清理旧连接
+    for _, conn in pairs(connections) do
+        conn:Disconnect()
+    end
+    trackedPrompts = {}
+    connections = {}
+    
+    if autoInteract then
+        -- 初始化检测现有提示
+        for _, prompt in ipairs(workspace:GetDescendants()) do
+            if prompt:IsA("ProximityPrompt") then
+                processPrompt(prompt)
+            end
+        end
+        
+        -- 监听新提示
+        local newPromptConn = workspace.DescendantAdded:Connect(function(obj)
+            if obj:IsA("ProximityPrompt") then
+                processPrompt(obj)
+            end
+        end)
+        table.insert(connections, newPromptConn)
+    end
+end)
     credits:Toggle("人物显示", "RWXS", false, function(RWXS)    getgenv().enabled = RWXS getgenv().filluseteamcolor = true getgenv().outlineuseteamcolor = true getgenv().fillcolor = Color3.new(1, 0, 0) getgenv().outlinecolor = Color3.new(1, 1, 1) getgenv().filltrans = 0.5 getgenv().outlinetrans = 0.5 loadstring(game:HttpGet("https://raw.githubusercontent.com/Vcsk/RobloxScripts/main/Highlight-ESP.lua"))()end) 
     credits:Button("无敌可能不适用",function()
      loadstring(game:HttpGet('https://pastebin.com/raw/H3RLCWWZ'))()
