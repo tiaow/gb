@@ -676,6 +676,116 @@ end)
     end)
      local creds = window:Tab("音频",'106133116600295')
 local credits = creds:section("内容",true)
+-- 音乐播放系统初始化
+local SoundService = game:GetService("SoundService")
+local currentSound
+local isPaused = false
+
+-- 播放功能
+credits:Textbox("音乐播放器", "输入音乐ID", "输入音乐ID", function(Value)
+    local musicID = Value:match("%d+")
+    
+    -- 输入验证
+    if not musicID or musicID == "" then
+        sendNotification("输入错误", "请输入有效的数字ID")
+        return
+    end
+    
+    -- 清理之前的音效
+    cleanupSound()
+    
+    -- 创建新音效
+    currentSound = Instance.new("Sound")
+    currentSound.SoundId = "rbxassetid://"..musicID
+    currentSound.Parent = SoundService
+    
+    -- 尝试播放
+    local success, err = pcall(function()
+        currentSound:Play()
+        isPaused = false
+    end)
+    
+    -- 处理结果
+    if success then
+        sendNotification("播放成功", "正在播放 ID: "..musicID)
+    else
+        handlePlayError(err)
+    end
+end)
+
+-- 暂停功能
+credits:Button("暂停音乐", function()
+    if not currentSound then
+        sendNotification("操作失败", "没有正在播放的音乐")
+        return
+    end
+    
+    if isPaused then
+        sendNotification("提示", "音乐已经处于暂停状态")
+        return
+    end
+    
+    local success, err = pcall(function()
+        currentSound:Pause()
+        isPaused = true
+    end)
+    
+    if success then
+        sendNotification("已暂停", "点击继续按钮恢复播放")
+    else
+        sendNotification("暂停失败", "错误: "..tostring(err))
+    end
+end)
+
+-- 继续功能
+credits:Button("继续播放", function()
+    if not currentSound then
+        sendNotification("操作失败", "没有可继续的音乐")
+        return
+    end
+    
+    if not isPaused then
+        sendNotification("提示", "音乐正在正常播放中")
+        return
+    end
+    
+    local success, err = pcall(function()
+        currentSound:Resume()  -- 或者使用 currentSound:Play()
+        isPaused = false
+    end)
+    
+    if success then
+        sendNotification("继续播放", "音乐已恢复")
+    else
+        sendNotification("继续失败", "错误: "..tostring(err))
+    end
+end)
+
+-- 辅助函数
+function sendNotification(title, text)
+    game.StarterGui:SetCore("SendNotification", {
+        Title = title,
+        Text = text,
+        Duration = 3
+    })
+end
+
+function cleanupSound()
+    if currentSound then
+        pcall(function()
+            currentSound:Stop()
+            currentSound:Destroy()
+        end)
+        currentSound = nil
+        isPaused = false
+    end
+end
+
+function handlePlayError(err)
+    warn("播放失败: "..err)
+    sendNotification("播放失败", "错误代码: "..tostring(err))
+    cleanupSound()
+end
 credits:Button("彩虹瀑布",function()
     local sound = Instance.new("Sound")
     sound.SoundId = "rbxassetid://1837879082"
@@ -1747,6 +1857,16 @@ credits:Button("确认传送", function()
         library:Notification("传送失败", "请先选择目标位置！")
     end
 end)
+credits:Textbox("输入绿宝石","Textbox","0", function(Value)
+Zhidinyi = Value   
+ end)
+credits:Toggle("执行无限绿宝石(娱乐)", "Toggle", false,function(Value)
+lubaoshi = Value
+while lubaoshi do
+game.Players.LocalPlayer.leaderstats.Emerald.Value = Zhidinyi
+task.wait(0.0001)
+end
+end)
  Notification:Notify( 
      {Title = "提示", Description = "已全部加载好"}, 
      {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 3, Type = "image"}, 
@@ -1756,3 +1876,4 @@ end)
     local music = Instance.new("Sound", game.Workspace)
     music.SoundId = musicId
     music:Play()
+    
