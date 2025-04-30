@@ -229,7 +229,8 @@ local function updatePlayerCode()
 end
 
 updatePlayerCode()
-
+ local creds = window:Tab("成就",'106133116600295')
+local credits = creds:section("内容",true)
 local creds = window:Tab("通用",'7743875962')
 local credits = creds:section("内容",true)      
     credits:Slider("步行速度", "WalkSpeed", game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, 16, 1000, false, function(Speed)
@@ -245,7 +246,7 @@ end)
     credits:Slider('缩放距离', 'ZOOOOOM OUT!',  128, 128, 200000,false, function(value)
     game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = value
     end)
-    credits:Slider('视界（正常70）', 'Sliderflag', 70, 0.1, 250, false, function(v)
+    credits:Slider('视界（正常70）', 'Sliderflag', 70, 0.1, 120, false, function(v)
         game.Workspace.CurrentCamera.FieldOfView = v
     end)
    
@@ -418,7 +419,7 @@ credits:Toggle('上帝模式', 'No Description', false, function(Value)
             game.Players.LocalPlayer.Character.Head:Destroy()
         end
     end)
-
+credits:Button("第三人称(需手动缩放)", function()  game.Players.LocalPlayer.CameraMode = Enum.CameraMode.Classic  end)
 credits:Button("隐身道具", function()
   loadstring(game:HttpGet("https://gist.githubusercontent.com/skid123skidlol/cd0d2dce51b3f20ad1aac941da06a1a1/raw/f58b98cce7d51e53ade94e7bb460e4f24fb7e0ff/%257BFE%257D%2520Invisible%2520Tool%2520(can%2520hold%2520tools)",true))()
 end)      
@@ -682,7 +683,7 @@ local currentSound
 local isPaused = false
 
 -- 播放功能
-credits:Textbox("音乐播放器", "输入音乐ID", "例如：123456789", function(Value)
+credits:Textbox("音乐播放器", "输入音乐ID", "输入音乐ID", function(Value)
     local musicID = Value:match("%d+")
     
     -- 输入验证
@@ -1594,6 +1595,126 @@ local credits = creds:section("更改数值",true)
 credits:Textbox("赢得胜场", "输入数字", "0", function(Value)
     game:GetService("Players").LocalPlayer.leaderstats.Wins.Value = tonumber(Value) or 0
 end)
+
+
+local weldingButton
+local clickSound = Instance.new("Sound")
+clickSound.SoundId = "rbxassetid://3848738542"
+clickSound.Volume = 0.5
+
+-- 改进后的提示函数
+local function showPrompt(message)
+    local tweenService = game:GetService("TweenService")
+    
+    -- 创建提示GUI
+    local promptGui = Instance.new("ScreenGui")
+    promptGui.Name = "PromptGUI"
+    promptGui.ResetOnSpawn = false
+    
+    local mainFrame = Instance.new("Frame")
+    mainFrame.Size = UDim2.new(0, 300, 0, 40)
+    mainFrame.Position = UDim2.new(0.5, 0, 1, -50) -- 初始位置在屏幕底部外
+    mainFrame.AnchorPoint = Vector2.new(0.5, 1)
+    mainFrame.BackgroundColor3 = Color3.new(0, 0, 0)
+    mainFrame.BackgroundTransparency = 1 -- 初始完全透明
+    mainFrame.ClipsDescendants = true
+
+    -- 圆角效果
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0.2, 0)
+    corner.Parent = mainFrame
+
+    -- 文字标签
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.Position = UDim2.new(0, 0, 0, 0)
+    textLabel.BackgroundTransparency = 1
+    textLabel.TextColor3 = Color3.new(1, 1, 1)
+    textLabel.Text = message
+    textLabel.TextSize = 18
+    textLabel.Font = Enum.Font.GothamMedium
+    textLabel.Parent = mainFrame
+
+    mainFrame.Parent = promptGui
+    promptGui.Parent = game:GetService("CoreGui")
+
+    -- 淡入动画
+    local fadeIn = tweenService:Create(
+        mainFrame,
+        TweenInfo.new(0.3, Enum.EasingStyle.Quad),
+        {
+            BackgroundTransparency = 0.5,
+            Position = UDim2.new(0.5, 0, 1, -60) -- 上移显示
+        }
+    )
+    
+    -- 淡出动画
+    local fadeOut = tweenService:Create(
+        mainFrame,
+        TweenInfo.new(0.5, Enum.EasingStyle.Quad),
+        {
+            BackgroundTransparency = 1,
+            Position = UDim2.new(0.5, 0, 1, -30)
+        }
+    )
+
+    -- 动画序列
+    fadeIn:Play()
+    fadeIn.Completed:Wait()
+    wait(2.4) -- 保持显示时间
+    fadeOut:Play()
+    fadeOut.Completed:Connect(function()
+        promptGui:Destroy()
+    end)
+end
+
+credits:Button("创建焊接按钮", function()
+    if weldingButton then weldingButton:Destroy() end
+
+    -- 创建按钮
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "WeldingButtonGUI"
+    screenGui.ResetOnSpawn = false
+    
+    weldingButton = Instance.new("TextButton")
+    weldingButton.Size = UDim2.new(0, 120, 0, 40)
+    weldingButton.Position = UDim2.new(1, -10, 0.5, -20)
+    weldingButton.AnchorPoint = Vector2.new(1, 0.5)
+    weldingButton.BackgroundColor3 = Color3.new(1, 1, 1)
+    weldingButton.BackgroundTransparency = 0.8
+    weldingButton.Text = "焊接按钮"
+    weldingButton.TextColor3 = Color3.new(1, 1, 1)
+    weldingButton.TextSize = 16
+    
+    -- 圆角效果
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0.3, 0)
+    corner.Parent = weldingButton
+
+    -- 点击事件
+    weldingButton.MouseButton1Click:Connect(function()
+        clickSound:Play()
+        showPrompt("焊接成功")
+        
+        local args = {
+            [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("GoldBar"),
+            [2] = workspace:WaitForChild("Train"):WaitForChild("Platform"):WaitForChild("Part")
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Network"):WaitForChild("RemoteEvent"):WaitForChild("RequestWeld"):FireServer(unpack(args))
+    end)
+
+    weldingButton.Parent = screenGui
+    screenGui.Parent = game:GetService("CoreGui")
+end)
+
+credits:Button("删除焊接按钮", function()
+    if weldingButton then
+        weldingButton.Parent:Destroy()
+        weldingButton = nil
+    end
+end)
+
+clickSound.Parent = game:GetService("SoundService")
 
 
 -- 配置参数（已修改为3x3x3）
