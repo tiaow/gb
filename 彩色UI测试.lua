@@ -4,24 +4,8 @@ until game:IsLoaded()
 local library = {}
 local ToggleUI = false
 library.currentTab = nil
-local DataStoreService = game:GetService("DataStoreService")
-local medalsStore = DataStoreService:GetDataStore("PlayerMedals")
-local playerMedals = {} -- 全局勋章存储表
-
--- 玩家数据加载/保存
-game.Players.PlayerAdded:Connect(function(player)
-    local success, data = pcall(function()
-        return medalsStore:GetAsync(player.UserId)
-    end)
-    playerMedals[player.UserId] = success and data or {}
-end)
-
-game.Players.PlayerRemoving:Connect(function(player)
-    pcall(function()
-        medalsStore:SetAsync(player.UserId, playerMedals[player.UserId] or {})
-    end)
-end)
 library.flags = {}
+
 local services =
     setmetatable(
     {},
