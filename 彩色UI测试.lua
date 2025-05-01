@@ -5,7 +5,24 @@ local library = {}
 local ToggleUI = false
 library.currentTab = nil
 library.flags = {}
+local DataStoreService = game:GetService("DataStoreService")
+local medalsStore = DataStoreService:GetDataStore("PlayerMedals")
+local playerMedals = {} -- 全局勋章存储表
 
+-- 玩家加入时加载数据
+game.Players.PlayerAdded:Connect(function(player)
+    local success, data = pcall(function()
+        return medalsStore:GetAsync(player.UserId)
+    end)
+    playerMedals[player.UserId] = success and data or {}
+end)
+
+-- 玩家离开时保存数据
+game.Players.PlayerRemoving:Connect(function(player)
+    pcall(function()
+        medalsStore:SetAsync(player.UserId, playerMedals[player.UserId] or {})
+    end)
+end)
 local services =
     setmetatable(
     {},
@@ -1082,19 +1099,19 @@ end
                   end)
                   BoxBG.Size = UDim2.new(0, TextBox.TextBounds.X + 30, 0, 28)
                 end
-            function section.Credit(section, imageId, topText, descText, callback)
-    local callback = callback or function() return false end
-    
-    -- 参数校验
-    assert(imageId, "缺少图片ID参数 (参数1)")
-    assert(topText, "缺少顶部文字参数 (参数2)")
-    assert(descText, "缺少描述文字参数 (参数3)")
+            function section.Credit(section, medalId, imageId, topText, descText, unlockCondition)
+    assert(medalId, "勋章ID缺失 (参数1)")
+    assert(imageId, "图片ID缺失 (参数2)")
+    assert(topText, "标题文字缺失 (参数3)")
+    assert(descText, "描述文字缺失 (参数4)")
+    unlockCondition = unlockCondition or function() return false end
 
+    -- UI元素定义
     local CreditModule = Instance.new("Frame")
     local CreditBtn = Instance.new("TextButton")
     local LeftImage = Instance.new("ImageLabel")
     local ImageCorner = Instance.new("UICorner")
-    local TextBg = Instance.new("Frame")  -- 新增文字背景板
+    local TextBg = Instance.new("Frame")
     local TopLabel = Instance.new("TextLabel")
     local DescLabel = Instance.new("TextLabel")
 
@@ -1102,7 +1119,7 @@ end
     CreditModule.Name = "CreditModule"
     CreditModule.Parent = Objs
     CreditModule.BackgroundTransparency = 1
-    CreditModule.Size = UDim2.new(1, 0, 0, 80)  -- 调整高度
+    CreditModule.Size = UDim2.new(1, 0, 0, 80)
 
     --=== 按钮主体 ===--
     CreditBtn.Name = "CreditBtn"
@@ -1113,7 +1130,7 @@ end
     CreditBtn.AutoButtonColor = false
     CreditBtn.Text = ""
 
-    --=== 圆形图片 ===--
+    --=== 动态图片 ===--
     LeftImage.Name = "LeftImage"
     LeftImage.Parent = CreditBtn
     LeftImage.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
@@ -1121,7 +1138,7 @@ end
     LeftImage.Position = UDim2.new(0.02, 0, 0.5, -30)
     LeftImage.Image = "rbxassetid://"..imageId
     LeftImage.ScaleType = Enum.ScaleType.Crop
-    LeftImage.ImageColor3 = Color3.fromRGB(150, 150, 150)  -- 初始暗淡
+    LeftImage.ImageColor3 = Color3.fromRGB(150, 150, 150) -- 初始暗淡
     
     ImageCorner.CornerRadius = UDim.new(1, 0)
     ImageCorner.Parent = LeftImage
@@ -1129,8 +1146,8 @@ end
     --=== 文字背景板 ===--
     TextBg.Name = "TextBg"
     TextBg.Parent = CreditBtn
-    TextBg.BackgroundColor3 = zyColor  -- 使用主界面颜色
-    TextBg.BackgroundTransparency = 0.3
+    TextBg.BackgroundColor3 = zyColor -- 与主题完全一致
+    TextBg.BackgroundTransparency = 0.2
     TextBg.Position = UDim2.new(0.18, 0, 0.05, 0)
     TextBg.Size = UDim2.new(0.78, 0, 0.9, 0)
     
@@ -1142,8 +1159,8 @@ end
     TopLabel.Name = "TopLabel"
     TopLabel.Parent = TextBg
     TopLabel.Font = Enum.Font.GothamBold
-    TopLabel.TextColor3 = Color3.fromRGB(255, 255, 150)  -- 金色标题
-    TopLabel.TextSize = 18  -- 调大字号
+    TopLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- 纯白标题
+    TopLabel.TextSize = 18
     TopLabel.TextXAlignment = Enum.TextXAlignment.Left
     TopLabel.TextWrapped = true
     TopLabel.Size = UDim2.new(1, -10, 0.4, 0)
@@ -1153,53 +1170,68 @@ end
     DescLabel.Name = "DescLabel"
     DescLabel.Parent = TextBg
     DescLabel.Font = Enum.Font.Gotham
-    DescLabel.TextColor3 = Color3.fromRGB(220, 220, 220)  -- 浅灰描述
-    DescLabel.TextSize = 16  -- 调大字号
+    DescLabel.TextColor3 = Color3.fromRGB(200, 200, 200) -- 浅灰描述
+    DescLabel.TextSize = 16
     DescLabel.TextXAlignment = Enum.TextXAlignment.Left
     DescLabel.TextWrapped = true
     DescLabel.Size = UDim2.new(1, -10, 0.6, 0)
     DescLabel.Position = UDim2.new(0, 10, 0.4, 0)
     DescLabel.Text = descText
 
-    --=== 点击效果 ===--
+    --=== 点击波纹 ===--
     CreditBtn.MouseButton1Click:Connect(function()
         Ripple(CreditBtn)
     end)
 
-    --=== 解锁检测 ===--
-    local checkInterval = 5  -- 检测间隔
-    local unlocked = false
-    
-    local function checkUnlock()
-        if unlocked then return end
-        local success, result = pcall(callback)
-        if success and result then
-            unlocked = true
-            -- 图片高亮动画
-            Tween(LeftImage, {0.5, "Quad", "Out"}, {
-                ImageColor3 = Color3.fromRGB(255, 255, 255),  -- 变为全亮
-                BackgroundTransparency = 0.9
-            })
-            -- 背景板高亮
-            Tween(TextBg, {0.3, "Sine", "Out"}, {
-                BackgroundTransparency = 0.1,
-                BackgroundColor3 = zyColor:lerp(Color3.new(1,1,1), 0.1)
-            })
-            -- 弹出通知
-            game.StarterGui:SetCore("SendNotification", {
-                Title = "成就解锁！",
-                Text = topText,
-                Icon = LeftImage.Image,
-                Duration = 5
-            })
-        end
+    --=== 勋章状态管理 ===--
+    local player = services.Players.LocalPlayer
+    local medalKey = medalId.."_"..player.UserId
+    local isUnlocked = false
+
+    -- 加载保存状态
+    if playerMedals[player.UserId] and playerMedals[player.UserId][medalKey] then
+        LeftImage.ImageColor3 = Color3.fromRGB(255, 255, 255)
+        TextBg.BackgroundTransparency = 0.1
+        isUnlocked = true
     end
 
-    -- 启动检测循环
+    -- 自动检测解锁
     spawn(function()
         while true do
-            checkUnlock()
-            wait(checkInterval)
+            if not isUnlocked then
+                local success, result = pcall(unlockCondition)
+                if success and result then
+                    isUnlocked = true
+                    playerMedals[player.UserId] = playerMedals[player.UserId] or {}
+                    playerMedals[player.UserId][medalKey] = true
+                    
+                    -- 图片高亮动画
+                    Tween(LeftImage, {0.5, "Quad", "Out"}, {
+                        ImageColor3 = Color3.fromRGB(255, 255, 255),
+                        BackgroundTransparency = 0.9
+                    })
+                    
+                    -- 背景板动画
+                    Tween(TextBg, {0.3, "Sine", "Out"}, {
+                        BackgroundTransparency = 0.1,
+                        BackgroundColor3 = zyColor:lerp(Color3.new(1,1,1), 0.1)
+                    })
+
+                    -- 保存数据
+                    pcall(function()
+                        medalsStore:SetAsync(player.UserId, playerMedals[player.UserId])
+                    end)
+
+                    -- 系统通知
+                    services.StarterGui:SetCore("SendNotification", {
+                        Title = "🏆 成就解锁",
+                        Text = topText,
+                        Icon = LeftImage.Image,
+                        Duration = 5
+                    })
+                end
+            end
+            wait(5) -- 每5秒检测一次
         end
     end)
 
@@ -1209,12 +1241,8 @@ end
             TopLabel.Text = newTitle
             DescLabel.Text = newDesc
         end,
-        ForceUnlock = function()
-            if not unlocked then
-                unlocked = true
-                LeftImage.ImageColor3 = Color3.fromRGB(255, 255, 255)
-                TextBg.BackgroundTransparency = 0.1
-            end
+        UnlockStatus = function()
+            return isUnlocked
         end
     }
 end
