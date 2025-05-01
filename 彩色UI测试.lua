@@ -1104,38 +1104,45 @@ end
     CreditModule.BackgroundTransparency = 1
     CreditModule.Size = UDim2.new(1, 0, 0, 80)
 
-    --=== 透明按钮主体 ===--
+    --=== 按钮主体 (还原为你的图片样式) ===--
     CreditBtn.Name = "CreditBtn"
     CreditBtn.Parent = CreditModule
-    CreditBtn.BackgroundTransparency = 1 -- 完全透明
-    CreditBtn.Size = UDim2.new(1, 0, 0, 75)
+    CreditBtn.BackgroundColor3 = zyColor -- 使用主题色
+    CreditBtn.BackgroundTransparency = 0.3 -- 半透明效果
+    CreditBtn.Size = UDim2.new(1, -10, 0, 75)
+    CreditBtn.Position = UDim2.new(0, 5, 0, 2)
+    CreditBtn.AutoButtonColor = false
     CreditBtn.Text = ""
+    
+    local btnCorner = Instance.new("UICorner")
+    btnCorner.CornerRadius = UDim.new(0, 6)
+    btnCorner.Parent = CreditBtn
 
     --=== 圆形图片 ===--
     LeftImage.Name = "LeftImage"
     LeftImage.Parent = CreditBtn
-    LeftImage.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    LeftImage.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     LeftImage.Size = UDim2.new(0, 60, 0, 60)
     LeftImage.Position = UDim2.new(0.02, 0, 0.5, -30)
     LeftImage.Image = "rbxassetid://"..imageId
     LeftImage.ScaleType = Enum.ScaleType.Crop
-    LeftImage.ImageColor3 = Color3.fromRGB(150, 150, 150) -- 初始暗淡
+    LeftImage.ImageTransparency = 0.5 -- 初始半透明
     
     ImageCorner.CornerRadius = UDim.new(1, 0)
     ImageCorner.Parent = LeftImage
 
-    --=== 文字容器 ===--
+    --=== 文字容器 (还原图片布局) ===--
     TextContainer.Name = "TextContainer"
     TextContainer.Parent = CreditBtn
-    TextContainer.BackgroundTransparency = 1 -- 完全透明
+    TextContainer.BackgroundTransparency = 1
     TextContainer.Position = UDim2.new(0.18, 0, 0, 0)
     TextContainer.Size = UDim2.new(0.78, 0, 1, 0)
 
-    --=== 文字内容 ===--
+    -- 标题文字 (始终白色)
     TopLabel.Name = "TopLabel"
     TopLabel.Parent = TextContainer
     TopLabel.Font = Enum.Font.GothamBold
-    TopLabel.TextColor3 = Color3.fromRGB(200, 200, 200) -- 初始灰色
+    TopLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     TopLabel.TextSize = 18
     TopLabel.TextXAlignment = Enum.TextXAlignment.Left
     TopLabel.TextWrapped = true
@@ -1143,51 +1150,18 @@ end
     TopLabel.Position = UDim2.new(0, 10, 0, 8)
     TopLabel.Text = topText
 
+    -- 描述文字 (白色+透明度)
     DescLabel.Name = "DescLabel"
     DescLabel.Parent = TextContainer
     DescLabel.Font = Enum.Font.Gotham
-    DescLabel.TextColor3 = Color3.fromRGB(150, 150, 150) -- 更浅灰色
+    DescLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    DescLabel.TextTransparency = 0.3 -- 浅白色
     DescLabel.TextSize = 16
     DescLabel.TextXAlignment = Enum.TextXAlignment.Left
     DescLabel.TextWrapped = true
     DescLabel.Size = UDim2.new(1, -10, 0.6, 0)
     DescLabel.Position = UDim2.new(0, 10, 0.4, 0)
     DescLabel.Text = descText
-
-    --=== 成就提示系统 ===--
-    local function ShowUnlockToast()
-        -- 创建提示框
-        local toast = Instance.new("Frame")
-        toast.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-        toast.Size = UDim2.new(0.4, 0, 0, 60)
-        toast.Position = UDim2.new(0.3, 0, 0.1, -60)
-        toast.AnchorPoint = Vector2.new(0.5, 0)
-        toast.Parent = game.CoreGui
-
-        local icon = Instance.new("ImageLabel")
-        icon.Image = LeftImage.Image
-        icon.Size = UDim2.new(0, 50, 0, 50)
-        icon.Position = UDim2.new(0, 10, 0.5, -25)
-        icon.Parent = toast
-
-        local title = Instance.new("TextLabel")
-        title.Text = "成就解锁："..topText
-        title.TextColor3 = Color3.fromRGB(0, 255, 0)
-        title.Font = Enum.Font.GothamBold
-        title.TextSize = 18
-        title.Position = UDim2.new(0, 70, 0, 10)
-        title.Parent = toast
-
-        -- 动画效果
-        Tween(toast, {0.5, "Quad", "Out"}, {
-            Position = UDim2.new(0.3, 0, 0.1, 0)
-        })
-        wait(3)
-        Tween(toast, {0.5, "Quad", "In"}, {
-            Position = UDim2.new(0.3, 0, 0.1, -60)
-        }):Wait()
-        toast:Destroy()
-    end
 
     --=== 解锁系统 ===--
     local unlocked = false
@@ -1199,18 +1173,20 @@ end
             unlocked = true
             -- 图片高亮动画
             Tween(LeftImage, {0.5, "Quad", "Out"}, {
-                ImageColor3 = Color3.fromRGB(255, 255, 255),
+                ImageTransparency = 0,
                 BackgroundTransparency = 0.9
             })
-            -- 文字颜色变化
-            Tween(TopLabel, {0.3, "Sine", "Out"}, {
-                TextColor3 = Color3.fromRGB(0, 255, 0) -- 解锁后变绿色
+            -- 按钮高亮
+            Tween(CreditBtn, {0.3, "Sine", "Out"}, {
+                BackgroundTransparency = 0.1
             })
-            Tween(DescLabel, {0.3, "Sine", "Out"}, {
-                TextColor3 = Color3.fromRGB(200, 200, 200)
+            -- 弹出提示
+            game.StarterGui:SetCore("SendNotification", {
+                Title = "🎉 成就解锁",
+                Text = topText,
+                Icon = LeftImage.Image,
+                Duration = 3
             })
-            -- 显示提示
-            ShowUnlockToast()
         end
     end
 
@@ -1233,9 +1209,8 @@ end
         ForceUnlock = function()
             if not unlocked then
                 unlocked = true
-                LeftImage.ImageColor3 = Color3.fromRGB(255, 255, 255)
-                TopLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
-                ShowUnlockToast()
+                LeftImage.ImageTransparency = 0
+                CreditBtn.BackgroundTransparency = 0.1
             end
         end
     }
