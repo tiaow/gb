@@ -1104,19 +1104,14 @@ end
     CreditModule.BackgroundTransparency = 1
     CreditModule.Size = UDim2.new(1, 0, 0, 80)
 
-    --=== 按钮主体 (还原为你的图片样式) ===--
+    --=== 透明按钮主体 ===--
     CreditBtn.Name = "CreditBtn"
     CreditBtn.Parent = CreditModule
-    CreditBtn.BackgroundColor3 = zyColor -- 使用主题色
-    CreditBtn.BackgroundTransparency = 0.3 -- 半透明效果
-    CreditBtn.Size = UDim2.new(1, -10, 0, 75)
-    CreditBtn.Position = UDim2.new(0, 5, 0, 2)
+    CreditBtn.BackgroundTransparency = 1 -- 完全透明
+    CreditBtn.Size = UDim2.new(1, 0, 0, 75)
+    CreditBtn.Position = UDim2.new(0, 0, 0, 2)
     CreditBtn.AutoButtonColor = false
     CreditBtn.Text = ""
-    
-    local btnCorner = Instance.new("UICorner")
-    btnCorner.CornerRadius = UDim.new(0, 6)
-    btnCorner.Parent = CreditBtn
 
     --=== 圆形图片 ===--
     LeftImage.Name = "LeftImage"
@@ -1131,18 +1126,18 @@ end
     ImageCorner.CornerRadius = UDim.new(1, 0)
     ImageCorner.Parent = LeftImage
 
-    --=== 文字容器 (还原图片布局) ===--
+    --=== 文字容器 ===--
     TextContainer.Name = "TextContainer"
     TextContainer.Parent = CreditBtn
     TextContainer.BackgroundTransparency = 1
     TextContainer.Position = UDim2.new(0.18, 0, 0, 0)
     TextContainer.Size = UDim2.new(0.78, 0, 1, 0)
 
-    -- 标题文字 (始终白色)
+    --=== 文字内容 ===--
     TopLabel.Name = "TopLabel"
     TopLabel.Parent = TextContainer
     TopLabel.Font = Enum.Font.GothamBold
-    TopLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TopLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- 纯白
     TopLabel.TextSize = 18
     TopLabel.TextXAlignment = Enum.TextXAlignment.Left
     TopLabel.TextWrapped = true
@@ -1150,12 +1145,11 @@ end
     TopLabel.Position = UDim2.new(0, 10, 0, 8)
     TopLabel.Text = topText
 
-    -- 描述文字 (白色+透明度)
     DescLabel.Name = "DescLabel"
     DescLabel.Parent = TextContainer
     DescLabel.Font = Enum.Font.Gotham
-    DescLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    DescLabel.TextTransparency = 0.3 -- 浅白色
+    DescLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- 纯白
+    DescLabel.TextTransparency = 0.3 -- 透明度区分层级
     DescLabel.TextSize = 16
     DescLabel.TextXAlignment = Enum.TextXAlignment.Left
     DescLabel.TextWrapped = true
@@ -1176,13 +1170,9 @@ end
                 ImageTransparency = 0,
                 BackgroundTransparency = 0.9
             })
-            -- 按钮高亮
-            Tween(CreditBtn, {0.3, "Sine", "Out"}, {
-                BackgroundTransparency = 0.1
-            })
             -- 弹出提示
             game.StarterGui:SetCore("SendNotification", {
-                Title = "🎉 成就解锁",
+                Title = "🏆 成就解锁",
                 Text = topText,
                 Icon = LeftImage.Image,
                 Duration = 3
@@ -1210,7 +1200,6 @@ end
             if not unlocked then
                 unlocked = true
                 LeftImage.ImageTransparency = 0
-                CreditBtn.BackgroundTransparency = 0.1
             end
         end
     }
