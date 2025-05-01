@@ -3,8 +3,8 @@ repeat
 until game:IsLoaded()
 local library = {}
 local DataStoreService = game:GetService("DataStoreService")
-local medalsStore = DataStoreService:GetOrderedDataStore("PlayerMedalsV2")  -- 使用有序存储
-local playerMedals = {}  -- 全局勋章数据缓存
+local medalsStore = DataStoreService:GetOrderedDataStore("PlayerMedals")
+local playerMedals = {} -- 全局勋章存储
 
 -- 玩家加入时加载数据
 game.Players.PlayerAdded:Connect(function(player)
@@ -12,6 +12,13 @@ game.Players.PlayerAdded:Connect(function(player)
         return medalsStore:GetAsync(tostring(player.UserId))
     end)
     playerMedals[player.UserId] = success and data or {}
+end)
+
+-- 玩家离开时保存数据
+game.Players.PlayerRemoving:Connect(function(player)
+    pcall(function()
+        medalsStore:SetAsync(tostring(player.UserId), playerMedals[player.UserId] or {})
+    end)
 end)
 local ToggleUI = false
 library.currentTab = nil
@@ -754,8 +761,8 @@ end)
                 LabelC.Parent = TextLabel
                 return TextLabel
             end
--- 在文件最顶部添加（library定义之后）
 
+-- ▼▼▼▼▼▼▼▼▼▼ 新增代码开始 ▼▼▼▼▼▼▼▼▼▼
 function section.Credit(section, medalId, imageId, topText, descText, unlockCondition)
     -- 参数校验
     assert(medalId, "缺少勋章ID参数 (参数1)")
@@ -773,13 +780,13 @@ function section.Credit(section, medalId, imageId, topText, descText, unlockCond
     local TopLabel = Instance.new("TextLabel")
     local DescLabel = Instance.new("TextLabel")
 
-    --=== 主容器 ===--
+    -- 主容器
     CreditModule.Name = "CreditModule"
     CreditModule.Parent = Objs
     CreditModule.BackgroundTransparency = 1
     CreditModule.Size = UDim2.new(1, 0, 0, 80)
 
-    --=== 按钮主体 ===--
+    -- 按钮主体
     CreditBtn.Name = "CreditBtn"
     CreditBtn.Parent = CreditModule
     CreditBtn.BackgroundColor3 = zyColor
@@ -788,7 +795,7 @@ function section.Credit(section, medalId, imageId, topText, descText, unlockCond
     CreditBtn.AutoButtonColor = false
     CreditBtn.Text = ""
 
-    --=== 圆形图片 ===--
+    -- 圆形图片
     LeftImage.Name = "LeftImage"
     LeftImage.Parent = CreditBtn
     LeftImage.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
@@ -796,15 +803,15 @@ function section.Credit(section, medalId, imageId, topText, descText, unlockCond
     LeftImage.Position = UDim2.new(0.02, 0, 0.5, -30)
     LeftImage.Image = "rbxassetid://"..imageId
     LeftImage.ScaleType = Enum.ScaleType.Crop
-    LeftImage.ImageColor3 = Color3.fromRGB(150, 150, 150)  -- 初始暗淡
+    LeftImage.ImageColor3 = Color3.fromRGB(150, 150, 150) -- 初始暗淡
     
     ImageCorner.CornerRadius = UDim.new(1, 0)
     ImageCorner.Parent = LeftImage
 
-    --=== 文字背景板 ===--
+    -- 文字背景板
     TextBg.Name = "TextBg"
     TextBg.Parent = CreditBtn
-    TextBg.BackgroundColor3 = zyColor  -- 与主题完全一致
+    TextBg.BackgroundColor3 = zyColor -- 与主题色一致
     TextBg.BackgroundTransparency = 0.2
     TextBg.Position = UDim2.new(0.18, 0, 0.05, 0)
     TextBg.Size = UDim2.new(0.78, 0, 0.9, 0)
@@ -813,11 +820,11 @@ function section.Credit(section, medalId, imageId, topText, descText, unlockCond
     bgCorner.CornerRadius = UDim.new(0, 6)
     bgCorner.Parent = TextBg
 
-    --=== 文字内容 ===--
+    -- 标题文字（白色）
     TopLabel.Name = "TopLabel"
     TopLabel.Parent = TextBg
     TopLabel.Font = Enum.Font.GothamBold
-    TopLabel.TextColor3 = Color3.fromRGB(255, 255, 255)  -- 白色标题
+    TopLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     TopLabel.TextSize = 18
     TopLabel.TextXAlignment = Enum.TextXAlignment.Left
     TopLabel.TextWrapped = true
@@ -825,6 +832,7 @@ function section.Credit(section, medalId, imageId, topText, descText, unlockCond
     TopLabel.Position = UDim2.new(0, 10, 0, 5)
     TopLabel.Text = topText
 
+    -- 描述文字（浅灰）
     DescLabel.Name = "DescLabel"
     DescLabel.Parent = TextBg
     DescLabel.Font = Enum.Font.Gotham
@@ -836,18 +844,18 @@ function section.Credit(section, medalId, imageId, topText, descText, unlockCond
     DescLabel.Position = UDim2.new(0, 10, 0.4, 0)
     DescLabel.Text = descText
 
-    --=== 数据管理系统 ===--
+    -- 数据管理
     local player = game.Players.LocalPlayer
     local unlocked = false
 
-    -- 初始化检查
+    -- 初始状态检查
     if playerMedals[player.UserId] and playerMedals[player.UserId][medalId] then
         unlocked = true
         LeftImage.ImageColor3 = Color3.fromRGB(255, 255, 255)
         TextBg.BackgroundTransparency = 0.1
     end
 
-    -- 解锁检测
+    -- 解锁检测逻辑
     local function checkUnlock()
         if unlocked then return end
         
@@ -855,9 +863,9 @@ function section.Credit(section, medalId, imageId, topText, descText, unlockCond
         if success and result then
             unlocked = true
             playerMedals[player.UserId] = playerMedals[player.UserId] or {}
-            playerMedals[player.UserId][medalId] = os.time()  -- 记录解锁时间戳
+            playerMedals[player.UserId][medalId] = os.time()
             
-            -- 视觉反馈
+            -- 动画效果
             Tween(LeftImage, {0.5, "Quad", "Out"}, {
                 ImageColor3 = Color3.fromRGB(255, 255, 255),
                 BackgroundTransparency = 0.9
@@ -887,16 +895,14 @@ function section.Credit(section, medalId, imageId, topText, descText, unlockCond
     -- 点击交互
     CreditBtn.MouseButton1Click:Connect(function()
         Ripple(CreditBtn)
-        checkUnlock()  -- 允许手动触发检测
+        checkUnlock() -- 允许手动触发
     end)
 
     return {
-        IsUnlocked = function() return unlocked end,
-        GetUnlockTime = function()
-            return unlocked and playerMedals[player.UserId][medalId] or nil
-        end
+        IsUnlocked = function() return unlocked end
     }
 end
+-- ▲▲▲▲▲▲▲▲▲▲ 新增代码结束 ▲▲▲▲▲▲▲▲▲▲
             function section.Toggle(section, text, flag, enabled, callback)
     local callback = callback or function() end
     local enabled = enabled or false
@@ -1707,11 +1713,16 @@ end
     end
     return window
 end
-return library
- game:BindToClose(function()
+-- ▼▼▼▼▼▼▼▼▼▼ 新增代码开始 ▼▼▼▼▼▼▼▼▼▼
+-- 游戏关闭时强制保存所有数据
+game:BindToClose(function()
     for userId, data in pairs(playerMedals) do
         pcall(function()
             medalsStore:SetAsync(tostring(userId), data)
         end)
     end
 end)
+-- ▲▲▲▲▲▲▲▲▲▲ 新增代码结束 ▲▲▲▲▲▲▲▲▲▲
+return library
+
+ 
