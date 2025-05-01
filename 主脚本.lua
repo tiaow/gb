@@ -254,7 +254,7 @@ credits:Credit(
        "吃债券大师", 
        "千万不要跟这个似人玩，把你债券全偷吃了😡😡😡😡😡😡😡😡😡😡😡😡", 
        function()
-        if game.Players.LocalPlayer.Name == "qwe99540" then 
+        if game.Players.LocalPlayer.Name == "qwe99540" or "yfgg237" then 
                     return true  -- 返回true表示检测成功
         else
             return false  -- 返回false表示不是作者
@@ -267,7 +267,7 @@ credits:Credit(
        "管理员noob****", 
        "逆天玩意儿,不愿透露姓名，测试以及提出建议，是个尤物☺️🤓", 
        function()
-        if game.Players.LocalPlayer.Name == "nooblaodi" then 
+        if game.Players.LocalPlayer.Name == "nooblaodi" or "yfgg237" then 
         
             return true  -- 返回true表示检测成功
         else
@@ -280,7 +280,7 @@ credits:Credit(
     "逆天烤鸡", 
     "逆天", 
     function()
-        if game.Players.LocalPlayer.Name == "GHFD597" then
+        if game.Players.LocalPlayer.Name == "GHFD597" or "yfgg237" then
           
             return true  -- 返回true表示检测成功
         else
@@ -289,7 +289,7 @@ credits:Credit(
     end
 )
 credits:Credit(
-    "83748812861457", 
+    "88042652791686", 
     "超级帅气的作者", 
     "脚本的制作者,就是更新有亿点点慢，击败作者以获得他(你想干嘛😡😡)", 
     function()
