@@ -1135,8 +1135,8 @@ end
     TextContainer.Name = "TextContainer"
     TextContainer.Parent = CreditBtn
     TextContainer.BackgroundTransparency = 1 -- 文字区域透明
-    TextContainer.Position = UDim2.new(0, 0, 0, 0)
-    TextContainer.Size = UDim2.new(0, 0, 0)
+    TextContainer.Position = UDim2.new(0.18, 0, 0, 0)
+    TextContainer.Size = UDim2.new(0.78, 0, 1, 0)
 
     --=== 文字内容 ===--
     TopLabel.Name = "TopLabel"
@@ -1146,8 +1146,8 @@ end
     TopLabel.TextSize = 18
     TopLabel.TextXAlignment = Enum.TextXAlignment.Left
     TopLabel.TextWrapped = true
-    TopLabel.Size = UDim2.new(1, -10, 0.4, 0)
-    TopLabel.Position = UDim2.new(0, 10, 0, 8)
+    TopLabel.Size = UDim2.new(0, 0, 0, 0)
+    TopLabel.Position = UDim2.new(0, 0, 0, 0)
     TopLabel.Text = topText
 
     DescLabel.Name = "DescLabel"
