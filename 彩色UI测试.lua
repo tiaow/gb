@@ -1082,8 +1082,7 @@ end
                   end)
                   BoxBG.Size = UDim2.new(0, TextBox.TextBounds.X + 30, 0, 28)
                 end
-          -- 在section函数内添加成就按钮方法（和Button/Toggle同级）
-function section.Credit(section, imageId, topText, descText, unlockCondition)
+          function section.Credit(section, imageId, topText, descText, unlockCondition)
     -- 参数校验
     assert(imageId, "缺少图片ID参数 (参数1)")
     assert(topText, "缺少顶部文字参数 (参数2)")
@@ -1095,7 +1094,7 @@ function section.Credit(section, imageId, topText, descText, unlockCondition)
     local CreditBtn = Instance.new("TextButton")
     local LeftImage = Instance.new("ImageLabel")
     local ImageCorner = Instance.new("UICorner")
-    local TextBg = Instance.new("Frame")
+    local TextContainer = Instance.new("Frame") -- 替换背景板为透明容器
     local TopLabel = Instance.new("TextLabel")
     local DescLabel = Instance.new("TextLabel")
 
@@ -1108,7 +1107,7 @@ function section.Credit(section, imageId, topText, descText, unlockCondition)
     --=== 按钮主体 ===--
     CreditBtn.Name = "CreditBtn"
     CreditBtn.Parent = CreditModule
-    CreditBtn.BackgroundColor3 = zyColor -- 使用主题色
+    CreditBtn.BackgroundColor3 = zyColor -- 直接使用主题色
     CreditBtn.Size = UDim2.new(1, -10, 0, 75)
     CreditBtn.Position = UDim2.new(0, 5, 0, 2)
     CreditBtn.AutoButtonColor = false
@@ -1127,32 +1126,27 @@ function section.Credit(section, imageId, topText, descText, unlockCondition)
     ImageCorner.CornerRadius = UDim.new(1, 0)
     ImageCorner.Parent = LeftImage
 
-    --=== 文字背景板 ===--
-    TextBg.Name = "TextBg"
-    TextBg.Parent = CreditBtn
-    TextBg.BackgroundColor3 = zyColor -- 强制使用主题色
-    TextBg.BackgroundTransparency = 0.2
-    TextBg.Position = UDim2.new(0.18, 0, 0.05, 0)
-    TextBg.Size = UDim2.new(0.78, 0, 0.9, 0)
-    
-    local bgCorner = Instance.new("UICorner")
-    bgCorner.CornerRadius = UDim.new(0, 6)
-    bgCorner.Parent = TextBg
+    --=== 文字容器（透明）===--
+    TextContainer.Name = "TextContainer"
+    TextContainer.Parent = CreditBtn
+    TextContainer.BackgroundTransparency = 1 -- 完全透明
+    TextContainer.Position = UDim2.new(0.18, 0, 0, 0)
+    TextContainer.Size = UDim2.new(0.78, 0, 1, 0)
 
     --=== 文字内容 ===--
     TopLabel.Name = "TopLabel"
-    TopLabel.Parent = TextBg
+    TopLabel.Parent = TextContainer
     TopLabel.Font = Enum.Font.GothamBold
-    TopLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- 白色标题
+    TopLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- 白色文字
     TopLabel.TextSize = 18
     TopLabel.TextXAlignment = Enum.TextXAlignment.Left
     TopLabel.TextWrapped = true
     TopLabel.Size = UDim2.new(1, -10, 0.4, 0)
-    TopLabel.Position = UDim2.new(0, 10, 0, 5)
+    TopLabel.Position = UDim2.new(0, 10, 0, 8)
     TopLabel.Text = topText
 
     DescLabel.Name = "DescLabel"
-    DescLabel.Parent = TextBg
+    DescLabel.Parent = TextContainer
     DescLabel.Font = Enum.Font.Gotham
     DescLabel.TextColor3 = Color3.fromRGB(200, 200, 200) -- 浅灰描述
     DescLabel.TextSize = 16
@@ -1172,12 +1166,12 @@ function section.Credit(section, imageId, topText, descText, unlockCondition)
             unlocked = true
             -- 图片高亮动画
             Tween(LeftImage, {0.5, "Quad", "Out"}, {
-                ImageColor3 = Color3.fromRGB(255, 255, 255), -- 全亮
+                ImageColor3 = Color3.fromRGB(255, 255, 255),
                 BackgroundTransparency = 0.9
             })
-            -- 背景板同步主题色变化
-            Tween(TextBg, {0.3, "Sine", "Out"}, {
-                BackgroundTransparency = 0.1
+            -- 文字颜色强化
+            Tween(TopLabel, {0.3, "Sine", "Out"}, {
+                TextColor3 = Color3.fromRGB(255, 255, 0) -- 解锁后标题变金色
             })
         end
     end
@@ -1193,7 +1187,7 @@ function section.Credit(section, imageId, topText, descText, unlockCondition)
     -- 点击效果
     CreditBtn.MouseButton1Click:Connect(function()
         Ripple(CreditBtn)
-        checkUnlock() -- 允许手动检测
+        checkUnlock()
     end)
 
     return {
@@ -1202,7 +1196,7 @@ function section.Credit(section, imageId, topText, descText, unlockCondition)
             if not unlocked then
                 unlocked = true
                 LeftImage.ImageColor3 = Color3.fromRGB(255, 255, 255)
-                TextBg.BackgroundTransparency = 0.1
+                TopLabel.TextColor3 = Color3.fromRGB(255, 255, 0)
             end
         end
     }
