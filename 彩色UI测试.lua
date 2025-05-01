@@ -1082,33 +1082,41 @@ end
                   end)
                   BoxBG.Size = UDim2.new(0, TextBox.TextBounds.X + 30, 0, 28)
                 end
-        function section.Credit(section, imageId, topText, descText, unlockCondition)
+        -- 原文件头部保持不变
+] ...
+
+-- ======================== 成就系统修改部分 ========================
+function section.Credit(section, imageId, topText, descText, unlockCondition, achievementId)
     -- 参数校验
-    assert(imageId, "缺少图片ID参数 (参数1)")
-    assert(topText, "缺少顶部文字参数 (参数2)")
-    assert(descText, "缺少描述文字参数 (参数3)")
-    assert(unlockCondition and type(unlockCondition) == "function", "解锁条件必须为函数 (参数4)")
+    assert(imageId, "Missing image ID (param1)")
+    assert(topText, "Missing top text (param2)")
+    assert(descText, "Missing description (param3)")
+    assert(type(unlockCondition) == "function", "Unlock condition must be function (param4)")
+    assert(achievementId, "Unique achievement ID required (param5)")
 
-    -- UI元素
+    -- 数据存储初始化
+    local DataStoreService = game:GetService("DataStoreService")
+    local achievementStore = DataStoreService:GetDataStore("AchievementData")
+    local unlocked = false
+
+    -- 加载成就状态
+    pcall(function()
+        unlocked = achievementStore:GetAsync(achievementId) or false
+    end)
+
+    -- ████████ UI元素创建 ████████
+    -- 主容器
     local CreditModule = Instance.new("Frame")
-    local CreditBtn = Instance.new("TextButton")
-    local LeftImage = Instance.new("ImageLabel")
-    local ImageCorner = Instance.new("UICorner")
-    local TextContainer = Instance.new("Frame")
-    local TopLabel = Instance.new("TextLabel")
-    local DescLabel = Instance.new("TextLabel")
-
-    --=== 主容器 ===--
     CreditModule.Name = "CreditModule"
     CreditModule.Parent = Objs
     CreditModule.BackgroundTransparency = 1
     CreditModule.Size = UDim2.new(1, 0, 0, 80)
 
-    --=== 按钮主体 ===--
+    -- 按钮主体
+    local CreditBtn = Instance.new("TextButton")
     CreditBtn.Name = "CreditBtn"
     CreditBtn.Parent = CreditModule
     CreditBtn.BackgroundColor3 = zyColor
-    CreditBtn.BackgroundTransparency = 0
     CreditBtn.Size = UDim2.new(1, -10, 0, 75)
     CreditBtn.Position = UDim2.new(0, 5, 0, 2)
     CreditBtn.AutoButtonColor = false
@@ -1118,7 +1126,8 @@ end
     btnCorner.CornerRadius = UDim.new(0, 6)
     btnCorner.Parent = CreditBtn
 
-    --=== 圆形图片 ===--
+    -- 圆形图片
+    local LeftImage = Instance.new("ImageLabel")
     LeftImage.Name = "LeftImage"
     LeftImage.Parent = CreditBtn
     LeftImage.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
@@ -1126,46 +1135,44 @@ end
     LeftImage.Position = UDim2.new(0.02, 0, 0.5, -30)
     LeftImage.Image = "rbxassetid://"..imageId
     LeftImage.ScaleType = Enum.ScaleType.Crop
-    LeftImage.ImageTransparency = 0.5
+    LeftImage.ImageTransparency = unlocked and 0 or 0.5
     
+    local ImageCorner = Instance.new("UICorner")
     ImageCorner.CornerRadius = UDim.new(1, 0)
     ImageCorner.Parent = LeftImage
 
-    --=== 文字容器 ===--
+    -- 文字容器
+    local TextContainer = Instance.new("Frame")
     TextContainer.Name = "TextContainer"
     TextContainer.Parent = CreditBtn
     TextContainer.BackgroundTransparency = 1
     TextContainer.Position = UDim2.new(0.18, 0, 0, 5)
     TextContainer.Size = UDim2.new(0.78, -10, 1, -10)
 
-    --=== 顶部文字 ===--
+    -- 顶部文字
+    local TopLabel = Instance.new("TextLabel")
     TopLabel.Name = "TopLabel"
     TopLabel.Parent = TextContainer
-    TopLabel.BackgroundColor3 = zyColor
     TopLabel.Font = Enum.Font.GothamSemibold
     TopLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     TopLabel.TextSize = 14
     TopLabel.TextXAlignment = Enum.TextXAlignment.Left
-    TopLabel.TextWrapped = true
     TopLabel.Size = UDim2.new(1, 0, 0, 22)
-    TopLabel.Position = UDim2.new(0, 0, 0, 0)
     TopLabel.Text = topText
     
     local topCorner = Instance.new("UICorner")
     topCorner.CornerRadius = UDim.new(0, 6)
     topCorner.Parent = TopLabel
 
-    --=== 描述文字 ===--
+    -- 描述文字
+    local DescLabel = Instance.new("TextLabel")
     DescLabel.Name = "DescLabel"
     DescLabel.Parent = TextContainer
-    DescLabel.BackgroundColor3 = zyColor
     DescLabel.BackgroundTransparency = 0.7
     DescLabel.Font = Enum.Font.GothamSemibold
     DescLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    DescLabel.TextTransparency = 0.2
     DescLabel.TextSize = 14
     DescLabel.TextXAlignment = Enum.TextXAlignment.Left
-    DescLabel.TextWrapped = true
     DescLabel.Size = UDim2.new(1, 0, 0.6, 0)
     DescLabel.Position = UDim2.new(0, 0, 0.3, 0)
     DescLabel.Text = descText
@@ -1174,18 +1181,22 @@ end
     descCorner.CornerRadius = UDim.new(0, 6)
     descCorner.Parent = DescLabel
 
-    --=== 解锁系统 ===--
-    local unlocked = false
-    
+    -- ████████ 成就逻辑 ████████
     local function checkUnlock()
         if unlocked then return end
         local success, result = pcall(unlockCondition)
         if success and result then
             unlocked = true
+            -- 数据持久化
+            pcall(function()
+                achievementStore:SetAsync(achievementId, true)
+            end)
+            -- UI动画
             Tween(LeftImage, {0.5, "Quad", "Out"}, {
                 ImageTransparency = 0,
                 BackgroundTransparency = 0.9
             })
+            -- 系统通知
             game.StarterGui:SetCore("SendNotification", {
                 Title = "🎉 成就解锁",
                 Text = topText,
@@ -1195,13 +1206,15 @@ end
         end
     end
 
+    -- 初始化状态检查
     spawn(function()
-        while not unlocked do
-            checkUnlock()
-            wait(5)
+        if unlocked then
+            LeftImage.ImageTransparency = 0
+            LeftImage.BackgroundTransparency = 0.9
         end
     end)
 
+    -- 按钮交互
     CreditBtn.MouseButton1Click:Connect(function()
         Ripple(CreditBtn)
         checkUnlock()
@@ -1212,11 +1225,17 @@ end
         ForceUnlock = function()
             if not unlocked then
                 unlocked = true
+                pcall(function()
+                    achievementStore:SetAsync(achievementId, true)
+                end)
                 LeftImage.ImageTransparency = 0
+                LeftImage.BackgroundTransparency = 0.9
             end
         end
     }
 end
+
+-- ... [文件后续部分保持不变] ...
             function section.Slider(section, text, flag, default, min, max, precise, callback)
                 local callback = callback or function()
                     end
