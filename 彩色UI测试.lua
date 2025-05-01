@@ -5,11 +5,7 @@ local library = {}
 local ToggleUI = false
 library.currentTab = nil
 library.flags = {}
--- 文件位置：查找 local services = ... 附近
-local clickSound = Instance.new("Sound")
-clickSound.SoundId = "rbxassetid://130785153" -- 布娃娃音效ID（替换为你需要的音效）
-clickSound.Volume = 0.5
-clickSound.Parent = game:GetService("SoundService")
+
 local services =
     setmetatable(
     {},
@@ -152,31 +148,7 @@ function drag(frame, hold)
     )
 end
 
-function library.new(library, name, theme)-- 文件位置：查找 function library.new(...) 的外部
-function library:AddClickableImage(imageId, size)
-    -- 创建图片按钮
-    local imageButton = Instance.new("ImageButton")
-    imageButton.Image = "rbxassetid://"..imageId
-    imageButton.Size = size or UDim2.new(0.9, 0, 0, 80)  -- 默认高度80，宽度90%
-    imageButton.BackgroundTransparency = 1
-    imageButton.Parent = imageContainer
-    
-    -- 点击事件：播放音效 + 动画
-    imageButton.MouseButton1Click:Connect(function()
-        clickSound:Play()
-        Tween(imageButton, {0.1, "Quad"}, {ImageTransparency = 0.3})
-        task.wait(0.1)
-        Tween(imageButton, {0.1, "Quad"}, {ImageTransparency = 0})
-    end)
-    
-    -- 悬停放大效果
-    imageButton.MouseEnter:Connect(function()
-        Tween(imageButton, {0.2, "Quad"}, {Size = imageButton.Size + UDim2.new(0, 10, 0, 10)})
-    end)
-    imageButton.MouseLeave:Connect(function()
-        Tween(imageButton, {0.2, "Quad"}, {Size = size or UDim2.new(0.9, 0, 0, 80)})
-    end)
-end
+function library.new(library, name, theme)
     for _, v in next, services.CoreGui:GetChildren() do
         if v.Name == "frosty is cute" then
             v:Destroy()
@@ -200,25 +172,6 @@ end
     local SB = Instance.new("Frame")
     local SBC = Instance.new("UICorner")
     local Side = Instance.new("Frame")
-    -- 文件位置：查找 Side = Instance.new("Frame") 或类似代码段下方
--- 创建图片容器（滚动区域）
-local imageContainer = Instance.new("ScrollingFrame")
-imageContainer.Name = "ImageContainer"
-imageContainer.Parent = Side  -- 父级为侧边栏
-imageContainer.Size = UDim2.new(1, 0, 0.3, 0)  -- 占侧边栏30%高度
-imageContainer.Position = UDim2.new(0, 0, 0.7, 0) -- 从侧边栏70%位置开始（底部）
-imageContainer.BackgroundTransparency = 1
-imageContainer.ScrollBarThickness = 5
-
--- 垂直列表布局
-local listLayout = Instance.new("UIListLayout")
-listLayout.Padding = UDim.new(0, 5)  -- 图片间距5像素
-listLayout.Parent = imageContainer
-
--- 自动调整容器高度（确保不溢出）
-listLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
-    imageContainer.CanvasSize = UDim2.new(0, 0, 0, listLayout.AbsoluteContentSize.Y)
-end)
     local SideG = Instance.new("UIGradient")
     local TabBtns = Instance.new("ScrollingFrame")
     local TabBtnsL = Instance.new("UIListLayout")
@@ -1129,7 +1082,146 @@ end
                   end)
                   BoxBG.Size = UDim2.new(0, TextBox.TextBounds.X + 30, 0, 28)
                 end
-
+            -- 在 section 函数内部添加 Credit 方法（与 Button/Toggle 同级）
+function section.Credit(section, imageId, topText, descText, callback)
+    local callback = callback or function() return false end
+    
+    -- 强制参数校验
+    assert(imageId, "缺少图片ID参数 (参数1)")
+    assert(topText, "缺少顶部文字参数 (参数2)")
+    assert(descText, "缺少描述文字参数 (参数3)")
+    
+    local CreditModule = Instance.new("Frame")
+    local CreditBtn = Instance.new("TextButton") -- 改为TextButton以支持点击效果
+    local LeftImage = Instance.new("ImageLabel")
+    local ImageCorner = Instance.new("UICorner")
+    local RightInfo = Instance.new("Frame")
+    local TopLabel = Instance.new("TextLabel")
+    local DescLabel = Instance.new("TextLabel")
+    local StatusIndicator = Instance.new("Frame")
+    
+    --=== 核心修复1：修正元素层级 ===--
+    CreditModule.Name = "CreditModule"
+    CreditModule.Parent = Objs -- 必须挂载到当前section的Objs下
+    CreditModule.BackgroundTransparency = 1
+    CreditModule.Size = UDim2.new(1, 0, 0, 76) -- 宽度100%适配
+    
+    --=== 核心修复2：使用现有颜色变量 ===--
+    CreditBtn.Name = "CreditBtn"
+    CreditBtn.Parent = CreditModule
+    CreditBtn.BackgroundColor3 = zyColor
+    CreditBtn.Size = UDim2.new(1, -10, 0, 70) -- 增加边距
+    CreditBtn.Position = UDim2.new(0, 5, 0, 3)
+    CreditBtn.AutoButtonColor = false -- 禁用默认点击效果
+    CreditBtn.Text = ""
+    
+    -- 圆形图片容器
+    LeftImage.Name = "LeftImage"
+    LeftImage.Parent = CreditBtn
+    LeftImage.BackgroundColor3 = Color3.fromRGB(40, 40, 40) -- 未解锁背景色
+    LeftImage.Size = UDim2.new(0, 60, 0, 60)
+    LeftImage.Position = UDim2.new(0.02, 0, 0.5, -30)
+    LeftImage.Image = "rbxassetid://"..imageId
+    LeftImage.ScaleType = Enum.ScaleType.Crop
+    
+    ImageCorner.CornerRadius = UDim.new(1, 0)
+    ImageCorner.Parent = LeftImage
+    
+    -- 右侧信息容器
+    RightInfo.Name = "RightInfo"
+    RightInfo.Parent = CreditBtn
+    RightInfo.BackgroundTransparency = 1
+    RightInfo.Position = UDim2.new(0.18, 0, 0, 5)
+    RightInfo.Size = UDim2.new(0.78, 0, 1, -10)
+    
+    -- 顶部文字（带自动换行）
+    TopLabel.Name = "TopLabel"
+    TopLabel.Parent = RightInfo
+    TopLabel.Font = Enum.Font.GothamBold
+    TopLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TopLabel.TextSize = 16
+    TopLabel.TextXAlignment = Enum.TextXAlignment.Left
+    TopLabel.TextWrapped = true -- 启用自动换行
+    TopLabel.Size = UDim2.new(1, 0, 0.4, 0)
+    TopLabel.Text = topText
+    
+    -- 描述文字（带自动换行）
+    DescLabel.Name = "DescLabel"
+    DescLabel.Parent = RightInfo
+    DescLabel.Font = Enum.Font.Gotham
+    DescLabel.TextColor3 = Color3.fromRGB(180, 180, 180)
+    DescLabel.TextSize = 14
+    DescLabel.TextXAlignment = Enum.TextXAlignment.Left
+    DescLabel.TextWrapped = true -- 启用自动换行
+    DescLabel.Size = UDim2.new(1, 0, 0.6, 0)
+    DescLabel.Position = UDim2.new(0, 0, 0.4, 0)
+    DescLabel.Text = descText
+    
+    -- 状态指示器
+    StatusIndicator.Name = "StatusIndicator"
+    StatusIndicator.Parent = CreditBtn
+    StatusIndicator.AnchorPoint = Vector2.new(0.5, 0.5)
+    StatusIndicator.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+    StatusIndicator.Position = UDim2.new(0.95, 0, 0.5, 0)
+    StatusIndicator.Size = UDim2.new(0, 12, 0, 12)
+    StatusIndicator.Visible = false
+    
+    --=== 核心修复3：集成点击效果 ===--
+    CreditBtn.MouseButton1Click:Connect(function()
+        Ripple(CreditBtn) -- 使用现有波纹效果
+    end)
+    
+    --=== 解锁检测系统 ===--
+    local checkInterval = 5 -- 检测间隔秒数
+    local unlocked = false
+    
+    local function checkUnlock()
+        if unlocked then return end
+        local success, result = pcall(callback)
+        if success and result then
+            unlocked = true
+            -- 图片高亮动画
+            Tween(LeftImage, {0.3, "Quad", "Out"}, {
+                ImageTransparency = 0,
+                BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+            })
+            -- 状态指示器动画
+            StatusIndicator.Visible = true
+            Tween(StatusIndicator, {0.5, "Elastic", "Out"}, {
+                Size = UDim2.new(0, 20, 0, 20),
+                BackgroundColor3 = Color3.fromRGB(0, 200, 0)
+            })
+            -- 显示通知
+            game.StarterGui:SetCore("SendNotification", {
+                Title = "成就解锁",
+                Text = topText,
+                Duration = 5,
+                Icon = LeftImage.Image
+            })
+        end
+    end
+    
+    -- 启动检测循环
+    spawn(function()
+        while true do
+            checkUnlock()
+            wait(checkInterval)
+        end
+    end)
+    
+    return {
+        Update = function(newImageId, newTop, newDesc)
+            LeftImage.Image = "rbxassetid://"..newImageId
+            TopLabel.Text = newTop
+            DescLabel.Text = newDesc
+        end,
+        ForceUnlock = function()
+            unlocked = true
+            LeftImage.ImageTransparency = 0
+            StatusIndicator.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
+        end
+    }
+end
             function section.Slider(section, text, flag, default, min, max, precise, callback)
                 local callback = callback or function()
                     end
