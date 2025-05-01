@@ -1087,14 +1087,14 @@ end
     assert(imageId, "缺少图片ID参数 (参数1)")
     assert(topText, "缺少顶部文字参数 (参数2)")
     assert(descText, "缺少描述文字参数 (参数3)")
-    assert(unlockCondition and type(unlockCondition)=="function", "解锁条件必须为函数 (参数4)")
+    assert(unlockCondition and type(unlockCondition) == "function", "解锁条件必须为函数 (参数4)")
 
     -- UI元素
     local CreditModule = Instance.new("Frame")
     local CreditBtn = Instance.new("TextButton")
     local LeftImage = Instance.new("ImageLabel")
     local ImageCorner = Instance.new("UICorner")
-    local TextContainer = Instance.new("Frame") -- 替换背景板为透明容器
+    local TextContainer = Instance.new("Frame")
     local TopLabel = Instance.new("TextLabel")
     local DescLabel = Instance.new("TextLabel")
 
@@ -1104,13 +1104,11 @@ end
     CreditModule.BackgroundTransparency = 1
     CreditModule.Size = UDim2.new(1, 0, 0, 80)
 
-    --=== 按钮主体 ===--
+    --=== 透明按钮主体 ===--
     CreditBtn.Name = "CreditBtn"
     CreditBtn.Parent = CreditModule
-    CreditBtn.BackgroundColor3 = zyColor -- 直接使用主题色
-    CreditBtn.Size = UDim2.new(1, -10, 0, 75)
-    CreditBtn.Position = UDim2.new(0, 5, 0, 2)
-    CreditBtn.AutoButtonColor = false
+    CreditBtn.BackgroundTransparency = 1 -- 完全透明
+    CreditBtn.Size = UDim2.new(1, 0, 0, 75)
     CreditBtn.Text = ""
 
     --=== 圆形图片 ===--
@@ -1126,7 +1124,7 @@ end
     ImageCorner.CornerRadius = UDim.new(1, 0)
     ImageCorner.Parent = LeftImage
 
-    --=== 文字容器（透明）===--
+    --=== 文字容器 ===--
     TextContainer.Name = "TextContainer"
     TextContainer.Parent = CreditBtn
     TextContainer.BackgroundTransparency = 1 -- 完全透明
@@ -1137,7 +1135,7 @@ end
     TopLabel.Name = "TopLabel"
     TopLabel.Parent = TextContainer
     TopLabel.Font = Enum.Font.GothamBold
-    TopLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- 白色文字
+    TopLabel.TextColor3 = Color3.fromRGB(200, 200, 200) -- 初始灰色
     TopLabel.TextSize = 18
     TopLabel.TextXAlignment = Enum.TextXAlignment.Left
     TopLabel.TextWrapped = true
@@ -1148,13 +1146,48 @@ end
     DescLabel.Name = "DescLabel"
     DescLabel.Parent = TextContainer
     DescLabel.Font = Enum.Font.Gotham
-    DescLabel.TextColor3 = Color3.fromRGB(200, 200, 200) -- 浅灰描述
+    DescLabel.TextColor3 = Color3.fromRGB(150, 150, 150) -- 更浅灰色
     DescLabel.TextSize = 16
     DescLabel.TextXAlignment = Enum.TextXAlignment.Left
     DescLabel.TextWrapped = true
     DescLabel.Size = UDim2.new(1, -10, 0.6, 0)
     DescLabel.Position = UDim2.new(0, 10, 0.4, 0)
     DescLabel.Text = descText
+
+    --=== 成就提示系统 ===--
+    local function ShowUnlockToast()
+        -- 创建提示框
+        local toast = Instance.new("Frame")
+        toast.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+        toast.Size = UDim2.new(0.4, 0, 0, 60)
+        toast.Position = UDim2.new(0.3, 0, 0.1, -60)
+        toast.AnchorPoint = Vector2.new(0.5, 0)
+        toast.Parent = game.CoreGui
+
+        local icon = Instance.new("ImageLabel")
+        icon.Image = LeftImage.Image
+        icon.Size = UDim2.new(0, 50, 0, 50)
+        icon.Position = UDim2.new(0, 10, 0.5, -25)
+        icon.Parent = toast
+
+        local title = Instance.new("TextLabel")
+        title.Text = "成就解锁："..topText
+        title.TextColor3 = Color3.fromRGB(0, 255, 0)
+        title.Font = Enum.Font.GothamBold
+        title.TextSize = 18
+        title.Position = UDim2.new(0, 70, 0, 10)
+        title.Parent = toast
+
+        -- 动画效果
+        Tween(toast, {0.5, "Quad", "Out"}, {
+            Position = UDim2.new(0.3, 0, 0.1, 0)
+        })
+        wait(3)
+        Tween(toast, {0.5, "Quad", "In"}, {
+            Position = UDim2.new(0.3, 0, 0.1, -60)
+        }):Wait()
+        toast:Destroy()
+    end
 
     --=== 解锁系统 ===--
     local unlocked = false
@@ -1169,10 +1202,15 @@ end
                 ImageColor3 = Color3.fromRGB(255, 255, 255),
                 BackgroundTransparency = 0.9
             })
-            -- 文字颜色强化
+            -- 文字颜色变化
             Tween(TopLabel, {0.3, "Sine", "Out"}, {
-                TextColor3 = Color3.fromRGB(255, 255, 0) -- 解锁后标题变金色
+                TextColor3 = Color3.fromRGB(0, 255, 0) -- 解锁后变绿色
             })
+            Tween(DescLabel, {0.3, "Sine", "Out"}, {
+                TextColor3 = Color3.fromRGB(200, 200, 200)
+            })
+            -- 显示提示
+            ShowUnlockToast()
         end
     end
 
@@ -1196,7 +1234,8 @@ end
             if not unlocked then
                 unlocked = true
                 LeftImage.ImageColor3 = Color3.fromRGB(255, 255, 255)
-                TopLabel.TextColor3 = Color3.fromRGB(255, 255, 0)
+                TopLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+                ShowUnlockToast()
             end
         end
     }
