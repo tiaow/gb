@@ -229,7 +229,79 @@ local function updatePlayerCode()
 end
 
 updatePlayerCode()
- 
+  local creds = window:Tab("通用",'106133116600295')
+local credits = creds:section("内容",true)
+credits:Credit(
+       "106133116600295", 
+       "欢迎", 
+       "欢迎使用条脚本", 
+       function() return true end
+   )
+   credits:Credit(
+       "106133116600295", 
+       "使用10分钟", 
+       "你使用了10分钟，之后你会使用更久的", 
+       function()wait(600) return true end
+   )
+   credits:Credit(
+       "106133116600295", 
+       "1小时", 
+       "不敢相信你居然使用了一小时😱", 
+       function()wait(3600) return true end
+   )
+   credits:Credit(
+       "100473720701900", 
+       "吃债券大师", 
+       "千万不要跟这个似人玩，把你债券全偷吃了😡😡😡😡😡😡😡😡😡😡😡😡", 
+       function()
+        if game.Players.LocalPlayer.Name == "qwe99540" then 
+                    return true  -- 返回true表示检测成功
+        else
+            return false  -- 返回false表示不是作者
+        end
+    end
+)
+   
+   credits:Credit(
+       "124650029106987", 
+       "管理员noob****", 
+       "逆天玩意儿,不愿透露姓名，测试以及提出建议，是个尤物☺️🤓", 
+       function()
+        if game.Players.LocalPlayer.Name == "nooblaodi" then 
+        
+            return true  -- 返回true表示检测成功
+        else
+            return false  -- 返回false表示不是作者
+        end
+    end
+)
+credits:Credit(
+    "73483716297850", 
+    "逆天烤鸡", 
+    "逆天", 
+    function()
+        if game.Players.LocalPlayer.Name == "GHFD597" then
+          
+            return true  -- 返回true表示检测成功
+        else
+            return false  -- 返回false表示不是作者
+        end
+    end
+)
+credits:Credit(
+    "83748812861457", 
+    "超级帅气的作者", 
+    "脚本的制作者,就是更新有亿点点慢，击败作者以获得他(你想干嘛😡😡)", 
+    function()
+        if game.Players.LocalPlayer.Name == "yfgg237" then
+          
+            return true  -- 返回true表示检测成功
+        else
+            return false  -- 返回false表示不是作者
+        end
+    end
+)
+
 local creds = window:Tab("通用",'7743875962')
 local credits = creds:section("内容",true)      
     credits:Slider("步行速度", "WalkSpeed", game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, 16, 1000, false, function(Speed)
