@@ -1082,7 +1082,7 @@ end
                   end)
                   BoxBG.Size = UDim2.new(0, TextBox.TextBounds.X + 30, 0, 28)
                 end
-          function section.Credit(section, imageId, topText, descText, unlockCondition)
+        function section.Credit(section, imageId, topText, descText, unlockCondition)
     -- 参数校验
     assert(imageId, "缺少图片ID参数 (参数1)")
     assert(topText, "缺少顶部文字参数 (参数2)")
@@ -1104,11 +1104,11 @@ end
     CreditModule.BackgroundTransparency = 1
     CreditModule.Size = UDim2.new(1, 0, 0, 80)
 
-    --=== 按钮主体 (不透明) ===--
+    --=== 按钮主体 ===--
     CreditBtn.Name = "CreditBtn"
     CreditBtn.Parent = CreditModule
-    CreditBtn.BackgroundColor3 = zyColor -- 使用主题色
-    CreditBtn.BackgroundTransparency = 0 -- 关键修改：完全不透明
+    CreditBtn.BackgroundColor3 = zyColor
+    CreditBtn.BackgroundTransparency = 0
     CreditBtn.Size = UDim2.new(1, -10, 0, 75)
     CreditBtn.Position = UDim2.new(0, 5, 0, 2)
     CreditBtn.AutoButtonColor = false
@@ -1126,41 +1126,53 @@ end
     LeftImage.Position = UDim2.new(0.02, 0, 0.5, -30)
     LeftImage.Image = "rbxassetid://"..imageId
     LeftImage.ScaleType = Enum.ScaleType.Crop
-    LeftImage.ImageTransparency = 0.5 -- 初始半透明
+    LeftImage.ImageTransparency = 0.5
     
     ImageCorner.CornerRadius = UDim.new(1, 0)
     ImageCorner.Parent = LeftImage
 
-    --=== 文字容器 (透明) ===--
+    --=== 文字容器 ===--
     TextContainer.Name = "TextContainer"
     TextContainer.Parent = CreditBtn
-    TextContainer.BackgroundTransparency = 1 -- 文字区域透明
-    TextContainer.Position = UDim2.new(0.18, 0, 0, 0)
-    TextContainer.Size = UDim2.new(0.78, 0, 1, 0)
+    TextContainer.BackgroundTransparency = 1
+    TextContainer.Position = UDim2.new(0.18, 0, 0, 5)
+    TextContainer.Size = UDim2.new(0.78, -10, 1, -10)
 
-    --=== 文字内容 ===--
+    --=== 顶部文字 ===--
     TopLabel.Name = "TopLabel"
     TopLabel.Parent = TextContainer
-    TopLabel.Font = Enum.Font.GothamBold
-    TopLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- 纯白
-    TopLabel.TextSize = 18
+    TopLabel.BackgroundColor3 = zyColor
+    TopLabel.Font = Enum.Font.GothamSemibold
+    TopLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TopLabel.TextSize = 14
     TopLabel.TextXAlignment = Enum.TextXAlignment.Left
     TopLabel.TextWrapped = true
-    TopLabel.Size = UDim2.new(0, 0, 0, 0)
+    TopLabel.Size = UDim2.new(1, 0, 0, 22)
     TopLabel.Position = UDim2.new(0, 0, 0, 0)
     TopLabel.Text = topText
+    
+    local topCorner = Instance.new("UICorner")
+    topCorner.CornerRadius = UDim.new(0, 6)
+    topCorner.Parent = TopLabel
 
+    --=== 描述文字 ===--
     DescLabel.Name = "DescLabel"
     DescLabel.Parent = TextContainer
-    DescLabel.Font = Enum.Font.Gotham
-    DescLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- 纯白
-    DescLabel.TextTransparency = 0.3 -- 透明度区分层级
-    DescLabel.TextSize = 16
+    DescLabel.BackgroundColor3 = zyColor
+    DescLabel.BackgroundTransparency = 0.7
+    DescLabel.Font = Enum.Font.GothamSemibold
+    DescLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    DescLabel.TextTransparency = 0.2
+    DescLabel.TextSize = 14
     DescLabel.TextXAlignment = Enum.TextXAlignment.Left
     DescLabel.TextWrapped = true
-    DescLabel.Size = UDim2.new(1, -10, 0.6, 0)
-    DescLabel.Position = UDim2.new(0, 10, 0.4, 0)
+    DescLabel.Size = UDim2.new(1, 0, 0.6, 0)
+    DescLabel.Position = UDim2.new(0, 0, 0.3, 0)
     DescLabel.Text = descText
+    
+    local descCorner = Instance.new("UICorner")
+    descCorner.CornerRadius = UDim.new(0, 6)
+    descCorner.Parent = DescLabel
 
     --=== 解锁系统 ===--
     local unlocked = false
@@ -1170,12 +1182,10 @@ end
         local success, result = pcall(unlockCondition)
         if success and result then
             unlocked = true
-            -- 图片高亮动画
             Tween(LeftImage, {0.5, "Quad", "Out"}, {
                 ImageTransparency = 0,
                 BackgroundTransparency = 0.9
             })
-            -- 弹出提示
             game.StarterGui:SetCore("SendNotification", {
                 Title = "🎉 成就解锁",
                 Text = topText,
@@ -1185,7 +1195,6 @@ end
         end
     end
 
-    -- 自动检测（每5秒）
     spawn(function()
         while not unlocked do
             checkUnlock()
@@ -1193,7 +1202,6 @@ end
         end
     end)
 
-    -- 点击效果
     CreditBtn.MouseButton1Click:Connect(function()
         Ripple(CreditBtn)
         checkUnlock()
