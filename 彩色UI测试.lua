@@ -1104,14 +1104,19 @@ end
     CreditModule.BackgroundTransparency = 1
     CreditModule.Size = UDim2.new(1, 0, 0, 80)
 
-    --=== 透明按钮主体 ===--
+    --=== 按钮主体 (还原原始样式) ===--
     CreditBtn.Name = "CreditBtn"
     CreditBtn.Parent = CreditModule
-    CreditBtn.BackgroundTransparency = 1 -- 完全透明
-    CreditBtn.Size = UDim2.new(1, 0, 0, 75)
-    CreditBtn.Position = UDim2.new(0, 0, 0, 2)
+    CreditBtn.BackgroundColor3 = zyColor -- 使用主题色
+    CreditBtn.BackgroundTransparency = 0.3 -- 半透明效果
+    CreditBtn.Size = UDim2.new(1, -10, 0, 75)
+    CreditBtn.Position = UDim2.new(0, 5, 0, 2)
     CreditBtn.AutoButtonColor = false
     CreditBtn.Text = ""
+    
+    local btnCorner = Instance.new("UICorner")
+    btnCorner.CornerRadius = UDim.new(0, 6)
+    btnCorner.Parent = CreditBtn
 
     --=== 圆形图片 ===--
     LeftImage.Name = "LeftImage"
@@ -1126,10 +1131,10 @@ end
     ImageCorner.CornerRadius = UDim.new(1, 0)
     ImageCorner.Parent = LeftImage
 
-    --=== 文字容器 ===--
+    --=== 文字容器 (完全透明) ===--
     TextContainer.Name = "TextContainer"
     TextContainer.Parent = CreditBtn
-    TextContainer.BackgroundTransparency = 1
+    TextContainer.BackgroundTransparency = 1 -- 关键修改：移除背景
     TextContainer.Position = UDim2.new(0.18, 0, 0, 0)
     TextContainer.Size = UDim2.new(0.78, 0, 1, 0)
 
@@ -1170,12 +1175,9 @@ end
                 ImageTransparency = 0,
                 BackgroundTransparency = 0.9
             })
-            -- 弹出提示
-            game.StarterGui:SetCore("SendNotification", {
-                Title = "🏆 成就解锁",
-                Text = topText,
-                Icon = LeftImage.Image,
-                Duration = 3
+            -- 按钮高亮
+            Tween(CreditBtn, {0.3, "Sine", "Out"}, {
+                BackgroundTransparency = 0.1
             })
         end
     end
@@ -1200,6 +1202,7 @@ end
             if not unlocked then
                 unlocked = true
                 LeftImage.ImageTransparency = 0
+                CreditBtn.BackgroundTransparency = 0.1
             end
         end
     }
