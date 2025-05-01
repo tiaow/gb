@@ -1082,97 +1082,92 @@ end
                   end)
                   BoxBG.Size = UDim2.new(0, TextBox.TextBounds.X + 30, 0, 28)
                 end
-            -- 在 section 函数内部添加 Credit 方法（与 Button/Toggle 同级）
-function section.Credit(section, imageId, topText, descText, callback)
+            function section.Credit(section, imageId, topText, descText, callback)
     local callback = callback or function() return false end
     
-    -- 强制参数校验
+    -- 参数校验
     assert(imageId, "缺少图片ID参数 (参数1)")
     assert(topText, "缺少顶部文字参数 (参数2)")
     assert(descText, "缺少描述文字参数 (参数3)")
-    
+
     local CreditModule = Instance.new("Frame")
-    local CreditBtn = Instance.new("TextButton") -- 改为TextButton以支持点击效果
+    local CreditBtn = Instance.new("TextButton")
     local LeftImage = Instance.new("ImageLabel")
     local ImageCorner = Instance.new("UICorner")
-    local RightInfo = Instance.new("Frame")
+    local TextBg = Instance.new("Frame")  -- 新增文字背景板
     local TopLabel = Instance.new("TextLabel")
     local DescLabel = Instance.new("TextLabel")
-    local StatusIndicator = Instance.new("Frame")
-    
-    --=== 核心修复1：修正元素层级 ===--
+
+    --=== 主容器 ===--
     CreditModule.Name = "CreditModule"
-    CreditModule.Parent = Objs -- 必须挂载到当前section的Objs下
+    CreditModule.Parent = Objs
     CreditModule.BackgroundTransparency = 1
-    CreditModule.Size = UDim2.new(1, 0, 0, 76) -- 宽度100%适配
-    
-    --=== 核心修复2：使用现有颜色变量 ===--
+    CreditModule.Size = UDim2.new(1, 0, 0, 80)  -- 调整高度
+
+    --=== 按钮主体 ===--
     CreditBtn.Name = "CreditBtn"
     CreditBtn.Parent = CreditModule
     CreditBtn.BackgroundColor3 = zyColor
-    CreditBtn.Size = UDim2.new(1, -10, 0, 70) -- 增加边距
-    CreditBtn.Position = UDim2.new(0, 5, 0, 3)
-    CreditBtn.AutoButtonColor = false -- 禁用默认点击效果
+    CreditBtn.Size = UDim2.new(1, -10, 0, 75)
+    CreditBtn.Position = UDim2.new(0, 5, 0, 2)
+    CreditBtn.AutoButtonColor = false
     CreditBtn.Text = ""
-    
-    -- 圆形图片容器
+
+    --=== 圆形图片 ===--
     LeftImage.Name = "LeftImage"
     LeftImage.Parent = CreditBtn
-    LeftImage.BackgroundColor3 = Color3.fromRGB(40, 40, 40) -- 未解锁背景色
+    LeftImage.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
     LeftImage.Size = UDim2.new(0, 60, 0, 60)
     LeftImage.Position = UDim2.new(0.02, 0, 0.5, -30)
     LeftImage.Image = "rbxassetid://"..imageId
     LeftImage.ScaleType = Enum.ScaleType.Crop
+    LeftImage.ImageColor3 = Color3.fromRGB(150, 150, 150)  -- 初始暗淡
     
     ImageCorner.CornerRadius = UDim.new(1, 0)
     ImageCorner.Parent = LeftImage
+
+    --=== 文字背景板 ===--
+    TextBg.Name = "TextBg"
+    TextBg.Parent = CreditBtn
+    TextBg.BackgroundColor3 = zyColor  -- 使用主界面颜色
+    TextBg.BackgroundTransparency = 0.3
+    TextBg.Position = UDim2.new(0.18, 0, 0.05, 0)
+    TextBg.Size = UDim2.new(0.78, 0, 0.9, 0)
     
-    -- 右侧信息容器
-    RightInfo.Name = "RightInfo"
-    RightInfo.Parent = CreditBtn
-    RightInfo.BackgroundTransparency = 1
-    RightInfo.Position = UDim2.new(0.18, 0, 0, 5)
-    RightInfo.Size = UDim2.new(0.78, 0, 1, -10)
-    
-    -- 顶部文字（带自动换行）
+    local bgCorner = Instance.new("UICorner")
+    bgCorner.CornerRadius = UDim.new(0, 6)
+    bgCorner.Parent = TextBg
+
+    --=== 文字内容 ===--
     TopLabel.Name = "TopLabel"
-    TopLabel.Parent = RightInfo
+    TopLabel.Parent = TextBg
     TopLabel.Font = Enum.Font.GothamBold
-    TopLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    TopLabel.TextSize = 16
+    TopLabel.TextColor3 = Color3.fromRGB(255, 255, 150)  -- 金色标题
+    TopLabel.TextSize = 18  -- 调大字号
     TopLabel.TextXAlignment = Enum.TextXAlignment.Left
-    TopLabel.TextWrapped = true -- 启用自动换行
-    TopLabel.Size = UDim2.new(1, 0, 0.4, 0)
+    TopLabel.TextWrapped = true
+    TopLabel.Size = UDim2.new(1, -10, 0.4, 0)
+    TopLabel.Position = UDim2.new(0, 10, 0, 5)
     TopLabel.Text = topText
-    
-    -- 描述文字（带自动换行）
+
     DescLabel.Name = "DescLabel"
-    DescLabel.Parent = RightInfo
+    DescLabel.Parent = TextBg
     DescLabel.Font = Enum.Font.Gotham
-    DescLabel.TextColor3 = Color3.fromRGB(180, 180, 180)
-    DescLabel.TextSize = 14
+    DescLabel.TextColor3 = Color3.fromRGB(220, 220, 220)  -- 浅灰描述
+    DescLabel.TextSize = 16  -- 调大字号
     DescLabel.TextXAlignment = Enum.TextXAlignment.Left
-    DescLabel.TextWrapped = true -- 启用自动换行
-    DescLabel.Size = UDim2.new(1, 0, 0.6, 0)
-    DescLabel.Position = UDim2.new(0, 0, 0.4, 0)
+    DescLabel.TextWrapped = true
+    DescLabel.Size = UDim2.new(1, -10, 0.6, 0)
+    DescLabel.Position = UDim2.new(0, 10, 0.4, 0)
     DescLabel.Text = descText
-    
-    -- 状态指示器
-    StatusIndicator.Name = "StatusIndicator"
-    StatusIndicator.Parent = CreditBtn
-    StatusIndicator.AnchorPoint = Vector2.new(0.5, 0.5)
-    StatusIndicator.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-    StatusIndicator.Position = UDim2.new(0.95, 0, 0.5, 0)
-    StatusIndicator.Size = UDim2.new(0, 12, 0, 12)
-    StatusIndicator.Visible = false
-    
-    --=== 核心修复3：集成点击效果 ===--
+
+    --=== 点击效果 ===--
     CreditBtn.MouseButton1Click:Connect(function()
-        Ripple(CreditBtn) -- 使用现有波纹效果
+        Ripple(CreditBtn)
     end)
-    
-    --=== 解锁检测系统 ===--
-    local checkInterval = 5 -- 检测间隔秒数
+
+    --=== 解锁检测 ===--
+    local checkInterval = 5  -- 检测间隔
     local unlocked = false
     
     local function checkUnlock()
@@ -1181,26 +1176,25 @@ function section.Credit(section, imageId, topText, descText, callback)
         if success and result then
             unlocked = true
             -- 图片高亮动画
-            Tween(LeftImage, {0.3, "Quad", "Out"}, {
-                ImageTransparency = 0,
-                BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+            Tween(LeftImage, {0.5, "Quad", "Out"}, {
+                ImageColor3 = Color3.fromRGB(255, 255, 255),  -- 变为全亮
+                BackgroundTransparency = 0.9
             })
-            -- 状态指示器动画
-            StatusIndicator.Visible = true
-            Tween(StatusIndicator, {0.5, "Elastic", "Out"}, {
-                Size = UDim2.new(0, 20, 0, 20),
-                BackgroundColor3 = Color3.fromRGB(0, 200, 0)
+            -- 背景板高亮
+            Tween(TextBg, {0.3, "Sine", "Out"}, {
+                BackgroundTransparency = 0.1,
+                BackgroundColor3 = zyColor:lerp(Color3.new(1,1,1), 0.1)
             })
-            -- 显示通知
+            -- 弹出通知
             game.StarterGui:SetCore("SendNotification", {
-                Title = "成就解锁",
+                Title = "成就解锁！",
                 Text = topText,
-                Duration = 5,
-                Icon = LeftImage.Image
+                Icon = LeftImage.Image,
+                Duration = 5
             })
         end
     end
-    
+
     -- 启动检测循环
     spawn(function()
         while true do
@@ -1208,17 +1202,19 @@ function section.Credit(section, imageId, topText, descText, callback)
             wait(checkInterval)
         end
     end)
-    
+
     return {
-        Update = function(newImageId, newTop, newDesc)
-            LeftImage.Image = "rbxassetid://"..newImageId
-            TopLabel.Text = newTop
+        Update = function(newImage, newTitle, newDesc)
+            LeftImage.Image = "rbxassetid://"..newImage
+            TopLabel.Text = newTitle
             DescLabel.Text = newDesc
         end,
         ForceUnlock = function()
-            unlocked = true
-            LeftImage.ImageTransparency = 0
-            StatusIndicator.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
+            if not unlocked then
+                unlocked = true
+                LeftImage.ImageColor3 = Color3.fromRGB(255, 255, 255)
+                TextBg.BackgroundTransparency = 0.1
+            end
         end
     }
 end
