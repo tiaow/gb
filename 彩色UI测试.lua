@@ -1093,7 +1093,7 @@ end
     local CreditModule = Instance.new("Frame")
     local CreditBtn = Instance.new("TextButton")
     local LeftImage = Instance.new("ImageLabel")
-    local ImageCorner = Instance.new("UICorner")
+    
     
     local TopLabel = Instance.new("TextLabel")
     local DescLabel = Instance.new("TextLabel")
