@@ -1094,7 +1094,7 @@ end
     local CreditBtn = Instance.new("TextButton")
     local LeftImage = Instance.new("ImageLabel")
     local ImageCorner = Instance.new("UICorner")
-    
+    local TextContainer = Instance.new("Frame")
     local TopLabel = Instance.new("TextLabel")
     local DescLabel = Instance.new("TextLabel")
 
@@ -1126,13 +1126,18 @@ end
     LeftImage.Position = UDim2.new(0.02, 0, 0.5, -30)
     LeftImage.Image = "rbxassetid://"..imageId
     LeftImage.ScaleType = Enum.ScaleType.Crop
-    LeftImage.ImageTransparency = 0.5 -- 初始半透明
+    LeftImage.ImageTransparency = 1 -- 初始半透明
     
     ImageCorner.CornerRadius = UDim.new(1, 0)
     ImageCorner.Parent = LeftImage
 
     --=== 文字容器 (透明) ===--
-    
+    TextContainer.Name = "TextContainer"
+    TextContainer.Parent = CreditBtn
+    TextContainer.BackgroundTransparency = 1 -- 文字区域透明
+    TextContainer.Position = UDim2.new(0.18, 0, 0, 0)
+    TextContainer.Size = UDim2.new(0.78, 0, 1, 0)
+
     --=== 文字内容 ===--
     TopLabel.Name = "TopLabel"
     TopLabel.Parent = TextContainer
