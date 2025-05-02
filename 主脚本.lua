@@ -279,11 +279,26 @@ credits:Credit(
     end
 )
 
+
+-- 创建一个变量，用于记录打开夜视的次数，初始为0
+local nightVisionOpenCount = 0
+
+credits:Credit(
+    "121784484604117",
+    "开一次夜视",
+    "你在这黑暗的环境下，第一次打开了夜视👁            此成就的支持者:noob****    ",
+    function()
+        -- 在这里检测变量是否为1
+        return nightVisionOpenCount == 1
+    end
+)
+
+
 local clickCount = 0
 local soundService = game:GetService("SoundService")
 -- 点击时的音效
 local clickSound = Instance.new("Sound")
-clickSound.SoundId = "rbxassetid://"  -- 你需要替换为实际有效的音效ID
+clickSound.SoundId = "rbxassetid://123456789"  -- 你需要替换为实际有效的音效ID
 clickSound.Parent = soundService
 -- 显示图片时的音效
 local imageSound = Instance.new("Sound")
@@ -480,8 +495,22 @@ end)
   local Workspace = game:GetService("Workspace") local Players = game:GetService("Players") if NC then Clipon = true else Clipon = false end Stepped = game:GetService("RunService").Stepped:Connect(function() if not Clipon == false then for a, b in pairs(Workspace:GetChildren()) do if b.Name == Players.LocalPlayer.Name then for i, v in pairs(Workspace[Players.LocalPlayer.Name]:GetChildren()) do if v:IsA("BasePart") then v.CanCollide = false end end end end else Stepped:Disconnect() end end)
 end)
 credits:Toggle("夜视", "Light", false, function(Light)
-  spawn(function() while task.wait() do if Light then game.Lighting.Ambient = Color3.new(1, 1, 1) else game.Lighting.Ambient = Color3.new(0, 0, 0) end end end)
-end) 
+    if Light then
+        -- 打开夜视时，次数加一，但最高为1
+        if nightVisionOpenCount < 1 then
+            nightVisionOpenCount = nightVisionOpenCount + 1
+        end
+        game.Lighting.Ambient = Color3.new(1, 1, 1)
+    else
+        game.Lighting.Ambient = Color3.new(0, 0, 0)
+    end
+    spawn(function()
+        while task.wait() do
+            -- 保持原有的循环逻辑
+        end
+    end)
+end)
+
 local enabled = false
 local connections = {}
 
