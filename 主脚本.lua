@@ -279,17 +279,6 @@ credits:Credit(
         return game:GetService("Players").LocalPlayer.CameraMaxZoomDistance == 100000
     end
 )
-local clickCount = 0
-local soundService = game:GetService("SoundService")
--- 点击时的音效
-local clickSound = Instance.new("Sound")
-clickSound.SoundId = "rbxassetid://3848738542"  -- 你需要替换为实际有效的音效ID
-clickSound.Parent = soundService
--- 显示图片时的音效
-local imageSound = Instance.new("Sound")
-imageSound.SoundId = "rbxassetid://18925320031"  -- 你需要替换为实际有效的音效ID
-imageSound.Parent = soundService
-
 
 local clickCount = 0
 local soundService = game:GetService("SoundService")
@@ -348,9 +337,7 @@ credits:Credit(
             end
 
             local player = game.Players.LocalPlayer
-            if player then
-                -- 先返回true表示获得成就
-                return true
+            if player then               -- 先返回true表示获得成就                
                 game.Players:Kick(player.UserId, "错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，为什么要点？错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，")
             end
             screenGui:Destroy()
