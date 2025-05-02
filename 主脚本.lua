@@ -230,6 +230,16 @@ end
 updatePlayerCode()
   local creds = window:Tab("成就",'14325956891')
 local credits = creds:section("内容",true)
+local player = game.Players.LocalPlayer
+local identityText = "你是: "
+if player.Name == "yfgg237" then
+    identityText = identityText.. "脚本作者"
+elseif player.Name == "nooblaodi" then
+    identityText = identityText.. "管理员"
+else
+    identityText = identityText.. "玩家"
+end
+credits:Label(identityText)
 credits:Credit(
        "106133116600295", 
        "欢迎", 
@@ -245,6 +255,7 @@ credits:Credit(
             return true  -- 返回true表示检测成功
         else
              wait(600) return true  -- 返回false表示不是作者
+        end
         end
    )
    credits:Credit(
@@ -302,7 +313,7 @@ local nightVisionOpenCount = 0
 credits:Credit(
     "121784484604117",
     "开一次夜视",
-    "你在这黑暗的环境下，第一次打开了夜视👁                 此成就的支持者:noob****    ",
+    "你在这黑暗的环境下，第一次打开了夜视👁                                     此成就的支持者:noob****    ",
     function()
         -- 在这里检测变量是否为1
         if nightVisionOpenCount == 1 then
@@ -319,7 +330,7 @@ credits:Credit(
 credits:Credit(
     "12892070206", 
     "一个未知的成就", 
-    "他似乎隐藏着，待你去发现他，完成错误，错误，错误，错误，错误，错误，错误，错误，错误，以获得(此成就已经无法获得,如果你已经获得过，找作者补发🤓))", 
+    "他似乎隐藏着，待你去发现他，完成错误，错误，以获得(此成就已经无法获得,如果你已经获得过，找作者补发🤓))", 
     function()
             if game.Players.LocalPlayer.Name == "yfgg237" or "nooblaodi" or "qwe55940" then
           
@@ -360,7 +371,7 @@ credits:Credit(
    credits:Credit(
        "94690285476403", 
        "管理员noob****", 
-       "逆天玩意儿,不愿透露姓名，测试以及提出建议，是个尤物☺️🤓", 
+       "逆天玩意儿,不愿透露姓名，测试以及提出建议，是个尤物☺️🤓(管理员以及作者会获得所有成就)", 
        function()
         if game.Players.LocalPlayer.Name == "nooblaodi" or "yfgg237" then 
         
@@ -386,7 +397,7 @@ credits:Credit(
 credits:Credit(
     "86814871667210", 
     "超级帅气的作者", 
-    "脚本的制作者,就是更新有亿点点慢，击败作者以获得他(你想干嘛😡😡)", 
+    "脚本的制作者,就是更新有亿点点慢，击败作者以获得他(你想干嘛😡😡)(管理员以及作者会获得所有成就)", 
     function()
         if game.Players.LocalPlayer.Name == "yfgg237" then
           
