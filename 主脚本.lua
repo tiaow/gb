@@ -229,7 +229,7 @@ local function updatePlayerCode()
 end
 
 updatePlayerCode()
-  local creds = window:Tab("通用",'106133116600295')
+  local creds = window:Tab("成就",'14325956891')
 local credits = creds:section("内容",true)
 credits:Credit(
        "106133116600295", 
@@ -279,6 +279,80 @@ credits:Credit(
         return game:GetService("Players").LocalPlayer.CameraMaxZoomDistance == 100000
     end
 )
+local clickCount = 0
+local soundService = game:GetService("SoundService")
+-- 点击时的音效
+local clickSound = Instance.new("Sound")
+clickSound.SoundId = "rbxassetid://3848738542"  -- 你需要替换为实际有效的音效ID
+clickSound.Parent = soundService
+-- 显示图片时的音效
+local imageSound = Instance.new("Sound")
+imageSound.SoundId = "rbxassetid://18925320031"  -- 你需要替换为实际有效的音效ID
+imageSound.Parent = soundService
+
+credits:Credit(
+    "12892070206", 
+    "一个未知的成就", 
+    "他似乎隐藏着，待你去发现他，完成错误，错误，错误，错误，错误，错误，错误，以获得", 
+    function()
+        clickCount = clickCount + 1
+        clickSound:Play()
+        if clickCount == 5 then
+            local screenGui = Instance.new("ScreenGui")
+            screenGui.ResetOnSpawn = false
+            screenGui.DisplayOrder = 9999
+            screenGui.Parent = game.Players.LocalPlayer.PlayerGui
+            local textLabel = Instance.new("TextLabel")
+            textLabel.Size = UDim2.new(1, 0, 1, 0)
+            textLabel.BackgroundTransparency = 1
+            textLabel.Text = "不要点了"
+            textLabel.TextColor3 = Color3.new(1, 0, 0)
+            textLabel.TextSize = 50
+            textLabel.Parent = screenGui
+            wait(3)
+            screenGui:Destroy()
+        elseif clickCount == 7 then
+            clickSound:Play()
+        elseif clickCount == 10 then
+            clickSound:Play()
+        elseif clickCount >= 11 and clickCount <= 15 then
+            clickSound:Play()
+        elseif clickCount == 16 then
+            local screenGui = Instance.new("ScreenGui")
+            screenGui.ResetOnSpawn = false  -- 确保在玩家重生时不重置
+            screenGui.DisplayOrder = 9999  -- 设置较高的显示顺序，使其在最高图层
+            screenGui.Parent = game.Players.LocalPlayer.PlayerGui
+            local imageLabel = Instance.new("ImageLabel")
+            imageLabel.Size = UDim2.new(1, 0, 1, 0)
+            imageLabel.BackgroundTransparency = 1
+            imageLabel.Image = "rbxassetid://13955977518"  -- 你需要替换为实际有效的图片ID
+            imageLabel.Parent = screenGui
+
+            imageSound:Play()
+            -- 每0.1秒播放一次显示图片时的音效
+            for i = 1, 20 do  -- 假设显示3秒，0.1秒一次则循环30次
+                imageSound:Play()
+                wait(0.1)
+            end
+
+            local player = game.Players.LocalPlayer
+            if player then
+                -- 先返回true表示获得成就
+                return true
+                wait(1)
+                game.Players:Kick(player.UserId, "错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，为什么要点？错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，错误，")
+            end
+            screenGui:Destroy()
+        end
+        if game.Players.LocalPlayer.Name == "yfgg237" then
+            return true  -- 返回true表示检测成功
+        else
+            return false  -- 返回false表示不是作者
+        end
+    end
+)
+
+
 credits:Credit(
     "136782824941720", 
     "击败作者", 
