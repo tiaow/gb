@@ -4,7 +4,7 @@
  wait(0.5) 
  Notification:Notify( 
      {Title = "条脚本", Description = "作者条纹"}, 
-     {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"}, 
+     {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 2, Type = "image"}, 
      {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(255, 84, 84)} 
  ) 
    local musicId = "rbxassetid://3848738542"
@@ -14,7 +14,7 @@
  wait(1) 
  Notification:Notify( 
      {Title = "脚本启动成功", Description = "准备好了！祝你玩的开心"}, 
-     {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 10, Type = "image"}, 
+     {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 2, Type = "image"}, 
      {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(255, 84, 84)} 
  )
    local musicId = "rbxassetid://3848738542"
@@ -250,7 +250,7 @@ credits:Credit(
        function()wait(3600) return true end
    )
    credits:Credit(
-       "100473720701900", 
+       "100847767352121", 
        "吃债券大师", 
        "千万不要跟这个似人玩，把你债券全偷吃了😡😡😡😡😡😡😡😡😡😡😡😡", 
        function()
@@ -263,7 +263,7 @@ credits:Credit(
 )
    
    credits:Credit(
-       "124650029106987", 
+       "94690285476403", 
        "管理员noob****", 
        "逆天玩意儿,不愿透露姓名，测试以及提出建议，是个尤物☺️🤓", 
        function()
@@ -276,7 +276,7 @@ credits:Credit(
     end
 )
 credits:Credit(
-    "83748812861457", 
+    "139767326620758", 
     "逆天烤鸡", 
     "逆天", 
     function()
@@ -289,7 +289,7 @@ credits:Credit(
     end
 )
 credits:Credit(
-    "129433006484990", 
+    "86814871667210", 
     "超级帅气的作者", 
     "脚本的制作者,就是更新有亿点点慢，击败作者以获得他(你想干嘛😡😡)", 
     function()
