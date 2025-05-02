@@ -249,12 +249,55 @@ credits:Credit(
        "不敢相信你居然使用了一小时😱", 
        function()wait(3600) return true end
    )
+   
+credits:Credit(
+    "75479155600431",
+    "孩子是想当火车头吗💀",
+    "bor,以为自己是火车头😳，速度为1000以获得",
+    function()
+        if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.Humanoid then
+            return game.Players.LocalPlayer.Character.Humanoid.WalkSpeed == 1000
+        end
+        return false
+    end
+)
+
+credits:Credit(
+    "89419307618608",
+    "考试时be like",
+    "你脖子要伸到哪里去🤔,视界为120以获得",
+    function()
+        return game.Workspace.CurrentCamera.FieldOfView == 120
+    end
+)
+
+credits:Credit(
+    "87470823970971",
+    "新一代望远镜",
+    "正在监视你👁👁，缩放范围为200000以获得",
+    function()
+        return game:GetService("Players").LocalPlayer.CameraMaxZoomDistance == 100000
+    end
+)
+credits:Credit(
+    "136782824941720", 
+    "击败作者", 
+    "打败脚本作者，打败脚本作者帝国主义😡，击败作者以获得这个成就，在任意一局游戏或者服务器中击败作者，即可获得",
+    function()
+        if game.Players.LocalPlayer.Name == "yfgg237" or "nooblaodi" then
+          
+            return true  -- 返回true表示检测成功
+        else
+            return false  -- 返回false表示不是作者
+        end
+    end
+)
    credits:Credit(
        "100847767352121", 
        "吃债券大师", 
        "千万不要跟这个似人玩，把你债券全偷吃了😡😡😡😡😡😡😡😡😡😡😡😡", 
        function()
-        if game.Players.LocalPlayer.Name == "qwe99540" or "yfgg237" then 
+        if game.Players.LocalPlayer.Name == "qwe99540" or "yfgg237" or "nooblaodi" then 
                     return true  -- 返回true表示检测成功
         else
             return false  -- 返回false表示不是作者
@@ -280,7 +323,7 @@ credits:Credit(
     "逆天烤鸡", 
     "逆天", 
     function()
-        if game.Players.LocalPlayer.Name == "GHFD597" or "yfgg237" then
+        if game.Players.LocalPlayer.Name == "nooblaodi" or "GHFD597" or "yfgg237" then
           
             return true  -- 返回true表示检测成功
         else
@@ -314,7 +357,7 @@ end)
 credits:Slider('设置重力（正常196.2）', 'Sliderflag', 196.2, 0.1, 1000,false, function(Value)
     game.Workspace.Gravity = Value
 end)
-    credits:Slider('缩放距离', 'ZOOOOOM OUT!',  128, 128, 200000,false, function(value)
+    credits:Slider('缩放距离', 'ZOOOOOM OUT!',  128, 128, 100000,false, function(value)
     game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = value
     end)
     credits:Slider('视界（正常70）', 'Sliderflag', 70, 0.1, 120, false, function(v)
@@ -2179,7 +2222,7 @@ end
 end)
  Notification:Notify( 
      {Title = "提示", Description = "已全部加载好"}, 
-     {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 3, Type = "image"}, 
+     {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 1, Type = "image"}, 
      {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(255, 84, 84)} 
  )
   local musicId = "rbxassetid://3848738542"
