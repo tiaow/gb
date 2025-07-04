@@ -1786,7 +1786,7 @@ local credits = creds:section("更改数值",true)
 credits:Textbox("赢得胜场", "输入数字", "0", function(Value)
     game:GetService("Players").LocalPlayer.leaderstats.Wins.Value = tonumber(Value) or 0
 end)
-credits:Toggle("铲子无线攻击", "Toggle", function(Value)
+credits:Toggle("铲子无线攻击", "Toggle", false,function(Value)
 Lol = Value
 while Lol do
     local args = {
