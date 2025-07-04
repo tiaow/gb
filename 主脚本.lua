@@ -1786,7 +1786,47 @@ local credits = creds:section("更改数值",true)
 credits:Textbox("赢得胜场", "输入数字", "0", function(Value)
     game:GetService("Players").LocalPlayer.leaderstats.Wins.Value = tonumber(Value) or 0
 end)
-
+credits:Toggle("铲子无线攻击", "Toggle", function(Value)
+Lol = Value
+while Lol do
+    local args = {
+	game:GetService("Players").LocalPlayer.Character:WaitForChild("Shovel"),
+	1751615072.037301,
+	vector.create(0.5085581541061401, -0.18179628252983093, -0.8416168093681335)
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Network"):WaitForChild("RemoteEvent"):WaitForChild("SwingMelee"):FireServer(unpack(args))
+local args = {
+	game:GetService("Players").LocalPlayer.Character:WaitForChild("Shovel"),
+	1751615072.037301,
+	vector.create(0.5085581541061401, -0.18179628252983093, -0.8416168093681335)
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Network"):WaitForChild("RemoteEvent"):WaitForChild("SwingMelee"):FireServer(unpack(args))
+local args = {
+	game:GetService("Players").LocalPlayer.Character:WaitForChild("Shovel"),
+	1751615072.037301,
+	vector.create(0.5085581541061401, -0.18179628252983093, -0.8416168093681335)
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Network"):WaitForChild("RemoteEvent"):WaitForChild("SwingMelee"):FireServer(unpack(args))
+local args = {
+	game:GetService("Players").LocalPlayer.Character:WaitForChild("Shovel"),
+	1751615072.037301,
+	vector.create(0.5085581541061401, -0.18179628252983093, -0.8416168093681335)
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Network"):WaitForChild("RemoteEvent"):WaitForChild("SwingMelee"):FireServer(unpack(args))
+local args = {
+	game:GetService("Players").LocalPlayer.Character:WaitForChild("Shovel"),
+	1751615072.037301,
+	vector.create(0.5085581541061401, -0.18179628252983093, -0.8416168093681335)
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Network"):WaitForChild("RemoteEvent"):WaitForChild("SwingMelee"):FireServer(unpack(args))
+local args = {
+	game:GetService("Players").LocalPlayer.Character:WaitForChild("Shovel"),
+	1751615072.037301,
+	vector.create(0.5085581541061401, -0.18179628252983093, -0.8416168093681335)
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Network"):WaitForChild("RemoteEvent"):WaitForChild("SwingMelee"):FireServer(unpack(args))
+  task.wait(0.1)
+end)
 
 local weldingButton
 local clickSound = Instance.new("Sound")
@@ -1985,7 +2025,7 @@ local credits = creds:section("透视",true)
 -- 配置参数
 local HIGHLIGHT_COLOR = Color3.new(0.8, 0.2, 0.2)
 local HIGHLIGHT_TRANSPARENCY = 0.5
-local SCAN_INTERVAL = 0.1  -- 更短的检测间隔
+local SCAN_INTERVAL = 1  -- 更短的检测间隔
 
 -- 状态管理
 local trackedBanks = {}
