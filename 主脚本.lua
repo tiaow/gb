@@ -1826,6 +1826,7 @@ local args = {
 }
 game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Network"):WaitForChild("RemoteEvent"):WaitForChild("SwingMelee"):FireServer(unpack(args))
   task.wait(0.1)
+end
 end)
 
 local weldingButton
