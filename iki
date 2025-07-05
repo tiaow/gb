@@ -1,0 +1,14 @@
+local args = {
+	"Chapter1",
+	17,
+	2,
+	3,
+	false,
+	{},
+	false
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunction"):WaitForChild("StartBattle"):InvokeServer(unpack(args))
+local args = {
+	"Slot6"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunction"):WaitForChild("PlayerSpawn"):InvokeServer(unpack(args))
