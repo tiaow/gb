@@ -477,17 +477,32 @@ end)
 end)
 credits:Toggle("夜视", "Light", false, function(Light)
     if Light then
-        -- 打开夜视时，次数加一，但最高为1
         if nightVisionOpenCount < 1 then
-            nightVisionOpenCount = nightVisionOpenCount + 1
+            nightVisionOpenCount = 1  -- 直接设为1，避免多次判断
         end
         game.Lighting.Ambient = Color3.new(1, 1, 1)
+        -- 开启状态维持任务
+        local maintainTask = spawn(function()
+            local lastState = true  -- 记录上次状态
+            while lastState do  -- 只要夜视开启就持续检查
+                if game.Lighting.Ambient ~= Color3.new(1, 1, 1) then
+                    -- 发现高亮消失，立即重置
+                    game.Lighting.Ambient = Color3.new(1, 1, 1)
+                end
+                task.wait(0.1)  -- 短间隔检查，提升稳定性
+                lastState = (nightVisionOpenCount >= 1)  -- 检测夜视是否仍开启
+            end
+        end)
     else
         game.Lighting.Ambient = Color3.new(0, 0, 0)
+        -- 关闭时终止维持任务（避免内存泄漏）
+        if maintainTask then
+            maintainTask:Cancel()
+        end
     end
     spawn(function()
         while task.wait() do
-            -- 保持原有的循环逻辑
+            -- 原有循环逻辑保留
         end
     end)
 end)
@@ -602,15 +617,30 @@ end)
   loadstring(game:HttpGet'https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt')()
 end)                      
 credits:Toggle('上帝模式', 'No Description', false, function(Value)
-        if Value then
-            local LP = game:GetService"Players".LocalPlayer
-            local HRP = LP.Character.HumanoidRootPart
-            local Clone = HRP:Clone()
-            Clone.Parent = LP.Character
-        else
-            game.Players.LocalPlayer.Character.Head:Destroy()
+    if Value then
+        local LP = game:GetService("Players").LocalPlayer
+        local HRP = LP.Character and LP.Character.HumanoidRootPart
+        if HRP then
+            -- 克隆HRP并标记，避免重复创建
+            if not LP.Character:FindFirstChild("GodModeClone") then
+                local Clone = HRP:Clone()
+                Clone.Name = "GodModeClone"
+                Clone.Parent = LP.Character
+            end
         end
-    end)
+    else
+        local LP = game:GetService("Players").LocalPlayer
+        local character = LP.Character
+        if character then
+            -- 移除克隆部件（替代原有的摧毁头部逻辑）
+            local clone = character:FindFirstChild("GodModeClone")
+            if clone then
+                clone:Destroy()
+            end
+            -- 若需要额外效果（如取消无敌），可在此添加逻辑
+        end
+    end
+end)
 credits:Button("第三人称(需手动缩放)", function()  game.Players.LocalPlayer.CameraMode = Enum.CameraMode.Classic  end)
 credits:Button("隐身道具", function()
   loadstring(game:HttpGet("https://gist.githubusercontent.com/skid123skidlol/cd0d2dce51b3f20ad1aac941da06a1a1/raw/f58b98cce7d51e53ade94e7bb460e4f24fb7e0ff/%257BFE%257D%2520Invisible%2520Tool%2520(can%2520hold%2520tools)",true))()
