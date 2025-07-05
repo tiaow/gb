@@ -617,15 +617,24 @@ end)
   loadstring(game:HttpGet'https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt')()
 end)                      
 credits:Toggle('上帝模式', 'No Description', false, function(Value)
-        if Value then
-            local LP = game:GetService"Players".LocalPlayer
-            local HRP = LP.Character.HumanoidRootPart
-            local Clone = HRP:Clone()
-            Clone.Parent = LP.Character
-        else
-            -- 关闭时不执行任何操作，原删除头部的逻辑已移除
+    local LP = game:GetService("Players").LocalPlayer
+    local character = LP.Character
+    if not character then return end  -- 确保角色存在
+    
+    if Value then
+        -- 开启上帝模式：克隆HRP
+        local HRP = character.HumanoidRootPart
+        local clone = HRP:Clone()
+        clone.Parent = character
+    else
+        -- 关闭上帝模式：删除克隆的HRP（保留原头部）
+        for i, child in ipairs(character:GetChildren()) do
+            if child:IsA("BasePart") and child.Name == "HumanoidRootPart" and child ~= character.HumanoidRootPart then
+                child:Destroy()
+            end
         end
-    end)
+    end
+end)
 credits:Button("第三人称(需手动缩放)", function()  game.Players.LocalPlayer.CameraMode = Enum.CameraMode.Classic  end)
 credits:Button("隐身道具", function()
   loadstring(game:HttpGet("https://gist.githubusercontent.com/skid123skidlol/cd0d2dce51b3f20ad1aac941da06a1a1/raw/f58b98cce7d51e53ade94e7bb460e4f24fb7e0ff/%257BFE%257D%2520Invisible%2520Tool%2520(can%2520hold%2520tools)",true))()
