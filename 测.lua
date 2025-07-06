@@ -1,20 +1,36 @@
-local args = {
-	game:GetService("Players").LocalPlayer.Character:WaitForChild("Shovel"),
-	1751615072.037301,
-	vector.create(0.5085581541061401, -0.18179628252983093, -0.8416168093681335)
-}
-game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Network"):WaitForChild("RemoteEvent"):WaitForChild("SwingMelee"):FireServer(unpack(args))
+-- 定义传送点数据（修正表定义语法）
 local teleportPoints = {
-    ["矿物售卖点"] = Vector3.new(-41.5818, 3.5000, 25.7670),
-    ["饭盒售卖点"] = Vector3.new(-190.9192, 3.9995, -52.3112),
-    ["矿洞(顶部)"] = Vector3.new(-66.3164, 3.5000, 56.8189),
-    ["矿洞(深处)"] = Vector3.new(61.1772, -108.1145, -119.4801),
-    ["买稿子处"] = Vector3.new(-69.0856, 4.0000, 31.4245),
-    ["小区"] = Vector3.new(76.5418, 4.0000, -65.5413),
-    ["蜜雪冰城"] = Vector3.new(190.7056, 3.5000, 14.7399),
-    ["买车处"] = Vector3.new(227.7959, 3.5000, 19.9525),
-    ["买水果处"] = Vector3.new(250.1062, 3.5000, 19.7398),
-    ["小吃街"] = Vector3.new(87.2112, 3.5000, 48.0347)
+    ["售卖点"] = {
+        tool = game:GetService("Players").LocalPlayer.Character:WaitForChild("Shovel"),
+        unknownValue = 1751615072.037301,
+        direction = Vector3.new(0.5085581541061401, -0.18179628252983093, -0.8416168093681335)
+    }
 }
 
 local selectedPoint = nil  -- 存储当前选择的坐标
+
+-- 下拉菜单设置
+credits:Dropdown("设", "点", 
+    {"售卖点"}, 
+    function(selected)
+        selectedPoint = teleportPoints[selected]
+        print("已选择:", selected)
+    end)
+
+-- 开关设置（修正循环逻辑）
+credits:Toggle("重复执行", "Toggle", false, function(Value)
+    local ez = Value
+    while ez do
+        -- 确保selectedPoint存在后执行操作
+        if selectedPoint then
+            -- 假设这里需要重复调用FireServer
+            local args = {
+                selectedPoint.tool,
+                selectedPoint.unknownValue,
+                selectedPoint.direction
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Network"):WaitForChild("RemoteEvent"):WaitForChild("SwingMelee"):FireServer(unpack(args))
+        end
+        task.wait(0.1)
+    end
+end)
