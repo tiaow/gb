@@ -12,7 +12,7 @@ local args = {
 	false
 }
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunction"):WaitForChild("StartBattle"):InvokeServer(unpack(args))
-task.wait(0.0001)
+task.wait(0.01)
 end
 end)
 credits:Toggle("点击槽位6", "Toggle", false,function(Value)
@@ -22,6 +22,6 @@ local args = {
 	"Slot6"
 }
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunction"):WaitForChild("PlayerSpawn"):InvokeServer(unpack(args))
-task.wait(0.0001)
+task.wait(0.01)
 end
 end)
