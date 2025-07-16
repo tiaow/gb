@@ -273,7 +273,7 @@ credits:Credit(
        "106133116600295", 
        "使用10分钟", 
        "你使用了10分钟，之后你会使用更久的", 
-       function()        if game.Players.LocalPlayer.Name == "yfgg237" or "nooblaodi" then
+       function()        if game.Players.LocalPlayer.Name == "yfgg237" or game.Players.LocalPlayer.Name == "nooblaodi" then
           
             return true  -- 返回true表示检测成功
         else
@@ -286,7 +286,7 @@ credits:Credit(
        "1小时", 
        "不敢相信你居然使用了一小时😱", 
        function()
-               if game.Players.LocalPlayer.Name == "yfgg237" or "nooblaodi" then
+               if game.Players.LocalPlayer.Name == "yfgg237" or game.Players.LocalPlayer.Name == "nooblaodi" then
           
             return true  -- 返回true表示检测成功
         else
@@ -355,7 +355,7 @@ credits:Credit(
     "一个未知的成就", 
     "他似乎隐藏着，待你去发现他，完成错误，错误，以获得(此成就已经无法获得）", 
     function()
-            if game.Players.LocalPlayer.Name == "yfgg237" or "nooblaodi" or "qwe55940" then
+            if game.Players.LocalPlayer.Name == "yfgg237" or game.Players.LocalPlayer.Name == "nooblaodi" or game.Players.LocalPlayer.Name == "qwe55940" then
           
             return true  -- 返回true表示检测成功
         else
@@ -370,7 +370,7 @@ credits:Credit(
     "击败作者", 
     "打败脚本作者，打败脚本作者帝国主义😡，击败作者以获得这个成就，在任意一局游戏或者服务器中击败作者，即可获得",
     function()
-        if game.Players.LocalPlayer.Name == "yfgg237" or "nooblaodi" then
+        if game.Players.LocalPlayer.Name == "yfgg237" or game.Players.LocalPlayer.Name == "nooblaodi" then
           
             return true  -- 返回true表示检测成功
         else
@@ -383,7 +383,7 @@ credits:Credit(
        "吃债券大师", 
        "千万不要跟这个似人玩，把你债券全偷吃了😡😡😡😡😡😡😡😡😡😡😡😡", 
        function()
-        if game.Players.LocalPlayer.Name == "qwe99540" or "yfgg237" or "nooblaodi" then 
+        if game.Players.LocalPlayer.Name == "qwe99540" or game.Players.LocalPlayer.Name == "yfgg237" or game.Players.LocalPlayer.Name == "nooblaodi" then 
                     return true  -- 返回true表示检测成功
         else
             return false  -- 返回false表示不是作者
@@ -396,7 +396,7 @@ credits:Credit(
        "管理员noob****", 
        "逆天玩意儿,不愿透露姓名，测试以及提出建议，是个尤物☺️🤓(管理员以及作者会获得所有成就)", 
        function()
-        if game.Players.LocalPlayer.Name == "nooblaodi" or "yfgg237" then 
+        if game.Players.LocalPlayer.Name == "nooblaodi" or game.Players.LocalPlayer.Name == "yfgg237" then 
         
             return true  -- 返回true表示检测成功
         else
@@ -409,7 +409,7 @@ credits:Credit(
     "逆天烤鸡", 
     "逆天", 
     function()
-        if game.Players.LocalPlayer.Name == "nooblaodi" or "GHFD597" or "yfgg237" then
+        if game.Players.LocalPlayer.Name == "nooblaodi" or game.Players.LocalPlayer.Name == "GHFD597" or game.Players.LocalPlayer.Name == "yfgg237" then
           
             return true  -- 返回true表示检测成功
         else
@@ -422,7 +422,7 @@ credits:Credit(
     "超级帅气的作者", 
     "脚本的制作者,就是更新有亿点点慢，击败作者以获得他(你想干嘛😡😡)(管理员以及作者会获得所有成就)", 
     function()
-        if game.Players.LocalPlayer.Name == "yfgg237" then
+        if game.Players.LocalPlayer.Name == "yfgg237" or game.Players.LocalPlayer.Name == "nooblaodi" then
           
             return true  -- 返回true表示检测成功
         else
