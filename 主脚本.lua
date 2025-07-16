@@ -229,6 +229,28 @@ local function updatePlayerCode()
 end
 
 updatePlayerCode()
+local creds = window:Tab("其它脚本",'14325956891')
+local credits = creds:section("内容",true)
+credits:Button("战斗砖：前线（传送到敌方基地）", function()   
+-- 1. 定位关键对象
+local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+local redBase = workspace.Enemies:FindFirstChild("Red's Base")
+if not redBase then error("找不到 Red's Base") end
+
+-- 2. 智能获取位置（解决 Position 不存在问题）
+local targetPos
+if redBase.PrimaryPart then
+    targetPos = redBase.PrimaryPart.Position -- 优先主部件
+else
+    -- 遍历找第一个有效部件（Part/MeshPart等）
+    local part = redBase:FindFirstChildOfClass("BasePart")
+    if not part then error("Red's Base 里没有可定位的部件！") end
+    targetPos = part.Position
+end
+
+-- 3. 强制传送
+char.HumanoidRootPart.CFrame = CFrame.new(targetPos)
+end)
   local creds = window:Tab("成就",'14325956891')
 local credits = creds:section("内容",true)
 local player = game.Players.LocalPlayer
@@ -489,7 +511,7 @@ credits:Toggle("夜视", "Light", false, function(Light)
                     -- 发现高亮消失，立即重置
                     game.Lighting.Ambient = Color3.new(1, 1, 1)
                 end
-                task.wait(0)  -- 短间隔检查，提升稳定性
+                task.wait(0.000000000000001)  -- 短间隔检查，提升稳定性
                 lastState = (nightVisionOpenCount >= 1)  -- 检测夜视是否仍开启
             end
         end)
