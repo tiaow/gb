@@ -737,8 +737,10 @@ end)
     credits:Button("玩家加入游戏提示",function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/boyscp/scriscriptsc/main/bbn.lua"))()
 end)
-    credits:Button("撸🥵🥵🥵", function()
+    credits:Button("撸🥵🥵🥵(R6)", function()
     loadstring(game:HttpGet("https://pastefy.app/wa3v2Vgm/raw"))() end)
+credits:Button("撸🥵🥵(R15)", function()
+     loadstring(game:HttpGet("https://pastefy.app/YZoglOyJ/raw"))() end)
     credits:Label("转圈")
     credits:Button(
     "旋转0",
