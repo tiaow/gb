@@ -7,7 +7,7 @@
      {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 2, Type = "image"}, 
      {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(255, 84, 84)} 
  ) 
-   local musicId = "rbxassetid://4590657391"
+   local musicId = "rbxassetid://4590662766"
     local music = Instance.new("Sound", game.Workspace)
     music.SoundId = musicId
     music:Play()
@@ -17,7 +17,7 @@
      {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 2, Type = "image"}, 
      {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(255, 84, 84)} 
  )
-   local musicId = "rbxassetid://4590657391"
+   local musicId = "rbxassetid://4590662766"
     local music = Instance.new("Sound", game.Workspace)
     music.SoundId = musicId
     music:Play()
@@ -2417,7 +2417,7 @@ end)
      {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 1, Type = "image"}, 
      {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(255, 84, 84)} 
  )
-  local musicId = "rbxassetid://3848738542"
+  local musicId = "rbxassetid://4590657391"
     local music = Instance.new("Sound", game.Workspace)
     music.SoundId = musicId
     music:Play()
