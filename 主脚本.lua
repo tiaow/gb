@@ -243,20 +243,11 @@ credits:Toggle("移除UI辉光", "", false, function(state)
             game:GetService("CoreGui")["frosty is cute"].Main.Style = "Custom"
         end
     end)
+
+    
         credits:Button("摧毁GUI",function()
-    -- 关闭所有Toggle状态
-    for _, tab in pairs(window.Tabs) do
-        for _, section in pairs(tab.Sections) do
-            for _, element in pairs(section.Elements) do
-                if element.Type == "Toggle" then
-                    element:SetState(false)
-                end
-            end
-        end
-    end
-    -- 销毁UI
-    game:GetService("CoreGui")["frosty is cute"]:Destroy()
-end)
+            game:GetService("CoreGui")["frosty is cute"]:Destroy()
+        end)
 updatePlayerCode()
 local creds = window:Tab("其它脚本",'14325956891')
 local credits = creds:section("内容",true)
