@@ -9,7 +9,7 @@ local args = {
 	3,
 	false,
 	{},
-	false
+	ture
 }
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunction"):WaitForChild("StartBattle"):InvokeServer(unpack(args))
 task.wait(0.01)
