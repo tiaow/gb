@@ -227,7 +227,33 @@ local function updatePlayerCode()
         end
     end)
 end
+local credits = creds:section("设置",true)
+credits:Toggle("移除UI辉光", "", false, function(state)
+        if state then
+            game:GetService("CoreGui")["frosty is cute"].Main.DropShadowHolder.Visible = false
+        else
+            game:GetService("CoreGui")["frosty is cute"].Main.DropShadowHolder.Visible = true
+        end
+    end)
 
+    credits:Toggle("彩虹UI", "", false, function(state)
+        if state then
+            game:GetService("CoreGui")["frosty is cute"].Main.Style = "DropShadow"
+        else
+            game:GetService("CoreGui")["frosty is cute"].Main.Style = "Custom"
+        end
+    end)
+credits:Toggle("脚本框架变小一点", "", false, function(state)
+        if state then
+        game:GetService("CoreGui")["frosty"].Main.Style = "DropShadow"
+        else
+            game:GetService("CoreGui")["frosty"].Main.Style = "Custom"
+        end
+    end)
+    
+        credits:Button("摧毁GUI",function()
+            game:GetService("CoreGui")["frosty is cute"]:Destroy()
+        end)
 updatePlayerCode()
 local creds = window:Tab("其它脚本",'14325956891')
 local credits = creds:section("内容",true)
