@@ -48,13 +48,6 @@ local currentPlayersLabel = bin:Label("当前玩家人数: 计算中...")
 -- 获取当前服务器的Place ID并显示
 local placeId = game.PlaceId -- 获取服务器ID
 bin:Label("你的服务器ID: " .. tostring(placeId)) -- 显示ID
-
-bin:Button("复制ID", function()
-    -- 使用Roblox的SetClipboard函数复制文本（需在LocalScript中运行）
-    game:GetService("GuiService"):SetClipboard(tostring(placeId))
-    -- 可选：添加复制成功的提示
-    warn("ID已复制到剪贴板")
-end)
 local playerCodeLabel = bin:Label("slap埃及密码: 计算中...")
 local player = game.Players.LocalPlayer
 
