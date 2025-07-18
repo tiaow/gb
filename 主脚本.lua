@@ -45,8 +45,12 @@ local timeLabel = bin:Label("当前时间: 计算中...")
 local usTimeLabel = bin:Label("美国时间: 计算中...")
 local initialPlayersLabel = bin:Label("初始玩家人数: 计算中...")
 local currentPlayersLabel = bin:Label("当前玩家人数: 计算中...")
-local serverInfoLabel = bin:Label("服务器信息: 计算中...")
-local serverNameLabel = bin:Label("服务器名字: 计算中...")
+-- 获取当前服务器的Place ID并显示
+local placeId = game.PlaceId -- 获取ID
+bin:Label("你的服务器ID: " .. tostring(placeId)) -- 拼接并显示
+bin:Button("复制ID",function()
+setclipboard(placeId)
+end)
 local playerCodeLabel = bin:Label("slap埃及密码: 计算中...")
 local player = game.Players.LocalPlayer
 
@@ -187,32 +191,10 @@ end
 updateCurrentPlayers()
 
 -- 显示服务器信息
-local function updateServerInfo()
-    spawn(function()
-        while true do
-            local serverId = game.JobId
-            serverInfoLabel.Text = "服务器信息: ID=" .. serverId
-            task.wait(1) -- 每秒更新一次
-        end
-    end)
-end
 
 updateServerInfo()
 
 -- 显示服务器名字
-local function updateServerName()
-    spawn(function()
-        while true do
-            local serverName = game:GetService("ReplicatedStorage"):FindFirstChild("ServerName") -- 假设服务器名字存储在 ReplicatedStorage 中
-            if serverName then
-                serverNameLabel.Text = "服务器名字: " .. serverName.Value
-            else
-                serverNameLabel.Text = "服务器名字: 未知"
-            end
-            task.wait(1) -- 每秒更新一次
-        end
-    end)
-end
 
 updateServerName()
 
@@ -531,7 +513,7 @@ credits:Toggle("夜视", "Light", false, function(Light)
                     -- 发现高亮消失，立即重置
                     game.Lighting.Ambient = Color3.new(1, 1, 1)
                 end
-                task.wait(0.000000000000001)  -- 短间隔检查，提升稳定性
+                task.wait(0.01)  -- 短间隔检查，提升稳定性
                 lastState = (nightVisionOpenCount >= 1)  -- 检测夜视是否仍开启
             end
         end)
