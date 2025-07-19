@@ -623,6 +623,9 @@ credits:Toggle("智能自动交互(建议搭配立即互动)", "Toggle", false, 
         table.insert(connections, newPromptConn)
     end
 end)
+credits:Button("去雾",function()
+game:GetService("Lighting").FogEnd = 9999999
+end)
     credits:Toggle("人物显示", "RWXS", false, function(RWXS)    getgenv().enabled = RWXS getgenv().filluseteamcolor = true getgenv().outlineuseteamcolor = true getgenv().fillcolor = Color3.new(1, 0, 0) getgenv().outlinecolor = Color3.new(1, 1, 1) getgenv().filltrans = 0.5 getgenv().outlinetrans = 0.5 loadstring(game:HttpGet("https://raw.githubusercontent.com/Vcsk/RobloxScripts/main/Highlight-ESP.lua"))()end) 
     credits:Button("无敌可能不适用",function()
      loadstring(game:HttpGet('https://pastebin.com/raw/H3RLCWWZ'))()
