@@ -644,7 +644,10 @@ end)
   	 end)                                       
    credits:Button("飞行v3",function()
   loadstring(game:HttpGet'https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt')()
-end)                      
+end) 
+credits:Button("骂人不违规",function()
+      		loadstring(game:GetObjects("rbxassetid://1262435912")[1].Source)()
+  	end)                     
 credits:Toggle('上帝模式', 'No Description', false, function(Value)
     local LP = game:GetService("Players").LocalPlayer
     local character = LP.Character
