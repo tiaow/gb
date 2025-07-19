@@ -118,7 +118,7 @@ local function FartHubLoad()
 		Name = "被遗弃汉化版",
 		Theme = "Default",
 		LoadingTitle = "被遗弃脚本汉化版",
-		LoadingSubtitle = "AlexPT汉化",
+		LoadingSubtitle = "条纹大帝",
 		Icon = "microwave",
 		Link = "https://github.com/ivannetta/ShitScripts/Forsaken",
 
@@ -128,12 +128,12 @@ local function FartHubLoad()
 		KeySystem = true,
 		KeySettings = {
 			Title = "被遗弃脚本卡密",
-			Subtitle = "卡密是AlexPT",
+			Subtitle = "卡密是1",
 			Note = "好用",
 			FileName = "FartHubKey",
 			SaveKey = true,
 			GrabKeyFromSite = false,
-			Key = { "AlexPT" }, -- this is very protected trust 😭
+			Key = { "q" }, -- this is very protected trust 😭
 		},
 	})
 
