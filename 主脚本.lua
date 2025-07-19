@@ -690,6 +690,7 @@ Timexunhuan = Value
 while Timexunhuan do
 game:GetService("Lighting").TimeOfDay = TimeText
 task.wait(0.01)
+end
 end)
 credits:Button("去雾",function()
 game:GetService("Lighting").FogEnd = 9999999
@@ -704,10 +705,7 @@ end)
   	 end)                                       
    credits:Button("飞行v3",function()
   loadstring(game:HttpGet'https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt')()
-end) 
-credits:Button("骂人不违规",function()
-      		loadstring(game:GetObjects("rbxassetid://1262435912")[1].Source)()
-  	end)                     
+end)                
 credits:Toggle('上帝模式', 'No Description', false, function(Value)
     local LP = game:GetService("Players").LocalPlayer
     local character = LP.Character
