@@ -623,6 +623,47 @@ credits:Toggle("智能自动交互(建议搭配立即互动)", "Toggle", false, 
         table.insert(connections, newPromptConn)
     end
 end)
+credits:Button(
+        "灵魂出窍",
+        function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/ahK5jRxM"))()
+        end)
+        
+        credits:Button(
+        "动作变卡",
+        function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Fe%20Fake%20Lag%20Obfuscator'))()
+        end)
+        
+        credits:Button(
+        "认真反复横跳",
+        function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe/main/obf_11l7Y131YqJjZ31QmV5L8pI23V02b3191sEg26E75472Wl78Vi8870jRv5txZyL1.lua.txt"))()
+        end)
+        
+        credits:Button(
+        "定住自己",
+        function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/YrfBSuWw"))()
+        end)
+        
+        credits:Button(
+        "帽子旋转",
+        function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/BingusWR/Fe-Spinning-Hat-Script/refs/heads/main/Fe%20Spinning%20Hats%20Script"))()
+        end)
+        
+        credits:Button(
+        "无头和kor",
+        function()
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Permanent-Headless-And-korblox-Script-4140"))()
+        end)
+        
+        credits:Button(
+        "R15变R6",
+        function()
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-R6-Animations-on-R15-16865"))()
+        end)
 credits:Textbox("输入时间","格式：时:分:秒","0", function(Value)
 TimeText = Value   
  end)
