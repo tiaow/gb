@@ -671,6 +671,7 @@ credits:Toggle("输入时间","Toggle",false, function(Value)
 Timexunhuan = Value   
 while Timexunhuan do
 game:GetService("Lighting").TimeOfDay = TimeText
+task.wait(0.01)
 end)
 credits:Button("去雾",function()
 game:GetService("Lighting").FogEnd = 9999999
