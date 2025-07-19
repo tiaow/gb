@@ -664,6 +664,24 @@ credits:Button(
         function()
         loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-R6-Animations-on-R15-16865"))()
         end)
+credits:Button(
+        "铁拳",
+        function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'))()
+end)
+
+credits:Button(
+        "单个甩人",
+        function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/ScpGuest666/Random-Roblox-script/refs/heads/main/Roblox%20fling%20script'))()
+        end)
+        
+        credits:Button(
+        "碰到就飞",
+        function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe./main/Fling%20GUI"))()
+        end)
+        
 credits:Textbox("输入时间","格式：时:分:秒","0", function(Value)
 TimeText = Value   
  end)
