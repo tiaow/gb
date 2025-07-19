@@ -623,6 +623,14 @@ credits:Toggle("智能自动交互(建议搭配立即互动)", "Toggle", false, 
         table.insert(connections, newPromptConn)
     end
 end)
+credits:Textbox("输入时间","格式：时:分:秒","0", function(Value)
+TimeText = Value   
+ end)
+credits:Toggle("输入时间","Toggle",false, function(Value)
+Timexunhuan = Value   
+while Timexunhuan do
+game:GetService("Lighting").TimeOfDay = TimeText
+end)
 credits:Button("去雾",function()
 game:GetService("Lighting").FogEnd = 9999999
 end)
