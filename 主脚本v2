@@ -6,3 +6,15 @@ local Window = WindUI:CreateWindow({
     Theme = "Dark"
 })
 local Tab = Window:Section({Title = "同用"}):Tab({Title = "通用"})
+Tab:Slider({
+    Title = "Float Slider",
+    Step = 0.1,
+    Value = {
+        Min = 0,
+        Max = 2.5,
+        Default = 1.5,
+    },
+    Callback = function(value) 
+
+ end
+})
