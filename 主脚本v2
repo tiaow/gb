@@ -14,7 +14,7 @@ Tab:Slider({
         Max = 2.5,
         Default = 1.5,
     },
-    Callback = function(value) 
-
+    Callback = function(v) 
+while task.wait() do game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v
  end
 })
