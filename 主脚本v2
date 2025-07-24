@@ -5,3 +5,4 @@ local Window = WindUI:CreateWindow({
     Size = UDim2.fromOffset(500, 450),
     Theme = "Dark"
 })
+local Tab = Window:Section({Title = "同用"}):Tab({Title = "通用"})
