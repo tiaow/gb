@@ -1,20 +1,46 @@
+
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
+
+-- 创建窗口
 local Window = WindUI:CreateWindow({
-    Title = "可交互控制界面",
+    Title = "简单窗口示例",
     Icon = "rbxassetid://129260712070622",
-    Size = UDim2.fromOffset(500, 450),
+    Size = UDim2.fromOffset(400, 300),
     Theme = "Dark"
 })
-local Tab = Window:Section({Title = "同用"}):Tab({Title = "通用"})
-Tab:Slider({
-    Title = "Float Slider",
-    Step = 0.1,
-    Value = {
-        Min = 0,
-        Max = 2.5,
-        Default = 1.5,
-    },
-    Callback = function(v) 
-while task.wait() do game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v
- end
+
+-- 创建存放按钮的区域
+local MainSection = Window:Section({
+    Title = "主区域",
+    Opened = true
+})
+
+local MainTab = MainSection:Tab({
+    Title = "按钮演示",
+    Icon = "mouse-pointer-2"
+})
+
+-- 创建点击按钮
+MainTab:Button({
+    Title = "点击我",
+    Desc = "这是一个简单的按钮",
+    Callback = function()
+        print("按钮被点击了！")
+        WindUI:Notify({
+            Title = "提示",
+            Content = "按钮已点击",
+            Duration = 3
+        })
+    end
+})
+MainSection:Slider({
+    Title = "移动速度",
+    Desc = "拖动调节（16-100）",
+    Min = 16,
+    Max = 100,
+    Default = currentSpeed,
+    Callback = function(value)
+        
+        })
+    end
 })
