@@ -1,1 +1,7 @@
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
+local Window = WindUI:CreateWindow({
+    Title = "可交互控制界面",
+    Icon = "rbxassetid://129260712070622",
+    Size = UDim2.fromOffset(500, 450),
+    Theme = "Dark"
+})
