@@ -12,61 +12,133 @@ local MainTab = Window:Tab({
     Icon = "mouse-pointer-2"
 })
 
--- 添加启用速度的开关
-
--- 按钮放在滑块下方
-MainTab:Button({
-    Title = "点击我",
-    Desc = "这是一个简单的按钮",
-    Callback = function()
-        print("按钮被点击了！")
-        WindUI:Notify({
-            Title = "提示",
-            Content = "按钮已点击",
-            Duration = 3
-        })
+MainTab:Slider({
+    Title = "移动速度",
+    Desc = "调整角色移动速度",
+    Value = {
+        Min = 0,
+        Max = 1000,
+        Default = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed,
+    },
+    Callback = function(speedValue) 
+        -- 直接赋值一次即可，无需循环
+        local humanoid = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            humanoid.WalkSpeed = speedValue
+        else
+            
+            
+        end
     end
 })
-credits:Slider("步行速度", "WalkSpeed", game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, 16, 1000, false, function(Speed)
-  spawn(function() while task.wait() do game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Speed end end)
-end)       
-                          
-   credits:Slider("跳跃高度", "JumpPower", game.Players.LocalPlayer.Character.Humanoid.JumpPower, 50, 100000000, false, function(Jump)
-    game.Players.LocalPlayer.Character.Humanoid.JumpPower = Jump
-end)
-credits:Slider('设置重力（正常196.2）', 'Sliderflag', 196.2, 0.1, 1000,false, function(Value)
-    game.Workspace.Gravity = Value
-end)
-    credits:Slider('缩放距离', 'ZOOOOOM OUT!',  128, 128, 100000,false, function(value)
-    game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = value
-    end)
-    credits:Slider('视界（正常70）', 'Sliderflag', 70, 0.1, 120, false, function(v)
-        game.Workspace.CurrentCamera.FieldOfView = v
-    end)
-   
-
-    credits:Slider(
-	"最大血量",
-	"",
-	100,
-	1,
-	999999999,
-	false,
-	function(Value)
-		game.Players.LocalPlayer.Character.Humanoid.MaxHealth = Value
-	end	 
-)
-    credits:Slider(
-    "血量",
-    "",
-    100,
-    1,
-    999999999,
-    false,
-    function(Value)
-        game.Players.LocalPlayer.Character.Humanoid.Health = Value
+MainTab:Slider({
+    Title = "跳跃高度",
+    Desc = "调整角色跳跃高度",
+    Value = {
+        Min = 0,
+        Max = 10000,
+        Default = game.Players.LocalPlayer.Character.Humanoid.JumpPower,
+    },
+    Callback = function(JValue) 
+        -- 直接赋值一次即可，无需循环
+        local humanoid = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            humanoid.JumpPower = JValue
+        else
+            
+            
+        end
     end
-)
+})
+MainTab:Slider({
+    Title = "设置重力",
+    Desc = "默认196.2",
+    Value = {
+        Min = 0,
+        Max = 1000,
+        Default = 196.2,
+    },
+    Callback = function(zhongl) 
+      local Game = game.Workspace
+if Game then
+       Game.Gravity = zhongl
+    end
+   end
+})
+ MainTab:Slider({
+    Title = "缩放距离",
+    Desc = "默认128",
+    Value = {
+        Min = 128,
+        Max = 100000,
+        Default = 128,
+    },
+    Callback = function(SF) 
+      local YUJ = game:GetService("Players").LocalPlayer.CameraMaxZoomDistance
+if YUJ then
+       YUJ = SF
+    end
+   end
+})
+MainTab:Slider({
+    Title = "视界",
+    Desc = "默认70",
+    Value = {
+        Min = 0,
+        Max = 120,
+        Default = 70,
+    },
+    Callback = function(shijie) 
+      local GHU = game.Workspace.CurrentCamera.FieldOfView
+if GHU then
+       GHU = shijie
+    end
+   end
+})
+MainTab:Slider({
+    Title = "血量",
+    Desc = "仅自己可见",
+    Value = {
+        Min = 0,
+        Max = 12000000,
+        Default = game.Players.LocalPlayer.Character.Humanoid.MaxHealth,
+    },
+    Callback = function(HP) 
+      local sjk = game.Players.LocalPlayer.Character.Humanoid.MaxHealth 
+if sjk then
+       sjk =  HP
+    end
+   end
+})MainTab:Slider({
+    Title = "最大血量",
+    Desc = "仅自己可见",
+    Value = {
+        Min = 0,
+        Max = 12000000000,
+        Default = game.Players.LocalPlayer.Character.Humanoid.MaxHealth,
+    },
+    Callback = function(MHP) 
+      loca sU = game.Workspace.CurrentCamera.FieldOfView
+if sU then
+       sU = MHP
+    end
+   end
+})MainTab:Slider({
+    Title = "视界",
+    Desc = "默认70",
+    Value = {
+        Min = 0,
+        Max = 120,
+        Default = 70,
+    },
+    Callback = function(SDF) 
+      local GHU = game.Workspace.CurrentCamera.FieldOfView
+if GHU then
+       GHU = zhongl
+    end
+   end
+})
+
 credits:Textbox("快速跑步（死后重置）建议用2", "tpwalking", "输入", function(king)
 local tspeed = king
 local hb = game:GetService("RunService").Heartbeat
