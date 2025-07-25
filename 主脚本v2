@@ -74,9 +74,8 @@ if Game then
         Default = 128,
     },
     Callback = function(SF) 
-      local YUJ = game:GetService("Players").LocalPlayer.CameraMaxZoomDistance
-if YUJ then
-       YUJ = SF
+  
+       game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = SF
     end
    end
 })
@@ -89,58 +88,20 @@ MainTab:Slider({
         Default = 70,
     },
     Callback = function(shijie) 
-      local GHU = game.Workspace.CurrentCamera.FieldOfView
-if GHU then
-       GHU = shijie
-    end
-   end
-})
-MainTab:Slider({
-    Title = "血量",
-    Desc = "仅自己可见",
-    Value = {
-        Min = 0,
-        Max = 12000000,
-        Default = game.Players.LocalPlayer.Character.Humanoid.MaxHealth,
-    },
-    Callback = function(HP) 
-      local sjk = game.Players.LocalPlayer.Character.Humanoid.MaxHealth 
-if sjk then
-       sjk =  HP
-    end
-   end
-})MainTab:Slider({
-    Title = "最大血量",
-    Desc = "仅自己可见",
-    Value = {
-        Min = 0,
-        Max = 12000000000,
-        Default = game.Players.LocalPlayer.Character.Humanoid.MaxHealth,
-    },
-    Callback = function(MHP) 
-      loca sU = game.Workspace.CurrentCamera.FieldOfView
-if sU then
-       sU = MHP
-    end
-   end
-})MainTab:Slider({
-    Title = "视界",
-    Desc = "默认70",
-    Value = {
-        Min = 0,
-        Max = 120,
-        Default = 70,
-    },
-    Callback = function(SDF) 
-      local GHU = game.Workspace.CurrentCamera.FieldOfView
-if GHU then
-       GHU = zhongl
+      
+       game.Workspace.CurrentCamera.FieldOfView = shijie
     end
    end
 })
 
-credits:Textbox("快速跑步（死后重置）建议用2", "tpwalking", "输入", function(king)
-local tspeed = king
+MainTab:Input({
+    Title = "跑步速度",
+    Value = "建议1",
+    InputIcon = "bird",
+    Placeholder = "输入",
+    Callback = function(king)
+
+ local tspeed = king
 local hb = game:GetService("RunService").Heartbeat
 local tpwalking = true
 local player = game:GetService("Players")
@@ -156,5 +117,7 @@ while tpwalking and hb:Wait() and chr and hum and hum.Parent do
     end
   end
 end
-end)
+end
+})
+
 
