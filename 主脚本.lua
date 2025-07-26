@@ -5,7 +5,7 @@ if player.Name == "Gary_Xi666" then
     if chance == 1 then  -- 10% 概率（1/10）
         player:Kick("启动错误，请重试")
     else
-        print("安全，这次不踢你。")
+        print("启动成功")
     end
 end
 --local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/%E5%BD%A9%E8%89%B2UI.lua"))()          local window = library:new("条脚本v2")    local creds = window:Tab("通用",'7743875962')  local credits = creds:section("内容",true)     
