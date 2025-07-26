@@ -17,13 +17,14 @@ if success then
      {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"}, 
      {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(255, 84, 84)} 
  ) 
-if game.Player.Name = Gary_Xi666 then
+if game.Players.LocalPlayer.Name == "Gary_Xi666" then
 local Fg = true
 while Fg do
 print("1")
 task.wait(0.01)
+end
 else
-
+print("done")
 end
 
 else
