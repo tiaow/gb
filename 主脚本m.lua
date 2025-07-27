@@ -27,6 +27,7 @@ MainTab:Slider({
      game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Speed 
     end
 })
+
 MainTab:Slider({
     Title = "跳跃高度",
     Desc = "调整角色跳跃高度",
@@ -113,3 +114,16 @@ while tpwalking and hb:Wait() and chr and hum and hum.Parent do
 end
 end
 })
+
+MainTab:Toggle({
+    Title = "Activate Mode",
+    Value = false,
+    Callback = function(state) 
+while state do
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Speed 
+task.wait(1)
+end
+
+end
+})
+
