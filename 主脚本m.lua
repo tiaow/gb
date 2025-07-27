@@ -58,7 +58,7 @@ MainTab:Slider({
       
        Game.Gravity = zhongl
     end
-   end
+   
 })
  MainTab:Slider({
     Title = "缩放距离",
@@ -118,11 +118,15 @@ end
 MainTab:Toggle({
     Title = "Activate Mode",
     Value = false,
-    Callback = function(state) 
-while state do
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Speed 
-task.wait(1)
-end
+    Callback = function(NC) 
+
+local Workspace = game:GetService("Workspace") 
+local Players = game:GetService("Players") 
+if NC then 
+Clipon = true 
+else Clipon = false end 
+Stepped = game:GetService("RunService").Stepped:Connect(function() if not Clipon == false then for a, b in pairs(Workspace:GetChildren()) do if b.Name == Players.LocalPlayer.Name then for i, v in pairs(Workspace[Players.LocalPlayer.Name]:GetChildren()) do if v:IsA("BasePart") then v.CanCollide = false end end end end else Stepped:Disconnect() end 
+end)
 
 end
 })
