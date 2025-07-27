@@ -22,15 +22,9 @@ MainTab:Slider({
         Max = 1000,
         Default = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed,
     },
-    Callback = function(speedValue) 
+    Callback = function(Speed) 
         -- 直接赋值一次即可，无需循环
-        local humanoid = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-        if humanoid then
-            humanoid.WalkSpeed = speedValue
-        else
-            
-            
-        end
+     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Speed 
     end
 })
 MainTab:Slider({
@@ -38,12 +32,14 @@ MainTab:Slider({
     Desc = "调整角色跳跃高度",
     Value = {
         Min = 0,
-        Max = 10000,
+        Max = 100000000,
         Default = game.Players.LocalPlayer.Character.Humanoid.JumpPower,
     },
     Callback = function(JValue) 
         -- 直接赋值一次即可，无需循环
         game.Players.LocalPlayer.Character.Humanoid.JumpPower = JValue
+                             
+         game.Players.LocalPlayer.Character.Humanoid.JumpHeight =  JValue
             
             
         end
