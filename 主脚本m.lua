@@ -149,6 +149,8 @@ MainTab:Toggle({
 
 end
 })
+local enabled = false
+local connections = {}
 MainTab:Toggle({
     Title = "快速互动",
     Value = false,
@@ -191,38 +193,14 @@ MainTab:Toggle({
         end)
         table.insert(connections, newPromptConn)
     end
-end)
-local autoInteract = false
-local trackedPrompts = {}
-local connections = {}
 
--- 核心检测函数
-local function processPrompt(prompt)
-    if not trackedPrompts[prompt] then
-        trackedPrompts[prompt] = true
-        
-        -- 创建区域检测连接
-        local conn
-        conn = game:GetService("RunService").Heartbeat:Connect(function()
-            if autoInteract and prompt.Enabled then
-                local char = game.Players.LocalPlayer.Character
-                if char and char:FindFirstChild("HumanoidRootPart") then
-                    local distance = (char.HumanoidRootPart.Position - prompt.Parent.Position).Magnitude
-                    if distance <= prompt.MaxActivationDistance then
-                        -- 自动触发提示
-                        prompt:InputHoldBegin()
-                        prompt:InputHoldEnd()
-                    end
-                end
-            end
-        end)
-        table.insert(connections, conn)
-    end
-
-    
- 
-          
 
 end
+
+
 })
 
+
+
+
+    
