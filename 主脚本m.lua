@@ -131,7 +131,7 @@ end)
 end
 })
 MainTab:Toggle({
-    Title = "Activate Mode",
+    Title = "夜视",
     Value = false,
     Callback = function(Value) 
     
@@ -149,5 +149,80 @@ MainTab:Toggle({
 
 end
 })
+MainTab:Toggle({
+    Title = "快速互动",
+    Value = false,
+    Callback = function(Value) 
+    enabled = Value
+    
+    -- 清理旧连接
+    for _, conn in pairs(connections) do
+        conn:Disconnect()
+    end
+    connections = {}
+    
+    if enabled then
+        -- 持续检测函数
+        local function processPrompt(prompt)
+            prompt.HoldDuration = 0
+            prompt.Enabled = true  -- 确保提示启用
+            
+            -- 添加属性监听防止被重置
+            local conn = prompt:GetPropertyChangedSignal("HoldDuration"):Connect(function()
+                if prompt.HoldDuration ~= 0 then
+                    prompt.HoldDuration = 0
+                end
+            end)
+            table.insert(connections, conn)
+        end
+        
+        -- 遍历现有提示
+        for _, prompt in ipairs(workspace:GetDescendants()) do
+            if prompt:IsA("ProximityPrompt") then
+                processPrompt(prompt)
+            end
+        end
+        
+        -- 监听新提示
+        local newPromptConn = workspace.DescendantAdded:Connect(function(descendant)
+            if descendant:IsA("ProximityPrompt") then
+                processPrompt(descendant)
+            end
+        end)
+        table.insert(connections, newPromptConn)
+    end
+end)
+local autoInteract = false
+local trackedPrompts = {}
+local connections = {}
+
+-- 核心检测函数
+local function processPrompt(prompt)
+    if not trackedPrompts[prompt] then
+        trackedPrompts[prompt] = true
+        
+        -- 创建区域检测连接
+        local conn
+        conn = game:GetService("RunService").Heartbeat:Connect(function()
+            if autoInteract and prompt.Enabled then
+                local char = game.Players.LocalPlayer.Character
+                if char and char:FindFirstChild("HumanoidRootPart") then
+                    local distance = (char.HumanoidRootPart.Position - prompt.Parent.Position).Magnitude
+                    if distance <= prompt.MaxActivationDistance then
+                        -- 自动触发提示
+                        prompt:InputHoldBegin()
+                        prompt:InputHoldEnd()
+                    end
+                end
+            end
+        end)
+        table.insert(connections, conn)
+    end
 
     
+ 
+          
+
+end
+})
+
