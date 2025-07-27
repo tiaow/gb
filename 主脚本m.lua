@@ -43,14 +43,11 @@ MainTab:Slider({
     },
     Callback = function(JValue) 
         -- 直接赋值一次即可，无需循环
-        local humanoid = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-        if humanoid then
-            humanoid.JumpPower = JValue
-        else
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = JValue
             
             
         end
-    end
+    
 })
 MainTab:Slider({
     Title = "设置重力",
