@@ -91,9 +91,9 @@ MainTab:Slider({
 
 MainTab:Input({
     Title = "跑步速度",
-    Value = "建议1",
+    Value = "",
     InputIcon = "bird",
-    Placeholder = "输入",
+    Placeholder = "建议设置1",
     Callback = function(king)
 
  local tspeed = king
@@ -130,4 +130,24 @@ end)
 
 end
 })
+MainTab:Toggle({
+    Title = "Activate Mode",
+    Value = false,
+    Callback = function(Value) 
+    
+ 
+          if Value then
+         
+          
+            game.Lighting.Ambient = Color3.new(1, 1, 1)
+          
+        else
+        
+            game.Lighting.Ambient = Color3.new(0, 0, 0)
+             
+        end
 
+end
+})
+
+    
