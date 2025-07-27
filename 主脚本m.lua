@@ -56,7 +56,7 @@ MainTab:Slider({
     },
     Callback = function(zhongl) 
       
-       Game.Gravity = zhongl
+       game.Workspace.Gravity = zhongl
     end
    
 })
