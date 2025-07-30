@@ -232,48 +232,49 @@ local a60DetectorEnabled = false
 local detectionConnection = nil
 
 TS:Toggle({
-Title = "启用A-60检测",
-Value = false,
-Callback = function(Value)
-a60DetectorEnabled = Value
+    Title = "启用A-60检测",
+    Value = false,
+    Callback = function(Value)
+        a60DetectorEnabled = Value
 
--- 断开之前的检测连接
-if detectionConnection then
-detectionConnection:Disconnect()
-detectionConnection = nil
-end
+        if detectionConnection then
+            detectionConnection:Disconnect()
+            detectionConnection = nil
+        end
 
-if Value then
--- 启动循环检测
-detectionConnection = game:GetService("RunService").Heartbeat:Connect(function()
-if not a60DetectorEnabled then return end
+        if Value then
+            detectionConnection = game:GetService("RunService").Heartbeat:Connect(function()
+                if not a60DetectorEnabled then return end
 
--- 检测目标Part
-local getNil = function(name, class)
-for _, v in next, getnilinstances() do
-if v.ClassName == class and v.Name == name then
-return v
-end
-end
-end
+                local getNil = function(name, class)
+                    for _, v in next, getnilinstances() do
+                        if v.ClassName == class and v.Name == name then
+                            return v
+                        end
+                    end
+                end
 
-local targetPart = getNil("APoopy", "Part")
-if targetPart then
--- 使用WindUI自带的提示功能
-WindUI:Notify({
-Title = "警告",
-Content = "A-60来了！",
-Duration = 3, -- 提示显示5秒
+                local targetPart = getNil("APoopy", "Part")
+                if targetPart then
+                    -- 修复后的提示参数
+                    local success, err = pcall(function()
+                        WindUI:Notify({
+                            Title = "警告",
+                            Text = "A-60来了！", -- 修正键名
+                            Duration = 3,
+                            Type = "Warning" -- 补充类型
+                        })
+                    end)
+                    if not success then
+                        warn("提示错误:", err) -- 输出具体错误
+                    end
 
-})
-
--- 防止重复提示，暂时关闭检测10秒
-a60DetectorEnabled = false
-task.delay(2, function()
-a60DetectorEnabled = true
-end)
-end
-end)
-end
-end
+                    a60DetectorEnabled = false
+                    task.delay(2, function()
+                        a60DetectorEnabled = true
+                    end)
+                end
+            end)
+        end
+    end
 })
