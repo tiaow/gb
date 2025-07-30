@@ -26,7 +26,7 @@ Player:Slider({
     },
     Callback = function(Speed) 
         -- 直接赋值一次即可，无需循环
-     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Speed 
+  spawn(function() while task.wait() do  game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Speed 
     end
 })
 Player:Toggle({
