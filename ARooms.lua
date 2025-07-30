@@ -227,7 +227,7 @@ task.wait(1)
 end
 end
 })
-TS:Toggle({
+FPS:Toggle({
 Title = "A-60检测",
 Value = false,
 Callback = function(Value)
@@ -252,4 +252,9 @@ end
 task.wait(0.5)
 end
 end
+})
+TS:Toggle({
+    Title = "Activate Mode",
+    Value = false,
+    Callback = function(state) print("Mode activated: " .. tostring(state)) end
 })
