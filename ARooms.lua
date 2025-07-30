@@ -17,7 +17,7 @@ Title = "FPS/透视",
 Icon = "eye"
 })
 local TS Window:Tab({
-Tittle = "怪物提示"
+Tittle = "怪物提示",
 Icon = "eye"
 })
 Player:Slider({
