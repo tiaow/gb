@@ -231,7 +231,6 @@ TS:Toggle({
 Title = "A-60检测",
 Value = false,
 Callback = function(Value)
-enabled = Value
 while Value do
 local getNil = function(name, class)
 for _, v in next, getnilinstances() do
