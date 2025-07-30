@@ -227,54 +227,30 @@ task.wait(1)
 end
 end
 })
-
-local a60DetectorEnabled = false
-local detectionConnection = nil
-
 TS:Toggle({
-    Title = "启用A-60检测",
-    Value = false,
-    Callback = function(Value)
-        a60DetectorEnabled = Value
+Title = "A-60检测",
+Value = false,
+Callback = function(Value)
+enabled = Value
+while Value do
+local getNil = function(name, class)
+for _, v in next, getnilinstances() do
+if v.ClassName == class and v.Name == name then
+return v
+end
+end
+end
 
-        if detectionConnection then
-            detectionConnection:Disconnect()
-            detectionConnection = nil
-        end
-
-        if Value then
-            detectionConnection = game:GetService("RunService").Heartbeat:Connect(function()
-                if not a60DetectorEnabled then return end
-
-                local getNil = function(name, class)
-                    for _, v in next, getnilinstances() do
-                        if v.ClassName == class and v.Name == name then
-                            return v
-                        end
-                    end
-                end
-
-                local targetPart = getNil("APoopy", "Part")
-                if targetPart then
-                    -- 修复后的提示参数
-                    local success, err = pcall(function()
-                        WindUI:Notify({
-                            Title = "警告",
-                            Text = "A-60来了！", -- 修正键名
-                            Duration = 3,
-                            Type = "Warning" -- 补充类型
-                        })
-                    end)
-                    if not success then
-                        warn("提示错误:", err) -- 输出具体错误
-                    end
-
-                    a60DetectorEnabled = false
-                    task.delay(2, function()
-                        a60DetectorEnabled = true
-                    end)
-                end
-            end)
-        end
-    end
+if getNil("APoopy", "Part") then
+WindUI:Notify({
+Title = "警告",
+Text = "A-60来了！",
+Duration = 3,
+Type = "Warning"
+})
+task.wait(2)
+end
+task.wait(0.5)
+end
+end
 })
