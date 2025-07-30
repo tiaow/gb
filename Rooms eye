@@ -69,7 +69,7 @@ RunService.Heartbeat:Connect(function()
     if currentRoom > 1000 then return end
     processDoor(currentRoom)
     currentRoom = currentRoom + 1
-    task.wait(0.1) -- 间隔时间，可调整速度
+    task.wait(0.5) -- 间隔时间，可调整速度
 end)
 
 -- 清理函数
