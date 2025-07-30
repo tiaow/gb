@@ -1,0 +1,81 @@
+local RunService = game:GetService("RunService")
+local GeneratedRooms = workspace:FindFirstChild("GeneratedRooms")
+if not GeneratedRooms then
+    warn("找不到GeneratedRooms文件夹")
+    return
+end
+
+-- 创建基础高亮实例
+local baseHighlight = Instance.new("Highlight")
+baseHighlight.Name = "DoorHighlight"
+baseHighlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+baseHighlight.FillTransparency = 0.5
+baseHighlight.OutlineTransparency = 0
+baseHighlight.OutlineColor = Color3.new(1, 1, 0) -- 黄色边框
+
+-- 创建基础文字标签模板
+local baseBillboard = Instance.new("BillboardGui")
+baseBillboard.Name = "RoomLabel"
+baseBillboard.Size = UDim2.new(0, 100, 0, 50)
+baseBillboard.AlwaysOnTop = true
+baseBillboard.ExtentsOffset = Vector3.new(0, 2, 0) -- 文字位置偏移
+
+local baseLabel = Instance.new("TextLabel")
+baseLabel.Parent = baseBillboard
+baseLabel.Size = UDim2.new(1, 0, 1, 0)
+baseLabel.BackgroundTransparency = 1
+baseLabel.TextScaled = true
+baseLabel.TextColor3 = Color3.new(1, 1, 0)
+baseLabel.Font = Enum.Font.SourceSansBold
+
+-- 存储已处理的元素
+local doorElements = {}
+
+-- 处理单个房间门的高亮和文字
+local function processDoor(roomNumber)
+    local room = GeneratedRooms:FindFirstChild("Room_" .. roomNumber)
+    if not room then return end
+    
+    local door = room:FindFirstChild("Door_Model")
+    if not door then return end
+    
+    -- 清理已存在的元素
+    if doorElements[roomNumber] then
+        doorElements[roomNumber].highlight:Destroy()
+        doorElements[roomNumber].billboard:Destroy()
+    end
+    
+    -- 创建高亮
+    local highlight = baseHighlight:Clone()
+    highlight.Adornee = door
+    highlight.Parent = door
+    
+    -- 创建文字标签
+    local billboard = baseBillboard:Clone()
+    local label = billboard.TextLabel
+    label.Text = "Room " .. roomNumber
+    billboard.Parent = door
+    
+    -- 存储引用
+    doorElements[roomNumber] = {
+        highlight = highlight,
+        billboard = billboard
+    }
+end
+
+-- 按顺序处理房间（从1开始）
+local currentRoom = 1
+RunService.Heartbeat:Connect(function()
+    if currentRoom > 1000 then return end
+    processDoor(currentRoom)
+    currentRoom = currentRoom + 1
+    task.wait(0.1) -- 间隔时间，可调整速度
+end)
+
+-- 清理函数
+game:BindToClose(function()
+    for _, elements in pairs(doorElements) do
+        elements.highlight:Destroy()
+        elements.billboard:Destroy()
+    end
+end)
