@@ -10,3 +10,16 @@ local MainTab = Window:Tab({
     Title = "FPS/透视",
     Icon = "mouse-pointer-2"
 })
+MainTab:Slider({
+    Title = "移动速度",
+    Desc = "调整角色移动速度",
+    Value = {
+        Min = 0,
+        Max = 100,
+        Default = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed,
+    },
+    Callback = function(Speed) 
+        -- 直接赋值一次即可，无需循环
+     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Speed 
+    end
+})
