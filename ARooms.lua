@@ -16,7 +16,10 @@ local FPS = Window:Tab({
 Title = "FPS/透视",
 Icon = "eye"
 })
-
+local TS Window：Tab({
+Tittle = "怪物提示"
+Icon = ""
+})
 Player:Slider({
 Title = "移动速度",
 Desc = "调整角色移动速度",
@@ -225,3 +228,52 @@ end
 end
 })
 
+local a60DetectorEnabled = false
+local detectionConnection = nil
+
+TS:Toggle({
+Title = "启用A-60检测",
+Value = false,
+Callback = function(Value)
+a60DetectorEnabled = Value
+
+-- 断开之前的检测连接
+if detectionConnection then
+detectionConnection:Disconnect()
+detectionConnection = nil
+end
+
+if Value then
+-- 启动循环检测
+detectionConnection = game:GetService("RunService").Heartbeat:Connect(function()
+if not a60DetectorEnabled then return end
+
+-- 检测目标Part
+local getNil = function(name, class)
+for _, v in next, getnilinstances() do
+if v.ClassName == class and v.Name == name then
+return v
+end
+end
+end
+
+local targetPart = getNil("APoopy", "Part")
+if targetPart then
+-- 使用WindUI自带的提示功能
+WindUI:Notify({
+Title = "警告",
+Content = "A-60来了！",
+Duration = 3, -- 提示显示5秒
+Type = "Warning" -- 警告类型（可能需要根据WindUI实际API调整）
+})
+
+-- 防止重复提示，暂时关闭检测10秒
+a60DetectorEnabled = false
+task.delay(2, function()
+a60DetectorEnabled = true
+end)
+end
+end)
+end
+end
+})
