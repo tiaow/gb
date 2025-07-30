@@ -9,14 +9,14 @@ end
 local baseHighlight = Instance.new("Highlight")
 baseHighlight.Name = "DoorHighlight"
 baseHighlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-baseHighlight.FillTransparency = 0.5
+baseHighlight.FillTransparency = 1
 baseHighlight.OutlineTransparency = 0
 baseHighlight.OutlineColor = Color3.new(1, 1, 0) -- 黄色边框
 
 -- 创建基础文字标签模板
 local baseBillboard = Instance.new("BillboardGui")
 baseBillboard.Name = "RoomLabel"
-baseBillboard.Size = UDim2.new(0, 100, 0, 50)
+baseBillboard.Size = UDim2.new(0, 60, 0, 30)
 baseBillboard.AlwaysOnTop = true
 baseBillboard.ExtentsOffset = Vector3.new(0, 2, 0) -- 文字位置偏移
 
