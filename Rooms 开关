@@ -1,0 +1,92 @@
+local RunService = game:GetService("RunService")
+local GeneratedRooms = workspace:FindFirstChild("GeneratedRooms")
+if not GeneratedRooms then
+    warn("找不到GeneratedRooms文件夹")
+    return
+end
+
+-- 配置参数
+local maxRooms = 1000
+local targetLeverNames = {"LeverBig", "LeverBig1"}
+local outlineColor = Color3.new(0, 1, 0) -- 浅绿色边框
+local fillColor = Color3.new(1, 1, 1) -- 白色填充
+
+-- 创建基础高亮实例
+local baseHighlight = Instance.new("Highlight")
+baseHighlight.Name = "LeverHighlight"
+baseHighlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+baseHighlight.OutlineColor = outlineColor
+baseHighlight.FillColor = fillColor
+baseHighlight.FillTransparency = 1
+baseHighlight.OutlineTransparency = 0
+
+-- 创建基础文字标签
+local baseBillboard = Instance.new("BillboardGui")
+baseBillboard.Name = "LeverLabel"
+baseBillboard.Size = UDim2.new(0, 60, 0, 30)
+baseBillboard.AlwaysOnTop = true
+baseBillboard.ExtentsOffset = Vector3.new(0, 1.5, 0)
+
+local baseLabel = Instance.new("TextLabel")
+baseLabel.Parent = baseBillboard
+baseLabel.Size = UDim2.new(1, 0, 1, 0)
+baseLabel.BackgroundTransparency = 1
+baseLabel.Text = "开关"
+baseLabel.TextScaled = true
+baseLabel.TextColor3 = Color3.new(1, 1, 1)
+baseLabel.Font = Enum.Font.SourceSansBold
+
+-- 存储已创建的元素 (格式: [房间号_杠杆名] = 元素)
+local leverElements = {}
+
+-- 处理单个房间的杠杆
+local function processRoomLevers(roomNumber)
+    local room = GeneratedRooms:FindFirstChild("Room_" .. roomNumber)
+    if not room then return end
+    
+    local scriptable = room:FindFirstChild("Scriptable")
+    if not scriptable then return end
+    
+    for _, leverName in ipairs(targetLeverNames) do
+        local lever = scriptable:FindFirstChild(leverName)
+        if lever then
+            local key = roomNumber .. "_" .. leverName
+            
+            -- 清理旧元素
+            if leverElements[key] then
+                leverElements[key].highlight:Destroy()
+                leverElements[key].billboard:Destroy()
+            end
+            
+            -- 创建高亮
+            local highlight = baseHighlight:Clone()
+            highlight.Adornee = lever
+            highlight.Parent = lever
+            
+            -- 创建文字标签
+            local billboard = baseBillboard:Clone()
+            billboard.Parent = lever
+            
+            -- 存储引用
+            leverElements[key] = {
+                highlight = highlight,
+                billboard = billboard
+            }
+        end
+    end
+end
+
+-- 循环检测所有房间
+RunService.Heartbeat:Connect(function()
+    for roomNumber = 1, maxRooms do
+        processRoomLevers(roomNumber)
+    end
+end)
+
+-- 清理函数
+game:BindToClose(function()
+    for _, elements in pairs(leverElements) do
+        elements.highlight:Destroy()
+        elements.billboard:Destroy()
+    end
+end)
