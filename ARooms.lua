@@ -108,3 +108,15 @@ task.wait(1)
 end
 end
 })
+FPS:Toggle({
+Title = "拉杆透视",
+Value = false,
+Callback = function(Value)
+enabled = Value
+while Value do
+loadstring(game:HttpGet("https://github.com/tiaow/gb/blob/main/Rooms%20eye"))()
+task.wait(1)
+end
+end
+})
+
