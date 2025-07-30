@@ -16,9 +16,9 @@ local FPS = Window:Tab({
 Title = "FPS/透视",
 Icon = "eye"
 })
-local TS Window：Tab({
+local TS Window:Tab({
 Tittle = "怪物提示"
-Icon = ""
+Icon = "eye"
 })
 Player:Slider({
 Title = "移动速度",
