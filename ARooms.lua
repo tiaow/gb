@@ -16,8 +16,9 @@ local FPS = Window:Tab({
 Title = "FPS/透视",
 Icon = "eye"
 })
-local TS Window:Tab({
-Tittle = "怪物提示",
+
+local FHS = Window:Tab({
+Title = "提示",
 Icon = "eye"
 })
 Player:Slider({
@@ -227,7 +228,7 @@ task.wait(1)
 end
 end
 })
-FPS:Toggle({
+FHS:Toggle({
 Title = "A-60检测",
 Value = false,
 Callback = function(Value)
@@ -252,9 +253,4 @@ end
 task.wait(0.5)
 end
 end
-})
-TS:Toggle({
-    Title = "Activate Mode",
-    Value = false,
-    Callback = function(state) print("Mode activated: " .. tostring(state)) end
 })
