@@ -6,11 +6,17 @@ local Window = WindUI:CreateWindow({
     Size = UDim2.fromOffset(400, 300),
     Theme = "Dark"
 })
+local Player = Window:Tab({
+    Title = "玩家",
+    Icon = "mouse-pointer-2"
+})
+
 local MainTab = Window:Tab({
     Title = "FPS/透视",
     Icon = "mouse-pointer-2"
 })
-MainTab:Slider({
+
+Player:Slider({
     Title = "移动速度",
     Desc = "调整角色移动速度",
     Value = {
