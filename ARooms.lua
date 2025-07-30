@@ -94,4 +94,8 @@ table.insert(connections, newPromptConn)
 end
 end
 })
-FPS:Toggle
+FPS:Toggle({
+Title = "门透视",
+Value = false,
+Callback = function(Value)
+enabled = Value
