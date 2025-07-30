@@ -25,13 +25,16 @@ Max = 100,
 Default = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed,
 },
 Callback = function(Speed)
-spawn(function()
-while task.wait() do
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Speed
+
+   spawn(function()
+   while task.wait() do
+   game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Speed
+   end
+   end)
 end
-end)
 end
 })
+
 
 local nightVisionConn = nil
 Player:Toggle({
@@ -102,4 +105,6 @@ enabled = Value
 while Value do
 loadstring(game:HttpGet("https://github.com/tiaow/gb/blob/main/Rooms%20eye"))()
 task.wait(1)
+end
+end
 })
