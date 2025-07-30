@@ -264,7 +264,7 @@ WindUI:Notify({
 Title = "警告",
 Content = "A-60来了！",
 Duration = 3, -- 提示显示5秒
-Type = "Warning" -- 警告类型（可能需要根据WindUI实际API调整）
+
 })
 
 -- 防止重复提示，暂时关闭检测10秒
