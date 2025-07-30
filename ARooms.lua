@@ -104,7 +104,7 @@ Value = false,
 Callback = function(Value)
 enabled = Value
 while Value do
-loadstring(game:HttpGet("https://github.com/tiaow/gb/blob/main/Rooms%20eye"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/main/Rooms%20eye"))()
 task.wait(1)
 end
 end
@@ -115,7 +115,7 @@ Value = false,
 Callback = function(Value)
 enabled = Value
 while Value do
-loadstring(game:HttpGet("https://github.com/tiaow/gb/blob/main/Rooms%20%E5%BC%80%E5%85%B3"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/main/Rooms%20%E5%BC%80%E5%85%B3"))()
 task.wait(1)
 end
 end
