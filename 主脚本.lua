@@ -238,24 +238,28 @@ updatePlayerCode()
 local creds = window:Tab("其它脚本",'14325956891')
 local credits = creds:section("内容",true)
 credits:Button("战斗砖：前线（传送到敌方基地）", function()   
--- 1. 定位关键对象
-local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
-local redBase = workspace.Enemies:FindFirstChild("Red's Base")
-if not redBase then error("找不到 Red's Base") end
+    -- 1. 定位关键对象
+    local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+    local redBase = workspace.Enemies:FindFirstChild("Red's Base")
+    if not redBase then error("找不到 Red's Base") end
 
--- 2. 智能获取位置（解决 Position 不存在问题）
-local targetPos
-if redBase.PrimaryPart then
-    targetPos = redBase.PrimaryPart.Position -- 优先主部件
-else
-    -- 遍历找第一个有效部件（Part/MeshPart等）
-    local part = redBase:FindFirstChildOfClass("BasePart")
-    if not part then error("Red's Base 里没有可定位的部件！") end
-    targetPos = part.Position
-end
+    -- 2. 智能获取敌方基地位置
+    local targetPos
+    if redBase.PrimaryPart then
+        targetPos = redBase.PrimaryPart.Position -- 优先主部件
+    else
+        local part = redBase:FindFirstChildOfClass("BasePart")
+        if not part then error("Red's Base 里没有可定位的部件！") end
+        targetPos = part.Position
+    end
 
--- 3. 强制传送
-char.HumanoidRootPart.CFrame = CFrame.new(targetPos)
+    -- 3. 计算"前方5格"（基于玩家朝向）的偏移
+    local rootPart = char.HumanoidRootPart
+    local forwardDir = rootPart.CFrame.LookVector -- 获取玩家当前朝向
+    local finalPos = targetPos + forwardDir * 5 -- 在敌方基地位置基础上，沿玩家前方加5格
+
+    -- 4. 执行传送
+    rootPart.CFrame = CFrame.new(finalPos)
 end)
   local creds = window:Tab("成就",'14325956891')
 local credits = creds:section("内容",true)
