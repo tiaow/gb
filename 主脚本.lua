@@ -795,6 +795,29 @@ end)
  credits:Button("立即死亡",function()
   game.Players.LocalPlayer.Character.Humanoid.Health=0
 end)
+-- 假设credits是一个UI创建工具，这里修正变量作用域和传送逻辑
+local k -- 声明全局变量存储坐标
+
+credits:Textbox("输入传送地点", "tpwalking", "输入", function(Gc)
+    k = Gc -- 存储输入的坐标字符串
+end)
+
+credits:Button("传送", "tpwalking", "输入", function()
+    if not k then return end -- 检查是否有输入
+    
+    -- 解析坐标字符串（假设格式为"x,y,z"）
+    local parts = string.split(k, ",")
+    if #parts ~= 3 then return end -- 确保有三个部分
+    
+    local x, y, z = tonumber(parts[1]), tonumber(parts[2]), tonumber(parts[3])
+    if not x or not y or not z then return end -- 确保解析为数字
+    
+    -- 执行传送
+    local player = game:GetService("Players").LocalPlayer
+    if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+        player.Character.HumanoidRootPart.CFrame = CFrame.new(x, y, z)
+    end
+end)
     credits:Button("复制当前位置", function()
     setclipboard('game:GetService("Players").LocalPlayer.Character:MoveTo(Vector3.new('..tostring(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position)..'))')                       end)
     credits:Button("位置实时显示", function()
