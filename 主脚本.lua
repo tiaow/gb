@@ -1161,9 +1161,8 @@ end)
 credits:Toggle("启用高光透视", "Toggle", false, function(Value)
     highlightEnabled = Value
     if highlightEnabled then
-        -- 尝试查找路径对应的物体
-        local target = game:GetService("ReplicatedStorage"):FindFirstChild(highlightPath, true)
-        if not target then target = game:GetService("Workspace"):FindFirstChild(highlightPath, true) end
+        -- 使用路径服务直接查找物体
+        local target = game:GetService("PathfindingService"):FindPartAtPath(highlightPath)
         
         if target then
             -- 创建高光效果
@@ -1196,7 +1195,9 @@ end)
 -- 清除所有高光按钮
 credits:Button("清除所有高光", function()
     for target, highlight in pairs(allHighlights) do
-        highlight:Destroy()
+        if highlight and highlight.Parent then
+            highlight:Destroy()
+        end
     end
     allHighlights = {}
     
@@ -1207,6 +1208,8 @@ credits:Button("清除所有高光", function()
         {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(100, 100, 255)}
     )
 end)
+
+-- 清除所有高光按钮
 
 local creds = window:Tab("传送", '106133116600295')
 local credits = creds:section("传送功能", true)
