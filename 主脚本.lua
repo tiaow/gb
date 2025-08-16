@@ -1150,6 +1150,64 @@ end)
 credits:Button("小云 翻译dex", function()
 loadstring(game:HttpGet("https://github.com/XiaoYunCN/VIP/raw/main/DexV2%20Mobile", true))()
 end)
+local allHighlights = {}
+
+-- 高光路径输入框
+credits:Textbox("输入高光物体路径", "Textbox", "workspace.Part", function(Value)
+    highlightPath = Value
+end)
+
+-- 高光开关
+credits:Toggle("启用高光透视", "Toggle", false, function(Value)
+    highlightEnabled = Value
+    if highlightEnabled then
+        -- 尝试查找路径对应的物体
+        local target = game:GetService("ReplicatedStorage"):FindFirstChild(highlightPath, true)
+        if not target then target = game:GetService("Workspace"):FindFirstChild(highlightPath, true) end
+        
+        if target then
+            -- 创建高光效果
+            local highlight = Instance.new("Highlight")
+            highlight.FillTransparency = 1
+            highlight.OutlineColor = Color3.new(1, 0, 0) -- 红色描边
+            highlight.OutlineTransparency = 0
+            highlight.Parent = target
+            
+            -- 存储高光对象
+            allHighlights[target] = highlight
+            
+            -- 成功提示
+            Notification:Notify(
+                {Title = "高光开启", Description = "已为物体添加高光: "..highlightPath},
+                {OutlineColor = Color3.fromRGB(80, 80, 80), Time = 3, Type = "image"},
+                {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(255, 84, 84)}
+            )
+        else
+            -- 路径无效提示
+            Notification:Notify(
+                {Title = "错误", Description = "找不到物体: "..highlightPath},
+                {OutlineColor = Color3.fromRGB(255, 0, 0), Time = 3, Type = "image"},
+                {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(255, 0, 0)}
+            )
+        end
+    end
+end)
+
+-- 清除所有高光按钮
+credits:Button("清除所有高光", function()
+    for target, highlight in pairs(allHighlights) do
+        highlight:Destroy()
+    end
+    allHighlights = {}
+    
+    -- 清除提示
+    Notification:Notify(
+        {Title = "高光清除", Description = "已移除所有高光效果"},
+        {OutlineColor = Color3.fromRGB(80, 80, 80), Time = 2, Type = "image"},
+        {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(100, 100, 255)}
+    )
+end)
+
 local creds = window:Tab("传送", '106133116600295')
 local credits = creds:section("传送功能", true)
 getgenv().ED_AntiKick = {
