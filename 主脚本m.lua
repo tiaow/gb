@@ -171,37 +171,25 @@ AllFeaturesTab:Toggle({
 })
 
 -- 10. 夜视
-local nightVisionOpenCount = 0
+local nightVisionConn = nil
 AllFeaturesTab:Toggle({
-    Title = "夜视",
-    Desc = "提高场景亮度",
-    Value = false,
-    Callback = function(Light)
-        if Light then
-            if nightVisionOpenCount < 1 then
-                nightVisionOpenCount = 1
-            end
-            game.Lighting.Ambient = Color3.new(1, 1, 1)
-            -- 开启状态维持任务
-            local maintainTask = spawn(function()
-                local lastState = true
-                while lastState do
-                    if game.Lighting.Ambient ~= Color3.new(1, 1, 1) then
-                        game.Lighting.Ambient = Color3.new(1, 1, 1)
-                    end
-                    task.wait(0.01)
-                    lastState = (nightVisionOpenCount >= 1)
-                end
-            end)
-        else
-            game.Lighting.Ambient = Color3.new(0, 0, 0)
-            if maintainTask then
-                maintainTask:Cancel()
-            end
-        end
-    end
-})
+Title = "夜视",
+Value = false,
+Callback = function(Value)
+if nightVisionConn then
+nightVisionConn:Disconnect()
+nightVisionConn = nil
+end
 
+if Value then
+nightVisionConn = game:GetService("RunService").Heartbeat:Connect(function()
+game.Lighting.Ambient = Color3.new(1, 1, 1)
+end)
+else
+game.Lighting.Ambient = Color3.new(0, 0, 0)
+end
+end
+})
 -- 11. 自动零延迟交互
 local enabled = false
 local connections = {}
