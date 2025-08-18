@@ -1004,16 +1004,6 @@ AudioTab:Input({
         end
     end
 })
-local function cleanupSound()
-    if currentSound then
-        pcall(function()
-            currentSound:Stop()
-            currentSound:Destroy()
-        end)
-        currentSound = nil
-        isPaused = false
-    end
-end
 -- 暂停功能
 AudioTab:Button({
     Title = "暂停音乐",
@@ -1146,3 +1136,13 @@ SpyTab:Button({
 })
 
 -- 辅助函数（放在外部）
+local function cleanupSound()
+    if currentSound then
+        pcall(function()
+            currentSound:Stop()
+            currentSound:Destroy()
+        end)
+        currentSound = nil
+        isPaused = false
+    end
+end
