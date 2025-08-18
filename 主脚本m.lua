@@ -116,7 +116,7 @@ end
 })
 
 MainTab:Toggle({
-    Title = "Activate Mode",
+    Title = "人物显示",
     Value = false,
     Callback = function(NC) 
 
@@ -199,7 +199,7 @@ end
 
 
 })
-
+credits:Toggle('上帝模式', 'No Description', false, function(Value)
 
 
 
