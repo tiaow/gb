@@ -1,7 +1,12 @@
+WindUI:Notify({
+            Title = "正在启动",
+            Content = "TW脚本/条脚本",
+            Duration = 5,
+        })
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 
 local Window = WindUI:CreateWindow({
-    Title = "条脚本v2",
+    Title = "TW脚本/条脚本",
     Icon = "rbxassetid://129260712070622",
     Size = UDim2.fromOffset(400, 500),
     Theme = "Dark"
@@ -968,7 +973,11 @@ AudioTab:Input({
         
         -- 输入验证
         if not musicID or musicID == "" then
-            Window:Notify("输入错误", "请输入有效的数字ID")
+            WindUI:Notify({
+            Title = "错误",
+            Content = "输入有效音乐ID",
+            Duration = 1,
+        })
             return
         end
         
@@ -984,13 +993,22 @@ AudioTab:Input({
         local success, err = pcall(function()
             currentSound:Play()
             isPaused = false
-            Window:Notify("播放成功", "正在播放 ID: "..musicID)
+            WindUI:Notify({
+            Title = "播放成功",
+            Content = "正在播放 ID: "..musicID,
+            Duration = 1,
+        })
         end)
         
         -- 处理错误
         if not success then
             cleanupSound()
-            Window:Notify("播放失败", "错误: "..tostring(err))
+            WindUI:Notify({
+            Title = "播放失败",
+            Content = "错误: "..tostring(err),
+            Duration = 1,
+        })
+            
         end
     end
 })
@@ -999,23 +1017,39 @@ AudioTab:Button({
     Title = "暂停音乐",
     Callback = function()
         if not currentSound then
-            Window:Notify("操作失败", "没有正在播放的音乐")
+            WindUI:Notify({
+            Title = "错误",
+            Content = "没有正在播放音乐,
+            Duration = 1,
+        })
             return
         end
         
         if isPaused then
-            Window:Notify("提示", "音乐已经处于暂停状态")
+            WindUI:Notify({
+            Title = "提示",
+            Content = "音乐已经处于暂停状态",
+            Duration = 1,
+        })
             return
         end
         
         local success, err = pcall(function()
             currentSound:Pause()
             isPaused = true
-            Window:Notify("已暂停", "点击继续按钮恢复播放")
+            WindUI:Notify({
+            Title = "已暂停",
+            Content = "",
+            Duration = 1,
+        })
         end)
         
         if not success then
-            Window:Notify("暂停失败", "错误: "..tostring(err))
+            WindUI:Notify({
+            Title = "暂停失败",
+            Content = "错误: "..tostring(err),
+            Duration = 1,
+        })
         end
     end
 })
@@ -1025,23 +1059,40 @@ AudioTab:Button({
     Title = "继续播放",
     Callback = function()
         if not currentSound then
-            Window:Notify("操作失败", "没有可继续的音乐")
+   
+            WindUI:Notify({
+            Title = "操作失败",
+            Content = "没有可播放的音乐",
+            Duration = 1,
+        })
             return
         end
         
         if not isPaused then
-            Window:Notify("提示", "音乐正在正常播放中")
+            WindUI:Notify({
+            Title = "提示",
+            Content = "音乐正在正常播放",
+            Duration = 1,
+        })
             return
         end
         
         local success, err = pcall(function()
             currentSound:Resume()
             isPaused = false
-            Window:Notify("继续播放", "音乐已恢复")
+            WindUI:Notify({
+            Title = "提示",
+            Content = "音乐已继续播放",
+            Duration = 1,
+        })
         end)
         
         if not success then
-            Window:Notify("继续失败", "错误: "..tostring(err))
+            WindUI:Notify({
+            Title = "继续播放失败",
+            Content = "错误: "..tostring(err),
+            Duration = 1,
+        })
         end
     end
 })
@@ -1054,7 +1105,7 @@ AudioTab:Button({
         sound.SoundId = "rbxassetid://1837879082"
         sound.Parent = game.Workspace
         sound:Play()
-        Window:Notify("音效播放", "正在播放彩虹瀑布音效")
+        
     end
 })
 
@@ -1065,7 +1116,7 @@ AudioTab:Button({
         sound.SoundId = "rbxassetid://792323017"
         sound.Parent = game.Workspace
         sound:Play()
-        Window:Notify("音效播放", "正在播放防空警报音效")
+        
     end
 })
 
