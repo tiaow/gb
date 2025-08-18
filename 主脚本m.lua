@@ -760,6 +760,7 @@ AllFeaturesTab:Button({
 AllFeaturesTab:Button({
     Title = "旋转",
     Callback = function()
+end
 })
 
 -- 57. 旋转0按钮
@@ -874,6 +875,7 @@ AllFeaturesTab:Button({
 AllFeaturesTab:Button({
     Title = "范围",
     Callback = function()
+end
 })
 -- 64. 范围按钮
 AllFeaturesTab:Button({
