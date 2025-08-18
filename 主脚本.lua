@@ -740,6 +740,13 @@ credits:Toggle('上帝模式', 'No Description', false, function(Value)
     end
 end)
 credits:Button("第三人称(需手动缩放)", function()  game.Players.LocalPlayer.CameraMode = Enum.CameraMode.Classic  end)
+credits:Toggle('显示聊天框', 'No Description', false, function(V)
+lolkkk = V
+while lolkkk do
+game.TextChatService.ChatWindowConfiguration.Enabled = true
+task.wait(0.1)
+end
+end)
 credits:Button("隐身道具", function()
   loadstring(game:HttpGet("https://gist.githubusercontent.com/skid123skidlol/cd0d2dce51b3f20ad1aac941da06a1a1/raw/f58b98cce7d51e53ade94e7bb460e4f24fb7e0ff/%257BFE%257D%2520Invisible%2520Tool%2520(can%2520hold%2520tools)",true))()
 end)      
