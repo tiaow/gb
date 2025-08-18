@@ -1,8 +1,4 @@
-WindUI:Notify({
-            Title = "正在启动",
-            Content = "TW脚本/条脚本",
-            Duration = 5,
-        })
+
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 
 local Window = WindUI:CreateWindow({
@@ -179,6 +175,7 @@ AllFeaturesTab:Toggle({
 local nightVisionConn = nil
 AllFeaturesTab:Toggle({
 Title = "夜视",
+Desc = "立即互动",
 Value = false,
 Callback = function(Value)
 if nightVisionConn then
@@ -192,6 +189,7 @@ game.Lighting.Ambient = Color3.new(1, 1, 1)
 end)
 else
 game.Lighting.Ambient = Color3.new(0, 0, 0)
+end
 end
 end
 })
