@@ -949,7 +949,7 @@ AllFeaturesTab:Button({
 
 -- 67. 音乐播放按钮
 AllFeaturesTab:Button({
-    Title = "播放音乐",
+    Title = "🗿🗿🗿",
     Callback = function()
         local musicId = "rbxassetid://18103562975"
         local music = Instance.new("Sound", game.Workspace)
@@ -957,3 +957,192 @@ AllFeaturesTab:Button({
         music:Play()
     end
 })
+-- 创建音频标签页
+local AudioTab = Window:Tab({
+    Title = "音频",
+    Icon = "music"  -- 使用音乐图标
+})
+
+-- 音乐播放系统初始化
+local SoundService = game:GetService("SoundService")
+local currentSound
+local isPaused = false
+
+-- 播放功能
+AudioTab:Input({
+    Title = "音乐",
+    Desc = "输入音乐ID",
+    Placeholder = "输入音乐ID",
+    Callback = function(Value)
+        local musicID = Value:match("%d+")
+        
+        -- 输入验证
+        if not musicID or musicID == "" then
+            Window:Notify("输入错误", "请输入有效的数字ID")
+            return
+        end
+        
+        -- 清理之前的音效
+        cleanupSound()
+        
+        -- 创建新音效
+        currentSound = Instance.new("Sound")
+        currentSound.SoundId = "rbxassetid://"..musicID
+        currentSound.Parent = SoundService
+        
+        -- 尝试播放
+        local success, err = pcall(function()
+            currentSound:Play()
+            isPaused = false
+            Window:Notify("播放成功", "正在播放 ID: "..musicID)
+        end)
+        
+        -- 处理错误
+        if not success then
+            cleanupSound()
+            Window:Notify("播放失败", "错误: "..tostring(err))
+        end
+    end
+})
+local function cleanupSound()
+    if currentSound then
+        pcall(function()
+            currentSound:Stop()
+            currentSound:Destroy()
+        end)
+        currentSound = nil
+        isPaused = false
+    end
+end
+-- 暂停功能
+AudioTab:Button({
+    Title = "暂停音乐",
+    Callback = function()
+        if not currentSound then
+            Window:Notify("操作失败", "没有正在播放的音乐")
+            return
+        end
+        
+        if isPaused then
+            Window:Notify("提示", "音乐已经处于暂停状态")
+            return
+        end
+        
+        local success, err = pcall(function()
+            currentSound:Pause()
+            isPaused = true
+            Window:Notify("已暂停", "点击继续按钮恢复播放")
+        end)
+        
+        if not success then
+            Window:Notify("暂停失败", "错误: "..tostring(err))
+        end
+    end
+})
+
+-- 继续功能
+AudioTab:Button({
+    Title = "继续播放",
+    Callback = function()
+        if not currentSound then
+            Window:Notify("操作失败", "没有可继续的音乐")
+            return
+        end
+        
+        if not isPaused then
+            Window:Notify("提示", "音乐正在正常播放中")
+            return
+        end
+        
+        local success, err = pcall(function()
+            currentSound:Resume()
+            isPaused = false
+            Window:Notify("继续播放", "音乐已恢复")
+        end)
+        
+        if not success then
+            Window:Notify("继续失败", "错误: "..tostring(err))
+        end
+    end
+})
+
+-- 特定音效按钮
+AudioTab:Button({
+    Title = "彩虹瀑布",
+    Callback = function()
+        local sound = Instance.new("Sound")
+        sound.SoundId = "rbxassetid://1837879082"
+        sound.Parent = game.Workspace
+        sound:Play()
+        Window:Notify("音效播放", "正在播放彩虹瀑布音效")
+    end
+})
+
+AudioTab:Button({
+    Title = "防空警报",
+    Callback = function()
+        local sound = Instance.new("Sound")
+        sound.SoundId = "rbxassetid://792323017"
+        sound.Parent = game.Workspace
+        sound:Play()
+        Window:Notify("音效播放", "正在播放防空警报音效")
+    end
+})
+
+-- 创建抓包标签页
+local SpyTab = Window:Tab({
+    Title = "抓包",
+    Icon = "eye"  -- 使用眼睛图标
+})
+
+-- 抓包工具
+SpyTab:Button({
+    Title = "spy",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/renlua/Script-Tutorial/refs/heads/main/Spy.lua"))()
+        
+    end
+})
+
+SpyTab:Button({
+    Title = "spy改版",
+    Callback = function()
+        loadstring(game:HttpGet("https://github.com/48Killer/Fixed-Simple-spy-function-info-/blob/main/1.lua"))()
+        
+    end
+})
+
+SpyTab:Button({
+    Title = "Dex",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/renlua/Script-Tutorial/refs/heads/main/dex.lua"))()
+        
+    end
+})
+
+SpyTab:Button({
+    Title = "nb的dex",
+    Callback = function()
+        getgenv().Key = "Bash" 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/crceck123/roblox-script/main/MC_IY%20Dex.txt"))()
+        
+    end
+})
+
+SpyTab:Button({
+    Title = "redz",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/realredz/DEX-Explorer/refs/heads/main/Mobile.lua"))()
+        
+    end
+})
+
+SpyTab:Button({
+    Title = "小云翻译dex",
+    Callback = function()
+        loadstring(game:HttpGet("https://github.com/XiaoYunCN/VIP/raw/main/DexV2%20Mobile", true))()
+        
+    end
+})
+
+-- 辅助函数（放在外部）
