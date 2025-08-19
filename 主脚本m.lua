@@ -1185,10 +1185,12 @@ local function cleanupSound()
     end
 end
 
-local Tabs.WindowTab = Window:Tab({
-    Title = "设置",
-    Icon = ""  -- 使用眼睛图标
-})
+Tabs.WindowTab = Tabs.WindowSection:Tab({ 
+        Title = "Window and File Configuration", 
+        Icon = "settings", 
+        Desc = "Manage window settings and file configurations.", 
+        ShowTabTitle = true 
+    }) 
 Tabs.WindowTab:Section({ Title = "Window", Icon = "app-window-mac" })
 
 local themeValues = {}
