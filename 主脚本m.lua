@@ -1184,3 +1184,223 @@ local function cleanupSound()
         isPaused = false
     end
 end
+
+local Tabs.WindowTab = Window:Tab({
+    Title = "设置",
+    Icon = ""  -- 使用眼睛图标
+})
+Tabs.WindowTab:Section({ Title = "Window", Icon = "app-window-mac" })
+
+local themeValues = {}
+for name, _ in pairs(WindUI:GetThemes()) do
+    table.insert(themeValues, name)
+end
+
+local themeDropdown = Tabs.WindowTab:Dropdown({
+    Title = "Select Theme",
+    Multi = false,
+    AllowNone = false,
+    Value = nil,
+    Values = themeValues,
+    Callback = function(theme)
+        WindUI:SetTheme(theme)
+    end
+})
+themeDropdown:Select(WindUI:GetCurrentTheme())
+
+local ToggleTransparency = Tabs.WindowTab:Toggle({
+    Title = "Toggle Window Transparency",
+    Callback = function(e)
+        Window:ToggleTransparency(e)
+    end,
+    Value = WindUI:GetTransparency()
+})
+
+Tabs.WindowTab:Section({ Title = "Save" })
+
+local fileNameInput = ""
+Tabs.WindowTab:Input({
+    Title = "Write File Name",
+    PlaceholderText = "Enter file name",
+    Callback = function(text)
+        fileNameInput = text
+    end
+})
+
+Tabs.WindowTab:Button({
+    Title = "Save File",
+    Callback = function()
+        if fileNameInput ~= "" then
+            SaveFile(fileNameInput, { Transparent = WindUI:GetTransparency(), Theme = WindUI:GetCurrentTheme() })
+        end
+    end
+})
+
+Tabs.WindowTab:Section({ Title = "Load" })
+
+local filesDropdown
+local files = ListFiles()
+
+filesDropdown = Tabs.WindowTab:Dropdown({
+    Title = "Select File",
+    Multi = false,
+    AllowNone = true,
+    Values = files,
+    Callback = function(selectedFile)
+        fileNameInput = selectedFile
+    end
+})
+
+Tabs.WindowTab:Button({
+    Title = "Load File",
+    Callback = function()
+        if fileNameInput ~= "" then
+            local data = LoadFile(fileNameInput)
+            if data then
+                WindUI:Notify({
+                    Title = "File Loaded",
+                    Content = "Loaded data: " .. HttpService:JSONEncode(data),
+                    Duration = 5,
+                })
+                if data.Transparent then 
+                    Window:ToggleTransparency(data.Transparent)
+                    ToggleTransparency:SetValue(data.Transparent)
+                end
+                if data.Theme then WindUI:SetTheme(data.Theme) end
+            end
+        end
+    end
+})
+
+Tabs.WindowTab:Button({
+    Title = "Overwrite File",
+    Callback = function()
+        if fileNameInput ~= "" then
+            SaveFile(fileNameInput, { Transparent = WindUI:GetTransparency(), Theme = WindUI:GetCurrentTheme() })
+        end
+    end
+})
+
+Tabs.WindowTab:Button({
+    Title = "Refresh List",
+    Callback = function()
+        filesDropdown:Refresh(ListFiles())
+    end
+})
+
+local currentThemeName = WindUI:GetCurrentTheme()
+local themes = WindUI:GetThemes()
+
+local ThemeAccent = themes[currentThemeName].Accent
+local ThemeOutline = themes[currentThemeName].Outline
+local ThemeText = themes[currentThemeName].Text
+local ThemePlaceholderText = themes[currentThemeName].Placeholder
+
+function updateTheme()
+    WindUI:AddTheme({
+        Name = currentThemeName,
+        Accent = ThemeAccent,
+        Outline = ThemeOutline,
+        Text = ThemeText,
+        Placeholder = ThemePlaceholderText
+    })
+    WindUI:SetTheme(currentThemeName)
+end
+
+local CreateInput = Tabs.CreateThemeTab:Input({
+    Title = "Theme Name",
+    Value = currentThemeName,
+    Callback = function(name)
+        currentThemeName = name
+    end
+})
+
+Tabs.CreateThemeTab:Colorpicker({
+    Title = "Background Color",
+    Default = Color3.fromHex(ThemeAccent),
+    Callback = function(color)
+        ThemeAccent = color:ToHex()
+    end
+})
+
+Tabs.CreateThemeTab:Colorpicker({
+    Title = "Outline Color",
+    Default = Color3.fromHex(ThemeOutline),
+    Callback = function(color)
+        ThemeOutline = color:ToHex()
+    end
+})
+
+Tabs.CreateThemeTab:Colorpicker({
+    Title = "Text Color",
+    Default = Color3.fromHex(ThemeText),
+    Callback = function(color)
+        ThemeText = color:ToHex()
+    end
+})
+
+Tabs.CreateThemeTab:Colorpicker({
+    Title = "Placeholder Text Color",
+    Default = Color3.fromHex(ThemePlaceholderText),
+    Callback = function(color)
+        ThemePlaceholderText = color:ToHex()
+    end
+})
+
+Tabs.CreateThemeTab:Button({
+    Title = "Update Theme",
+    Callback = function()
+        updateTheme()
+    end
+})
+
+local InviteCode = "ApbHXtAwU2"
+local DiscordAPI = "https://discord.com/api/v10/invites/" .. InviteCode .. "?with_counts=true&with_expiration=true"
+
+local Response = game:GetService("HttpService"):JSONDecode(WindUI.Creator.Request({
+    Url = DiscordAPI,
+    Method = "GET",
+    Headers = {
+        ["User-Agent"] = "RobloxBot/1.0",
+        ["Accept"] = "application/json"
+    }
+}).Body)
+
+if Response and Response.guild then
+    local DiscordInfo = Tabs.Tests:Paragraph({
+        Title = Response.guild.name,
+        Desc = 
+            ' <font color="#52525b">•</font> Member Count : ' .. tostring(Response.approximate_member_count) .. 
+            '\n <font color="#16a34a">•</font> Online Count : ' .. tostring(Response.approximate_presence_count)
+        ,
+        Image = "https://cdn.discordapp.com/icons/" .. Response.guild.id .. "/" .. Response.guild.icon .. ".png?size=1024",
+        ImageSize = 42,
+    })
+
+    Tabs.Tests:Button({
+        Title = "Update Info",
+        --Image = "refresh-ccw",
+        Callback = function()
+            local UpdatedResponse = game:GetService("HttpService"):JSONDecode(WindUI.Creator.Request({
+                Url = DiscordAPI,
+                Method = "GET",
+            }).Body)
+            
+            if UpdatedResponse and UpdatedResponse and UpdatedResponse.guild then
+                DiscordInfo:SetDesc(
+                    ' <font color="#52525b">•</font> Member Count : ' .. tostring(UpdatedResponse.approximate_member_count) .. 
+                    '\n <font color="#16a34a">•</font> Online Count : ' .. tostring(UpdatedResponse.approximate_presence_count)
+                )
+            end
+        end
+    })
+else
+    Tabs.Tests:Paragraph({
+        Title = "Error when receiving information about the Discord server",
+        Desc = game:GetService("HttpService"):JSONEncode(Response),
+        Image = "triangle-alert",
+        ImageSize = 26,
+        Color = "Red",
+    })
+end
+
