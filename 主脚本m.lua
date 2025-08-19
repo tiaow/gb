@@ -191,7 +191,6 @@ else
 game.Lighting.Ambient = Color3.new(0, 0, 0)
 end
 end
-end
 })
 -- 11. 自动零延迟交互
 local enabled = false
@@ -1017,7 +1016,7 @@ AudioTab:Button({
         if not currentSound then
             WindUI:Notify({
             Title = "错误",
-            Content = "没有正在播放音乐,
+            Content = "没有正在播放音乐",
             Duration = 1,
         })
             return
