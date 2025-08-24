@@ -1163,7 +1163,6 @@ end)
 credits:Textbox("输入高光物体路径", "输入" , "输入", function(Value)
    HHHH = Value
 end)
-credits:Label("输入的路径: " .. HHHH)
 credits:Button("输入高光物体路径" , function()
 for _, TX in ipairs(HHHH:GetChildren()) do
     local h = Instance.new("Highlight")
