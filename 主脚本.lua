@@ -1160,11 +1160,11 @@ end)
 
 
 -- 高光路径输入框
-credits:Textbox("输入高光物体路径", "Textbox","输入", function(Value)
- local HHHH = Value
+credits:Textbox("输入高光物体路径", "输入" , "输入", function(Value)
+   HHHH = Value
 end)
 credits:Button("输入高光物体路径" , function()
-local DGGG = HHHH
+    DGGG = HHHH
 for _, TX in ipairs(DGGG:GetChildren()) do
     local h = Instance.new("Highlight")
     h.FillColor = Color3.new(1, 0, 0)
