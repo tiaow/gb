@@ -1157,64 +1157,23 @@ end)
 credits:Button("小云 翻译dex", function()
 loadstring(game:HttpGet("https://github.com/XiaoYunCN/VIP/raw/main/DexV2%20Mobile", true))()
 end)
-local allHighlights = {}
+
 
 -- 高光路径输入框
-credits:Textbox("输入高光物体路径", "Textbox", "workspace.Part", function(Value)
-    highlightPath = Value
+credits:Textbox("输入高光物体路径", "Textbox", function(Value)
+  HHHH = Value
 end)
-
+credits:Button("输入高光物体路径" , function()
+local DGGG = HHHH
+for _, TX in ipairs(DGGG:GetChildren()) do
+    local h = Instance.new("Highlight")
+    h.FillColor = Color3.new(1, 0, 0)
+    h.FillTransparency = 0
+    h.Parent = TX
+end
+end)
 -- 高光开关
-credits:Toggle("启用高光透视", "Toggle", false, function(Value)
-    highlightEnabled = Value
-    if highlightEnabled then
-        -- 使用路径服务直接查找物体
-        local target = game:GetService("PathfindingService"):FindPartAtPath(highlightPath)
-        
-        if target then
-            -- 创建高光效果
-            local highlight = Instance.new("Highlight")
-            highlight.FillTransparency = 1
-            highlight.OutlineColor = Color3.new(1, 0, 0) -- 红色描边
-            highlight.OutlineTransparency = 0
-            highlight.Parent = target
-            
-            -- 存储高光对象
-            allHighlights[target] = highlight
-            
-            -- 成功提示
-            Notification:Notify(
-                {Title = "高光开启", Description = "已为物体添加高光: "..highlightPath},
-                {OutlineColor = Color3.fromRGB(80, 80, 80), Time = 3, Type = "image"},
-                {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(255, 84, 84)}
-            )
-        else
-            -- 路径无效提示
-            Notification:Notify(
-                {Title = "错误", Description = "找不到物体: "..highlightPath},
-                {OutlineColor = Color3.fromRGB(255, 0, 0), Time = 3, Type = "image"},
-                {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(255, 0, 0)}
-            )
-        end
-    end
-end)
 
--- 清除所有高光按钮
-credits:Button("清除所有高光", function()
-    for target, highlight in pairs(allHighlights) do
-        if highlight and highlight.Parent then
-            highlight:Destroy()
-        end
-    end
-    allHighlights = {}
-    
-    -- 清除提示
-    Notification:Notify(
-        {Title = "高光清除", Description = "已移除所有高光效果"},
-        {OutlineColor = Color3.fromRGB(80, 80, 80), Time = 2, Type = "image"},
-        {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(100, 100, 255)}
-    )
-end)
 
 -- 清除所有高光按钮
 
