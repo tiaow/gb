@@ -1160,8 +1160,8 @@ end)
 
 
 -- 高光路径输入框
-credits:Textbox("输入高光物体路径", "Textbox", function(Value)
-  HHHH = Value
+credits:Textbox("输入高光物体路径", "Textbox","输入", function(Value)
+ local HHHH = Value
 end)
 credits:Button("输入高光物体路径" , function()
 local DGGG = HHHH
