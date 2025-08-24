@@ -1163,9 +1163,9 @@ end)
 credits:Textbox("输入高光物体路径", "输入" , "输入", function(Value)
    HHHH = Value
 end)
+credits:Label("输入的路径: " .. HHH)
 credits:Button("输入高光物体路径" , function()
-    DGGG = HHHH
-for _, TX in ipairs(DGGG:GetChildren()) do
+for _, TX in ipairs(HHHH:GetChildren()) do
     local h = Instance.new("Highlight")
     h.FillColor = Color3.new(1, 0, 0)
     h.FillTransparency = 0
