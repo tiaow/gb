@@ -610,33 +610,21 @@ local function processPrompt(prompt)
     end
 end
 
-credits:Toggle("智能自动交互(建议搭配立即互动)", "Toggle", false, function(value)
-    autoInteract = value
-    
-    -- 清理旧连接
-    for _, conn in pairs(connections) do
-        conn:Disconnect()
-    end
-    trackedPrompts = {}
-    connections = {}
-    
-    if autoInteract then
-        -- 初始化检测现有提示
-        for _, prompt in ipairs(workspace:GetDescendants()) do
-            if prompt:IsA("ProximityPrompt") then
-                processPrompt(prompt)
+credits:Toggle("自动互动", "Auto Interact", false, function(state)
+        if state then
+            autoInteract = true
+            while autoInteract do
+                for _, descendant in pairs(workspace:GetDescendants()) do
+                    if descendant:IsA("ProximityPrompt") then
+                        fireproximityprompt(descendant)
+                    end
+                end
+                task.wait(0.25) 
             end
+        else
+            autoInteract = false
         end
-        
-        -- 监听新提示
-        local newPromptConn = workspace.DescendantAdded:Connect(function(obj)
-            if obj:IsA("ProximityPrompt") then
-                processPrompt(obj)
-            end
-        end)
-        table.insert(connections, newPromptConn)
-    end
-end)
+    end)
 credits:Button(
         "灵魂出窍",
         function()
