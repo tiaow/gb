@@ -1,13 +1,4 @@
-local player = game.Players.LocalPlayer
 
-if player.Name == "Gary_Xi666" then
-    local chance = math.random(1, 10)  -- 1~10 随机数
-    if chance == 1 then  -- 10% 概率（1/10）
-        player:Kick("启动错误，请重试")
-    else
-        print("启动成功")
-    end
-end
 --local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/%E5%BD%A9%E8%89%B2UI.lua"))()          local window = library:new("条脚本v2")    local creds = window:Tab("通用",'7743875962')  local credits = creds:section("内容",true)     
   local NotificationHolder = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Module.Lua"))() 
  local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Client.Lua"))()
@@ -40,13 +31,13 @@ local UITextSizeConstraint = Instance.new("UITextSizeConstraint")
 local UICorner = Instance.new("UICorner")
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/%E5%BD%A9%E8%89%B2UI.lua"))()
-local window = library:new("条脚本v2")
+local window = library:new("条脚本" ..UIJ)
 local creds = window:Tab("信息",'106133116600295')
     local bin = creds:section("作者信息",true)
     bin:Label("作者:条纹大地")
     bin:Label("缝合脚本")
     bin:Label("QQ:1023929190")
-    
+    --实在不会了，用AI
 local bin = creds:section("玩家", true)
 local positionLabel = bin:Label("你的位置'X: %.2f Y: %.2f Z: %.2f'")
 local fpsLabel = bin:Label("当前帧率: 计算中...")
@@ -55,9 +46,8 @@ local timeLabel = bin:Label("当前时间: 计算中...")
 local usTimeLabel = bin:Label("美国时间: 计算中...")
 local initialPlayersLabel = bin:Label("初始玩家人数: 计算中...")
 local currentPlayersLabel = bin:Label("当前玩家人数: 计算中...")
--- 获取当前服务器的Place ID并显示
-local placeId = game.PlaceId -- 获取服务器ID
-bin:Label("你的服务器ID: " .. tostring(placeId)) -- 显示ID
+local placeId = game.PlaceId
+bin:Label("你的服务器ID: " .. tostring(placeId))
 local playerCodeLabel = bin:Label("slap埃及密码: 计算中...")
 local player = game.Players.LocalPlayer
 
@@ -235,6 +225,12 @@ credits:Toggle("移除UI辉光", "", false, function(state)
             game:GetService("CoreGui")["frosty is cute"]:Destroy()
         end)
 updatePlayerCode()
+credits:Textbox("脚本名字后缀", "lol", "输入", function(JJJ)
+JJJ = Value
+end)
+credits:Button("启用",function()
+JJJ = UIJ
+end）
 local creds = window:Tab("其它脚本",'14325956891')
 local credits = creds:section("内容",true)
 credits:Button("战斗砖：前线（传送到敌方基地）", function()   
@@ -285,9 +281,9 @@ credits:Credit(
        "你使用了10分钟，之后你会使用更久的", 
        function()        if game.Players.LocalPlayer.Name == "yfgg237" or game.Players.LocalPlayer.Name == "nooblaodi" then
           
-            return true  -- 返回true表示检测成功
+            return true  
         else
-             wait(600) return true  -- 返回false表示不是作者
+             wait(600) return true
         end
         end
    )
@@ -298,9 +294,9 @@ credits:Credit(
        function()
                if game.Players.LocalPlayer.Name == "yfgg237" or game.Players.LocalPlayer.Name == "nooblaodi" then
           
-            return true  -- 返回true表示检测成功
+            return true  
         else
-            wait(3600) return true -- 返回false表示不是作者
+            wait(3600) return true 
         end
        
        
@@ -340,7 +336,7 @@ credits:Credit(
 )
 
 
--- 创建一个变量，用于记录打开夜视的次数，初始为0
+
 local nightVisionOpenCount = 0
 
 credits:Credit(
@@ -348,11 +344,11 @@ credits:Credit(
     "开一次夜视",
     "你在这黑暗的环境下，第一次打开了夜视👁                                     此成就的支持者:noob****    ",
     function()
-        -- 在这里检测变量是否为1
+   
         if nightVisionOpenCount == 1 then
-        return true  -- 返回true表示检测成功
+        return true  
         else
-            return false  -- 返回false表示不是作者
+            return false  
         end
 
     end
@@ -367,9 +363,9 @@ credits:Credit(
     function()
             if game.Players.LocalPlayer.Name == "yfgg237" or game.Players.LocalPlayer.Name == "nooblaodi" or game.Players.LocalPlayer.Name == "qwe55940" then
           
-            return true  -- 返回true表示检测成功
+            return true  
         else
-            return false  -- 返回false表示不是作者
+            return false  
         end
 
         
@@ -382,9 +378,9 @@ credits:Credit(
     function()
         if game.Players.LocalPlayer.Name == "yfgg237" or game.Players.LocalPlayer.Name == "nooblaodi" then
           
-            return true  -- 返回true表示检测成功
+            return true 
         else
-            return false  -- 返回false表示不是作者
+            return false  
         end
     end
 )
@@ -394,9 +390,9 @@ credits:Credit(
        "千万不要跟这个似人玩，把你债券全偷吃了😡😡😡😡😡😡😡😡😡😡😡😡", 
        function()
         if game.Players.LocalPlayer.Name == "qwe99540" or game.Players.LocalPlayer.Name == "yfgg237" or game.Players.LocalPlayer.Name == "nooblaodi" then 
-                    return true  -- 返回true表示检测成功
+                    return true  
         else
-            return false  -- 返回false表示不是作者
+            return false  
         end
     end
 )
@@ -408,9 +404,9 @@ credits:Credit(
        function()
         if game.Players.LocalPlayer.Name == "nooblaodi" or game.Players.LocalPlayer.Name == "yfgg237" then 
         
-            return true  -- 返回true表示检测成功
+            return true  
         else
-            return false  -- 返回false表示不是作者
+            return false  
         end
     end
 )
@@ -421,9 +417,9 @@ credits:Credit(
     function()
         if game.Players.LocalPlayer.Name == "nooblaodi" or game.Players.LocalPlayer.Name == "GHFD597" or game.Players.LocalPlayer.Name == "yfgg237" then
           
-            return true  -- 返回true表示检测成功
+            return true  
         else
-            return false  -- 返回false表示不是作者
+            return false  
         end
     end
 )
@@ -434,9 +430,9 @@ credits:Credit(
     function()
         if game.Players.LocalPlayer.Name == "yfgg237" or game.Players.LocalPlayer.Name == "nooblaodi" then
           
-            return true  -- 返回true表示检测成功
+            return true  
         else
-            return false  -- 返回false表示不是作者
+            return false  
         end
     end
 )
@@ -1145,24 +1141,6 @@ end)
 credits:Button("小云 翻译dex", function()
 loadstring(game:HttpGet("https://github.com/XiaoYunCN/VIP/raw/main/DexV2%20Mobile", true))()
 end)
-
-
--- 高光路径输入框
-credits:Textbox("输入高光物体路径", "输入" , "输入", function(Value)
-   HHHH = Value
-end)
-credits:Button("输入高光物体路径" , function()
-for _, TX in ipairs(HHHH:GetChildren()) do
-    local h = Instance.new("Highlight")
-    h.FillColor = Color3.new(1, 0, 0)
-    h.FillTransparency = 0
-    h.Parent = TX
-end
-end)
--- 高光开关
-
-
--- 清除所有高光按钮
 
 local creds = window:Tab("传送", '106133116600295')
 local credits = creds:section("传送功能", true)
