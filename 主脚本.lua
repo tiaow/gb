@@ -31,12 +31,19 @@ local UITextSizeConstraint = Instance.new("UITextSizeConstraint")
 local UICorner = Instance.new("UICorner")
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/%E5%BD%A9%E8%89%B2UI.lua"))()
-local window = library:new("条脚本" ..UIJ)
+local window = library:new("条脚本")
 local creds = window:Tab("信息",'106133116600295')
     local bin = creds:section("作者信息",true)
     bin:Label("作者:条纹大地")
     bin:Label("缝合脚本")
     bin:Label("QQ:1023929190")
+    bin:Label("超简易计时器".. TIMERTYU)
+local TIMERTYU = 0
+while true do
+TIMERTYU + 1
+task.wait(1)
+end
+
     --实在不会了，用AI
 local bin = creds:section("玩家", true)
 local positionLabel = bin:Label("你的位置'X: %.2f Y: %.2f Z: %.2f'")
@@ -225,12 +232,6 @@ credits:Toggle("移除UI辉光", "", false, function(state)
             game:GetService("CoreGui")["frosty is cute"]:Destroy()
         end)
 updatePlayerCode()
-credits:Textbox("脚本名字后缀", "lol", "输入", function(JJJ)
-JJJ = Value
-end)
-credits:Button("启用",function()
-JJJ = UIJ
-end）
 local creds = window:Tab("其它脚本",'14325956891')
 local credits = creds:section("内容",true)
 credits:Button("战斗砖：前线（传送到敌方基地）", function()   
