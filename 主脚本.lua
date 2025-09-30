@@ -37,12 +37,7 @@ local creds = window:Tab("信息",'106133116600295')
     bin:Label("作者:条纹大地")
     bin:Label("缝合脚本")
     bin:Label("QQ:1023929190")
-    bin:Label("超简易计时器".. TIMERTYU)
-local TIMERTYU = 0
-while true do
-TIMERTYU + 1
-task.wait(1)
-end
+
 
     --实在不会了，用AI
 local bin = creds:section("玩家", true)
