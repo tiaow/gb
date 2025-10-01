@@ -1,4 +1,60 @@
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
 
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "NationalDayMessage"
+screenGui.DisplayOrder = 9999999999999999999999999999
+screenGui.ResetOnSpawn = false
+screenGui.Parent = playerGui
+
+local textLabel = Instance.new("TextLabel")
+textLabel.Size = UDim2.new(0.4, 0, 0.2, 0)
+textLabel.Position = UDim2.new(0.3, 0, 0.4, 0)
+textLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+textLabel.BackgroundTransparency = 1
+textLabel.Text = "国庆快乐"
+textLabel.TextColor3 = Color3.new(1, 0, 0)
+textLabel.TextScaled = true
+textLabel.Font = Enum.Font.GothamBlack
+textLabel.TextStrokeTransparency = 0
+textLabel.TextStrokeColor3 = Color3.new(0, 0, 0)
+textLabel.Visible = false
+textLabel.Parent = screenGui
+
+local sound = Instance.new("Sound")
+sound.SoundId = "rbxassetid://18892783765"
+sound.Volume = 0.5
+sound.Parent = screenGui
+
+local function showMessage()
+    textLabel.Visible = true
+    textLabel.Size = UDim2.new(0, 0, 0, 0)
+    textLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+    
+    local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
+    local tween = TweenService:Create(textLabel, tweenInfo, {Size = UDim2.new(0.4, 0, 0.2, 0)})
+    
+    sound:Play()
+    tween:Play()
+    
+    wait(2)
+    
+    local fadeTween = TweenService:Create(textLabel, TweenInfo.new(1), {
+        TextTransparency = 1,
+        TextStrokeTransparency = 1
+    })
+    
+    fadeTween:Play()
+    fadeTween.Completed:Connect(function()
+        screenGui:Destroy()
+    end)
+end
+
+wait(1)
+showMessage()
 --local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/%E5%BD%A9%E8%89%B2UI.lua"))()          local window = library:new("条脚本v2")    local creds = window:Tab("通用",'7743875962')  local credits = creds:section("内容",true)     
   local NotificationHolder = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Module.Lua"))() 
  local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Client.Lua"))()
