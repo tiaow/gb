@@ -1,4 +1,8 @@
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/%E5%BD%A9%E8%89%B2UI.lua"))()          local window = library:new("条脚本v2")    local creds = window:Tab("通用",'7743875962')  local credits = creds:section("内容",true)     
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/
+refs/heads/main/%E5%BD%A9%E8%89%B2UI.lua"))()          
+local window = library:new("tbb")    
+local creds = window:Tab("通用",'7743875962')  
+local credits = creds:section("内容",true)     
   credits:Toggle("刷", "Toggle", false,function(Value)
 lubaoshi = Value
 while lubaoshi do
