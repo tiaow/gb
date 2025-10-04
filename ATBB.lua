@@ -48,7 +48,7 @@ end
 
 local Window = WindUI:CreateWindow({
     Title = "战斗砖脚本",
-    Icon = "rbxassetid://17065555140",
+    Icon = "eye",
     Author = "作者：条纹",
     Folder = "WindUI_Example",
     Size = UDim2.fromOffset(580, 490),
@@ -153,5 +153,5 @@ end)
 end
 })
 
-Window:Tab({ Title = "经验", Icon = "rbxassetid://", Desc = "UI Elements Example" })
+Window:Tab({ Title = "自动刷经验", Icon = "", Desc = "UI Elements Example" })
 
