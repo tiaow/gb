@@ -168,7 +168,35 @@ end
 
 Window:Tab({ Title = "自动刷经验", Icon = "hand", Desc = "UI Elements Example" })
 
+local HttpService = game:GetService("HttpService")
 
+local folderPath = "WindUI"
+makefolder(folderPath)
+
+local function SaveFile(fileName, data)
+    local filePath = folderPath .. "/" .. fileName .. ".json"
+    local jsonData = HttpService:JSONEncode(data)
+    writefile(filePath, jsonData)
+end
+
+local function LoadFile(fileName)
+    local filePath = folderPath .. "/" .. fileName .. ".json"
+    if isfile(filePath) then
+        local jsonData = readfile(filePath)
+        return HttpService:JSONDecode(jsonData)
+    end
+end
+
+local function ListFiles()
+    local files = {}
+    for _, file in ipairs(listfiles(folderPath)) do
+        local fileName = file:match("([^/]+)%.json$")
+        if fileName then
+            table.insert(files, fileName)
+        end
+    end
+    return files
+end
 
 local Sections = {
     WindowSection = Window:Section({
@@ -238,7 +266,7 @@ Tabs.WindowTab:Button({
 Tabs.WindowTab:Section({ Title = "Load" })
 
 local filesDropdown
-local files = 
+local files = ListFiles()
 
 filesDropdown = Tabs.WindowTab:Dropdown({
     Title = "Select File",
