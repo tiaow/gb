@@ -79,15 +79,15 @@ Window:SetIconSize(48)
 
 Window:Tag({
     Title = "版本：测试",
-    Color =  Color3.fromHex("#0f0c29"), Transparency = 0.5
+    Color =  Color3.new(0.12,0.12,0.12), Transparency = 1
 })
 local W = Window:Tag({
     Title = "你的XP：",
-    Color =  Color3.fromHex("#0f0c29"), Transparency = 0.5
+    Color =  Color3.new(0.12,0.12,0.12), Transparency = 1
 })
 local T = Window:Tag({
     Title = "你的砖块：",
-    Color =  Color3.fromHex("#0f0c29"), Transparency = 0.5
+    Color =  Color3.new(0.12,0.12,0.12), Transparency = 1
 })
 
 spawn(function()
@@ -104,6 +104,6 @@ spawn(function()
         task.wait(0.1)
     end
 end)
-
+Window:Tab({ Title = "通用", Icon = "", Desc = "UI Elements Example" })
 Window:Tab({ Title = "经验", Icon = "", Desc = "UI Elements Example" })
 
