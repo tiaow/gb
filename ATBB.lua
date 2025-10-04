@@ -209,14 +209,19 @@ local Sections = {
 
 local Tabs = {
     WindowTab = Sections.WindowSection:Tab({ 
-        Title = "Window and File Configuration", 
+        Title = "界面和保存", 
         Icon = "settings", 
         Desc = "Manage window settings and file configurations.", 
         ShowTabTitle = true 
+    }),
+  CreateThemeTab  = Sections.WindowSection:Tab({ 
+    Title = "创建主题",
+    Icon = "palette", 
+    Desc = "Design and apply custom themes." 
     })
     
 }    
-Tabs.WindowTab:Section({ Title = "Window", Icon = "app-window-mac" })
+Tabs.WindowTab:Section({ Title = "界面", Icon = "app-window-mac" })
 
 local themeValues = {}
 for name, _ in pairs(WindUI:GetThemes()) do
@@ -224,7 +229,7 @@ for name, _ in pairs(WindUI:GetThemes()) do
 end
 
 local themeDropdown = Tabs.WindowTab:Dropdown({
-    Title = "Select Theme",
+    Title = "选择主题",
     Multi = false,
     AllowNone = false,
     Value = nil,
@@ -236,7 +241,7 @@ local themeDropdown = Tabs.WindowTab:Dropdown({
 themeDropdown:Select(WindUI:GetCurrentTheme())
 
 local ToggleTransparency = Tabs.WindowTab:Toggle({
-    Title = "Toggle Window Transparency",
+    Title = "切换透明度",
     Callback = function(e)
         Window:ToggleTransparency(e)
     end,
@@ -247,15 +252,15 @@ Tabs.WindowTab:Section({ Title = "Save" })
 
 local fileNameInput = ""
 Tabs.WindowTab:Input({
-    Title = "Write File Name",
-    PlaceholderText = "Enter file name",
+    Title = "写文件名",
+    PlaceholderText = "输入",
     Callback = function(text)
         fileNameInput = text
     end
 })
 
 Tabs.WindowTab:Button({
-    Title = "Save File",
+    Title = "保存配置",
     Callback = function()
         if fileNameInput ~= "" then
             SaveFile(fileNameInput, { Transparent = WindUI:GetTransparency(), Theme = WindUI:GetCurrentTheme() })
@@ -269,7 +274,7 @@ local filesDropdown
 local files = ListFiles()
 
 filesDropdown = Tabs.WindowTab:Dropdown({
-    Title = "Select File",
+    Title = "选择配置",
     Multi = false,
     AllowNone = true,
     Values = files,
@@ -279,14 +284,14 @@ filesDropdown = Tabs.WindowTab:Dropdown({
 })
 
 Tabs.WindowTab:Button({
-    Title = "Load File",
+    Title = "加载配置",
     Callback = function()
         if fileNameInput ~= "" then
             local data = LoadFile(fileNameInput)
             if data then
                 WindUI:Notify({
-                    Title = "File Loaded",
-                    Content = "Loaded data: " .. HttpService:JSONEncode(data),
+                    Title = "已加载",
+                    Content = "配置数据: " .. HttpService:JSONEncode(data),
                     Duration = 5,
                 })
                 if data.Transparent then 
@@ -300,7 +305,7 @@ Tabs.WindowTab:Button({
 })
 
 Tabs.WindowTab:Button({
-    Title = "Overwrite File",
+    Title = "覆盖配置",
     Callback = function()
         if fileNameInput ~= "" then
             SaveFile(fileNameInput, { Transparent = WindUI:GetTransparency(), Theme = WindUI:GetCurrentTheme() })
@@ -309,7 +314,7 @@ Tabs.WindowTab:Button({
 })
 
 Tabs.WindowTab:Button({
-    Title = "Refresh List",
+    Title = "刷新列表",
     Callback = function()
         filesDropdown:Refresh(ListFiles())
     end
@@ -335,7 +340,7 @@ function updateTheme()
 end
 
 local CreateInput = Tabs.CreateThemeTab:Input({
-    Title = "Theme Name",
+    Title = "主题名",
     Value = currentThemeName,
     Callback = function(name)
         currentThemeName = name
@@ -343,7 +348,7 @@ local CreateInput = Tabs.CreateThemeTab:Input({
 })
 
 Tabs.CreateThemeTab:Colorpicker({
-    Title = "Background Color",
+    Title = "背景颜色",
     Default = Color3.fromHex(ThemeAccent),
     Callback = function(color)
         ThemeAccent = color:ToHex()
@@ -351,7 +356,7 @@ Tabs.CreateThemeTab:Colorpicker({
 })
 
 Tabs.CreateThemeTab:Colorpicker({
-    Title = "Outline Color",
+    Title = "轮廓颜色",
     Default = Color3.fromHex(ThemeOutline),
     Callback = function(color)
         ThemeOutline = color:ToHex()
@@ -359,7 +364,7 @@ Tabs.CreateThemeTab:Colorpicker({
 })
 
 Tabs.CreateThemeTab:Colorpicker({
-    Title = "Text Color",
+    Title = "字体颜色",
     Default = Color3.fromHex(ThemeText),
     Callback = function(color)
         ThemeText = color:ToHex()
@@ -367,7 +372,7 @@ Tabs.CreateThemeTab:Colorpicker({
 })
 
 Tabs.CreateThemeTab:Colorpicker({
-    Title = "Placeholder Text Color",
+    Title = "更换字体颜色",
     Default = Color3.fromHex(ThemePlaceholderText),
     Callback = function(color)
         ThemePlaceholderText = color:ToHex()
@@ -375,7 +380,7 @@ Tabs.CreateThemeTab:Colorpicker({
 })
 
 Tabs.CreateThemeTab:Button({
-    Title = "Update Theme",
+    Title = "更新",
     Callback = function()
         updateTheme()
     end
