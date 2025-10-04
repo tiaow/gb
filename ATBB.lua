@@ -123,6 +123,14 @@ Callback = function()
 
 game:GetService("Lighting").FogEnd = 9999999
 end})
+TY:Button({
+Title = "反挂机",
+Value = false,
+Callback = function()
+
+loadstring(game:HttpGet("https://pastebin.com/raw/9fFu43FF"))
+end})
+
 TY:Input({
     Title = "输入时间",
     Desc = "格式 时：分：秒",
