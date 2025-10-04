@@ -169,18 +169,25 @@ end
 Window:Tab({ Title = "自动刷经验", Icon = "hand", Desc = "UI Elements Example" })
 
 
-Tabs.WindowSection = Window:Section({
+
+local Sections = {
+    WindowSection = Window:Section({
         Title = "UI界面设置",
         Icon = "app-window-mac",
-        Opened = true,
+        Opened = true
     })
     
-Tabs.WindowTab = Tabs.WindowSection:Tab({ 
+}
+
+local Tabs = {
+    WindowTab = Sections.WindowSection:Tab({ 
         Title = "Window and File Configuration", 
         Icon = "settings", 
         Desc = "Manage window settings and file configurations.", 
         ShowTabTitle = true 
     })
+    
+}    
 Tabs.WindowTab:Section({ Title = "Window", Icon = "app-window-mac" })
 
 local themeValues = {}
@@ -231,7 +238,7 @@ Tabs.WindowTab:Button({
 Tabs.WindowTab:Section({ Title = "Load" })
 
 local filesDropdown
-local files = ListFiles()
+local files = 
 
 filesDropdown = Tabs.WindowTab:Dropdown({
     Title = "Select File",
