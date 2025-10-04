@@ -167,6 +167,9 @@ end
 })
 
 Window:Tab({ Title = "自动刷经验", Icon = "hand", Desc = "UI Elements Example" })
+
+
+Tabs.WindowSection = Window:Section({ Title = "loc:FEATURES", Opened = true }),
 Tabs.WindowTab = Tabs.WindowSection:Tab({ 
         Title = "Window and File Configuration", 
         Icon = "settings", 
