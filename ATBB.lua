@@ -121,5 +121,13 @@ game.Lighting.Ambient = Color3.new(0, 0, 0)
 end
 end
 })
+TY:Button({
+Title = "去雾",
+Value = false,
+Callback = function()
+
+game:GetService("Lighting").FogEnd = 9999999
+end})
+
 Window:Tab({ Title = "经验", Icon = "", Desc = "UI Elements Example" })
 
