@@ -7,7 +7,7 @@ local Localization = WindUI:Localization({
     Translations = {
         ["en"] = {
             ["WINDUI_EXAMPLE"] = "The Battle Brick Script",
-            ["WELCOME"] = "作者：条纹",
+            ["WELCOME"] = "Author:Tiaowen",
             ["LIB_DESC"] = "Beautiful UI library for Roblox",
             ["SETTINGS"] = "Settings",
             ["APPEARANCE"] = "Appearance",
@@ -19,8 +19,14 @@ local Localization = WindUI:Localization({
             ["LOAD_CONFIG"] = "Load Configuration",
             ["THEME_SELECT"] = "Select Theme",
             ["TRANSPARENCY"] = "Window Transparency",
-            ["LOCKED_TAB"] = "Locked Tab"
+            ["LOCKED_TAB"] = "Locked Tab",
+            ["ADOUT_XP"] = "Adout Xp",
+             ["VERSION"] = "version:",
+             ["TEST"] = "test"
         }
+         
+        
+
     }
 })
 
@@ -41,9 +47,9 @@ end
 
 
 local Window = WindUI:CreateWindow({
-    Title = "loc:WINDUI_EXAMPLE",
+    Title = "战斗砖脚本",
     Icon = "",
-    Author = "loc:WELCOME",
+    Author = "作者：条纹",
     Folder = "WindUI_Example",
     Size = UDim2.fromOffset(580, 490),
     Theme = "Dark",
@@ -61,13 +67,7 @@ local Window = WindUI:CreateWindow({
         Enabled = true,
         Anonymous = true,
         Callback = function()
-            WindUI:Notify({
-                Title = "User Profile",
-                Content = "User profile clicked!",
-                Duration = 3
-            })
-        end
-    },
+            end    },
     Acrylic = false,
     HideSearchBar = false,
     SideBarWidth = 200,
@@ -81,14 +81,6 @@ Window:Tag({
     Title = "版本：测试",
     Color = Color3.fromHex("#302b63")
 })
-local Window = Window:Tag({
-    Title = "时间：" .. os.date("%H:%M:%S"),
-    Color = Color3.fromHex("#302b63")
-})
 
-spawn(function()
-    while true do
-        Window:SetTitle("时间：" .. os.date("%H:%M:%S"))
-        task.wait(1)
-    end
-end)
+Window:Tab({ Title = "经验", Icon = "", Desc = "UI Elements Example" })
+
