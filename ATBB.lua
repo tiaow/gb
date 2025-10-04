@@ -6,8 +6,8 @@ local Localization = WindUI:Localization({
     DefaultLanguage = "en",
     Translations = {
         ["en"] = {
-            ["WINDUI_EXAMPLE"] = "WindUI Example",
-            ["WELCOME"] = "Welcome to WindUI!",
+            ["WINDUI_EXAMPLE"] = "The Battle Brick Script",
+            ["WELCOME"] = "作者：条纹",
             ["LIB_DESC"] = "Beautiful UI library for Roblox",
             ["SETTINGS"] = "Settings",
             ["APPEARANCE"] = "Appearance",
@@ -24,7 +24,7 @@ local Localization = WindUI:Localization({
     }
 })
 
-WindUI.TransparencyValue = 0.2
+WindUI.TransparencyValue = 1
 WindUI:SetTheme("Dark")
 
 local function gradient(text, startColor, endColor)
@@ -39,52 +39,56 @@ local function gradient(text, startColor, endColor)
     return result
 end
 
-WindUI:Popup({
-    Title = gradient("WindUI Demo", Color3.fromHex("#6A11CB"), Color3.fromHex("#2575FC")),
-    Icon = "sparkles",
-    Content = "loc:LIB_DESC",
-    Buttons = {
-        {
-            Title = "Get Started",
-            Icon = "arrow-right",
-            Variant = "Primary",
-            Callback = function() end
-        }
-    }
-})
-
-
 
 local Window = WindUI:CreateWindow({
-    Title = "The Battle Bricks Script",
+    Title = "loc:WINDUI_EXAMPLE",
     Icon = "",
-    Author = "作者：条纹",
-    Folder = "TBB脚本",
+    Author = "loc:WELCOME",
+    Folder = "WindUI_Example",
     Size = UDim2.fromOffset(580, 490),
     Theme = "Dark",
     
     HidePanelBackground = false,
     NewElements = false,
-       User = {
+    -- Background = WindUI:Gradient({
+    --     ["0"] = { Color = Color3.fromHex("#0f0c29"), Transparency = 1 },
+    --     ["100"] = { Color = Color3.fromHex("#302b63"), Transparency = 0.9 },
+    -- }, {
+    --     Rotation = 45,
+    -- }),
+    --Background = "video:https://cdn.discordapp.com/attachments/1337368451865645096/1402703845657673878/VID_20250616_180732_158.webm?ex=68958a01&is=68943881&hm=164c5b04d1076308b38055075f7eb0653c1d73bec9bcee08e918a31321fe3058&",
+    User = {
         Enabled = true,
         Anonymous = true,
         Callback = function()
-            
+            WindUI:Notify({
+                Title = "User Profile",
+                Content = "User profile clicked!",
+                Duration = 3
+            })
         end
     },
     Acrylic = false,
     HideSearchBar = false,
     SideBarWidth = 200,
     
+})
 Window.User:SetAnonymous(false)
 --Window.User:Disable()
-
-
-
-
 Window:SetIconSize(48)
 
 Window:Tag({
-    Title = "时间" .. ,
-    Color = Color3.fromHex("#30ff6a")
+    Title = "版本：测试",
+    Color = Color3.fromHex("#302b63")
 })
+local Window = Window:Tag({
+    Title = "时间：" .. os.date("%H:%M:%S"),
+    Color = Color3.fromHex("#302b63")
+})
+
+spawn(function()
+    while true do
+        Window:SetTitle("时间：" .. os.date("%H:%M:%S"))
+        task.wait(1)
+    end
+end)
