@@ -167,5 +167,6 @@ end
 })
 
 Window:Tab({ Title = "自动刷经验", Icon = "hand", Desc = "UI Elements Example" })
+
 Window:Tab({ Title = "设置", Icon = "gear", Desc = "UI Elements Example" })
 
