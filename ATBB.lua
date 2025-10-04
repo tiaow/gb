@@ -104,6 +104,7 @@ spawn(function()
         task.wait(0.1)
     end
 end)
-Window:Tab({ Title = "通用", Icon = "", Desc = "UI Elements Example" })
+local TY = Window:Tab({ Title = "通用", Icon = " ", Desc = "UI Elements Example" })
+
 Window:Tab({ Title = "经验", Icon = "", Desc = "UI Elements Example" })
 
