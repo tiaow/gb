@@ -168,6 +168,34 @@ end
 
 Window:Tab({ Title = "自动刷经验", Icon = "hand", Desc = "UI Elements Example" })
 
+
+
+
+
+
+
+
+
+
+
+local ZB = Window:Tab({ Title = "开发工具", Icon = "user", Desc = "UI Elements Example" })
+ZB:Button({
+Title = "Dex",
+Value = false,
+Callback = function()
+
+
+end})
+
+ZB:Button({
+Title = "rspy",
+Value = false,
+Callback = function()
+
+
+end})
+
+
 local HttpService = game:GetService("HttpService")
 
 local folderPath = "WindUI"
@@ -213,42 +241,78 @@ local Tabs = {
         Icon = "settings", 
         Desc = "Manage window settings and file configurations.", 
         ShowTabTitle = true 
-    }),
-  CreateThemeTab  = Sections.WindowSection:Tab({ 
-    Title = "创建主题",
-    Icon = "palette", 
-    Desc = "Design and apply custom themes." 
     })
-    
 }    
+
+
 Tabs.WindowTab:Section({ Title = "界面", Icon = "app-window-mac" })
 
 local themeValues = {}
 for name, _ in pairs(WindUI:GetThemes()) do
     table.insert(themeValues, name)
 end
-
+local themes = {}
+for themeName, _ in pairs(WindUI:GetThemes()) do
+    table.insert(themes, themeName)
+end
+table.sort(themes)
 local themeDropdown = Tabs.WindowTab:Dropdown({
     Title = "选择主题",
-    Multi = false,
-    AllowNone = false,
-    Value = nil,
-    Values = themeValues,
+    Values = themes,
+    SearchBarEnabled = true,
+    MenuWidth = 280,
+    Value = "Dark",
     Callback = function(theme)
+        canchangedropdown = false
         WindUI:SetTheme(theme)
+        WindUI:Notify({
+            Title = "应用主题",
+            Content = theme,
+            Icon = "palette",
+            Duration = 2
+        })
+        canchangedropdown = true
     end
 })
-themeDropdown:Select(WindUI:GetCurrentTheme())
 
-local ToggleTransparency = Tabs.WindowTab:Toggle({
-    Title = "切换透明度",
-    Callback = function(e)
-        Window:ToggleTransparency(e)
-    end,
-    Value = WindUI:GetTransparency()
+local transparencySlider = Tabs.WindowTab:Slider({
+    Title = "透明度调节",
+    Value = { 
+        Min = 0,
+        Max = 1,
+        Default = 0.2,
+    },
+    Step = 0.1,
+    Callback = function(value)
+        WindUI.TransparencyValue = tonumber(value)
+        Window:ToggleTransparency(tonumber(value) > 0)
+    end
 })
 
-Tabs.WindowTab:Section({ Title = "Save" })
+
+themeDropdown:Select(WindUI:GetCurrentTheme())
+
+local ThemeToggle = Tabs.WindowTab:Toggle({
+    Title = "启用黑色主题",
+    Desc = "",
+    Value = true,
+    Callback = function(state)
+        if canchangetheme then
+            WindUI:SetTheme(state and "Dark" or "Light")
+        end
+        if canchangedropdown then
+            themeDropdown:Select(state and "Dark" or "Light")
+        end
+    end
+})
+
+WindUI:OnThemeChange(function(theme)
+    canchangetheme = false
+    ThemeToggle:Set(theme == "Dark")
+    canchangetheme = true
+end)
+
+Tabs.WindowTab:Section({ Title = "保存" })
 
 local fileNameInput = ""
 Tabs.WindowTab:Input({
@@ -268,7 +332,7 @@ Tabs.WindowTab:Button({
     end
 })
 
-Tabs.WindowTab:Section({ Title = "Load" })
+Tabs.WindowTab:Section({ Title = "加载" })
 
 local filesDropdown
 local files = ListFiles()
@@ -320,6 +384,10 @@ Tabs.WindowTab:Button({
     end
 })
 
-local currentThemeName = WindUI:GetCurrentTheme()
-local themes = WindUI:GetThemes()
+
+
+local canchangetheme = true
+local canchangedropdown = true
+
+
 
