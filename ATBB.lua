@@ -169,7 +169,12 @@ end
 Window:Tab({ Title = "自动刷经验", Icon = "hand", Desc = "UI Elements Example" })
 
 
-Tabs.WindowSection = Window:Section({ Title = "loc:FEATURES", Opened = true }),
+Tabs.WindowSection = Window:Section({
+        Title = "UI界面设置",
+        Icon = "app-window-mac",
+        Opened = true,
+    })
+    
 Tabs.WindowTab = Tabs.WindowSection:Tab({ 
         Title = "Window and File Configuration", 
         Icon = "settings", 
