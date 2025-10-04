@@ -48,7 +48,7 @@ end
 
 local Window = WindUI:CreateWindow({
     Title = "战斗砖脚本",
-    Icon = "",
+    Icon = "17065555117",
     Author = "作者：条纹",
     Folder = "WindUI_Example",
     Size = UDim2.fromOffset(580, 490),
