@@ -110,12 +110,7 @@ Title = "夜视",
 Value = false,
 Callback = function(Value)
 if Value then
-spawn(function()
-while Value do
 game.Lighting.Ambient = Color3.new(1, 1, 1)
-task.wait(0.1)
-end
-end
 else
 game.Lighting.Ambient = Color3.new(0, 0, 0)
 end
