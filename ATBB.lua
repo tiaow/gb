@@ -127,9 +127,23 @@ TY:Input({
     Title = "输入时间",
     Desc = "格式 时：分：秒",
     Placeholder = "",
-    Callback = function()
-        
-    end
+    Callback = function(Value)
+    TimeText = Value   
+end
 })
+TY:Toggle({
+    Title = "设置时间",
+    Desc = "设置你上面输入的时间",
+    Placeholder = "",
+    Callback = function(Value)
+  spawn(function()
+    while Value do
+game:GetService("Lighting").TimeOfDay = TimeText
+task.wait(0.01)
+end
+end)  
+end
+})
+
 Window:Tab({ Title = "经验", Icon = "", Desc = "UI Elements Example" })
 
