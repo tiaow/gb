@@ -167,7 +167,12 @@ end
 })
 
 Window:Tab({ Title = "自动刷经验", Icon = "hand", Desc = "UI Elements Example" })
-
+Tabs.WindowTab = Tabs.WindowSection:Tab({ 
+        Title = "Window and File Configuration", 
+        Icon = "settings", 
+        Desc = "Manage window settings and file configurations.", 
+        ShowTabTitle = true 
+    })
 Tabs.WindowTab:Section({ Title = "Window", Icon = "app-window-mac" })
 
 local themeValues = {}
