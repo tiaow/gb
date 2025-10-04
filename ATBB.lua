@@ -127,8 +127,21 @@ TY:Button({
 Title = "反挂机",
 Value = false,
 Callback = function()
+print("Anti Afk On")
+        local vu = game:GetService("VirtualUser")
+        game:GetService("Players").LocalPlayer.Idled:connect(function()
+           vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+           wait(1)
+           vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+        end)
+      wait(1)
+        local CoreGui = game:GetService("StarterGui")
+CoreGui:SetCore("SendNotification", {
+    Title = "反挂机2已开启",
+    Text = "虽然不知道有没有增强",
+    Duration = 5,
+})
 
-loadstring(game:HttpGet("https://pastebin.com/raw/9fFu43FF"))
 end})
 
 TY:Input({
@@ -153,5 +166,6 @@ end)
 end
 })
 
-Window:Tab({ Title = "自动刷经验", Icon = "", Desc = "UI Elements Example" })
+Window:Tab({ Title = "自动刷经验", Icon = "hand", Desc = "UI Elements Example" })
+Window:Tab({ Title = "设置", Icon = "gear", Desc = "UI Elements Example" })
 
