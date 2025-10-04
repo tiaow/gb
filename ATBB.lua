@@ -30,7 +30,7 @@ local Localization = WindUI:Localization({
     }
 })
 
-WindUI.TransparencyValue = 1
+WindUI.TransparencyValue = 0
 WindUI:SetTheme("Dark")
 
 local function gradient(text, startColor, endColor)
@@ -48,7 +48,7 @@ end
 
 local Window = WindUI:CreateWindow({
     Title = "战斗砖脚本",
-    Icon = "17065555117",
+    Icon = "",
     Author = "作者：条纹",
     Folder = "WindUI_Example",
     Size = UDim2.fromOffset(580, 490),
@@ -79,8 +79,31 @@ Window:SetIconSize(48)
 
 Window:Tag({
     Title = "版本：测试",
-    Color = Color3.fromHex("#302b63")
+    Color =  Color3.fromHex("#0f0c29"), Transparency = 0.5
 })
+local W = Window:Tag({
+    Title = "你的XP：",
+    Color =  Color3.fromHex("#0f0c29"), Transparency = 0.5
+})
+local T = Window:Tag({
+    Title = "你的砖块：",
+    Color =  Color3.fromHex("#0f0c29"), Transparency = 0.5
+})
+
+spawn(function()
+    while true do
+        W:SetTitle("你的XP：" .. game:GetService("Players").LocalPlayer.PlayerData.Currency.Experience.Value)
+        task.wait(0.1)
+    end
+end)
+
+
+spawn(function()
+    while true do
+        T:SetTitle("你的砖块：" .. game:GetService("Players").LocalPlayer.PlayerData.Currency.Bricks.Value)
+        task.wait(0.1)
+    end
+end)
 
 Window:Tab({ Title = "经验", Icon = "", Desc = "UI Elements Example" })
 
