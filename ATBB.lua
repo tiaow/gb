@@ -166,7 +166,7 @@ end)
 end
 })
 
-Window:Tab({ Title = "自动刷经验", Icon = "hand", Desc = "UI Elements Example" })
+Window:Tab({ Title = "自动刷经验", Icon = "hand", Desc = "wait" })
 
 
 
@@ -178,23 +178,31 @@ Window:Tab({ Title = "自动刷经验", Icon = "hand", Desc = "UI Elements Examp
 
 
 
-local ZB = Window:Tab({ Title = "开发工具", Icon = "user", Desc = "UI Elements Example" })
+local ZB = Window:Tab({ Title = "开发工具", Icon = "user", Desc = "Are you hacker？" })
 ZB:Button({
 Title = "Dex",
 Value = false,
 Callback = function()
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/renlua/Script-Tutorial/refs/heads/main/dex.lua"))()
+    
 
 end})
+ZB:Button({
+Title = "Dex++",
+Value = false,
+Callback = function()
+loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Dex-plus-plus-52563"))()
 
+    
+
+end})
 ZB:Button({
 Title = "rspy",
 Value = false,
 Callback = function()
 
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/renlua/Script-Tutorial/refs/heads/main/Spy.lua"))()
 end})
-
 
 local HttpService = game:GetService("HttpService")
 
