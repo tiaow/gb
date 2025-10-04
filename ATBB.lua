@@ -48,7 +48,7 @@ end
 
 local Window = WindUI:CreateWindow({
     Title = "战斗砖脚本",
-    Icon = "rbxassetid://",
+    Icon = "rbxassetid://17065555140",
     Author = "作者：条纹",
     Folder = "WindUI_Example",
     Size = UDim2.fromOffset(580, 490),
@@ -104,7 +104,7 @@ spawn(function()
         task.wait(0.1)
     end
 end)
-local TY = Window:Tab({ Title = "玩家", Icon = "Player", Desc = "UI Elements Example" })
+local TY = Window:Tab({ Title = "玩家", Icon = "user", Desc = "UI Elements Example" })
 TY:Toggle({
 Title = "夜视",
 Value = false,
