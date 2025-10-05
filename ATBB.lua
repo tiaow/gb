@@ -165,12 +165,58 @@ end
 end)  
 end
 })
+XPSection = Window:Section({
+        Title = "自动刷经验",
+        Icon = "hand",
+        Opened = false
+    })
+ch1317 = XPSection:Tab({ 
+        Title = "速17", 
+        Icon = "", 
+        Desc = "速刷ch1 3星 17", 
+        ShowTabTitle = true 
+    })
 
-Window:Tab({ Title = "自动刷经验", Icon = "hand", Desc = "wait" })
+ch1317:Toggle({
+    Title = "地图刷新",
+    PlaceholderText = "",
+    Value = false,
+    Callback = function(Value)
+local HJK = Value
+while HJK do
+local args = {
+	"Chapter1",
+	17,
+	2,
+	3,
+	false,
+	{},
+  true 
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunction"):WaitForChild("StartBattle"):InvokeServer(unpack(args))
+task.wait(0.01)
+end
+ end
+})
 
+ch1317:Toggle({
+    Title = "点击槽",
+    PlaceholderText = "",
+    Value = false,
+    Callback = function(Value)
+local YUI = Value
+while YUI do
+local args = {
+	"Slot1" 
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunction"):WaitForChild("PlayerSpawn"):InvokeServer(unpack(args))
+task.wait(0.01)
+end
 
+end
+})
 
-
+--game:GetService("Players").LocalPlayer.PlayerData.Upgrades.Units["7"]
 
 
 
