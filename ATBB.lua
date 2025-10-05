@@ -204,6 +204,9 @@ Callback = function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/renlua/Script-Tutorial/refs/heads/main/Spy.lua"))()
 end})
 
+local BD = Window:Tab({ Title = "本地", Icon = "user", Desc = "bro以为有无限xp了😂" })
+
+
 local HttpService = game:GetService("HttpService")
 
 local folderPath = "WindUI"
