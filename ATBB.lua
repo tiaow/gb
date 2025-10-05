@@ -204,7 +204,40 @@ Callback = function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/renlua/Script-Tutorial/refs/heads/main/Spy.lua"))()
 end})
 
+
+
+local XZBZ = {
+["普通战斗者"] = 1       ,
+["普通战斗者"] = 2       ,
+["普通战斗者"] = 3       ,
+["普通战斗者"] = 4       ,
+["普通战斗者"] = 5       ,
+["普通战斗者"] = 6       ,
+["普通战斗者"] = 7       ,
+["普通战斗者"] = 8       
+
+
+}
+
+
 local BD = Window:Tab({ Title = "本地", Icon = "user", Desc = "bro以为有无限xp了😂" })
+BD:Input({
+    Title = "改xp",
+    PlaceholderText = "更改你的XP数量🤑🤑",
+    Callback = function(V)
+        game:GetService("Players").LocalPlayer.PlayerData.Currency.Experience.Value = V
+    end
+})
+BD:Input({
+    Title = "改砖块",
+    PlaceholderText = "更改你的砖块数量🤑",
+    Callback = function(V)
+        game:GetService("Players").LocalPlayer.PlayerData.Currency.Bricks.Value = V
+    end
+})
+
+
+
 
 
 local HttpService = game:GetService("HttpService")
