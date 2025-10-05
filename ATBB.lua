@@ -73,7 +73,7 @@ local Window = WindUI:CreateWindow({
     SideBarWidth = 200,
     
 })
-Window.User:SetAnonymous(false)
+
 --Window.User:Disable()
 Window:SetIconSize(48)
 
@@ -221,21 +221,37 @@ local XZBZ = {
 
 
 local BD = Window:Tab({ Title = "本地", Icon = "user", Desc = "bro以为有无限xp了😂" })
+local XP = 0
 BD:Input({
     Title = "改xp",
     PlaceholderText = "更改你的XP数量🤑🤑",
-    Callback = function(V)
-        game:GetService("Players").LocalPlayer.PlayerData.Currency.Experience.Value = V
+    Callback = function(Value)
+ XP = Value
+        
     end
 })
+local Bricks = 0
 BD:Input({
     Title = "改砖块",
     PlaceholderText = "更改你的砖块数量🤑",
-    Callback = function(V)
-        game:GetService("Players").LocalPlayer.PlayerData.Currency.Bricks.Value = V
+    Callback = function(Value)
+ Bricks = Value
+        
     end
 })
-
+BD:Toggle({
+    Title = "启用",
+    PlaceholderText = "",
+    Value = false,
+    Callback = function(V)
+if V then 
+         game:GetService("Players").LocalPlayer.PlayerData.Currency.Bricks.Value = Bricks
+     
+        game:GetService("Players").LocalPlayer.PlayerData.Currency.Experience.Value = XP
+else
+end
+    end
+})
 
 
 
@@ -347,6 +363,32 @@ local ThemeToggle = Tabs.WindowTab:Toggle({
         if canchangedropdown then
             themeDropdown:Select(state and "Dark" or "Light")
         end
+    end
+})
+Tabs.WindowTab:Toggle({
+    Title = "隐藏玩家",
+    Desc = "隐藏ui左下角玩家",
+    Value = true,
+    Callback = function(V)
+        if V then
+        Window.User:SetAnonymous(true)
+            WindUI:Notify({
+            Title = "已隐藏！",
+            
+            Icon = "palette",
+            Duration = 1
+      })
+        else
+        
+         Window.User:SetAnonymous(false)
+            WindUI:Notify({
+            Title = "已取消隐藏",
+            
+            Icon = "palette",
+            Duration = 1
+        })
+        end
+
     end
 })
 
