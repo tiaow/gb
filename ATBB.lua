@@ -176,15 +176,15 @@ ch1317 = XPSection:Tab({
         Desc = "速刷ch1 3星 17", 
         ShowTabTitle = true 
     })
-
+local ditu1 = false
 ch1317:Toggle({
     Title = "地图刷新",
     PlaceholderText = "",
     Value = false,
     Callback = function(V)
-if V == true then
-while V do
-if V == true then
+if V  then
+ditu1 = true
+while ditu1 do
 local args = {
 	"Chapter1",
 	17,
@@ -197,27 +197,29 @@ local args = {
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunction"):WaitForChild("StartBattle"):InvokeServer(unpack(args))
 task.wait(0.01)
 end
+else
+ditu1 = false
 end
 end
- end
-})
 
+})
+local djc1 = false
 ch1317:Toggle({
     Title = "点击槽",
     Icon = "check",
     Value = false,
     Callback = function(state)
-while state do
-if state == true then
-
+if state then
+djc1 = true
+while djc1 do
 local args = {
 	"Slot1" 
 }
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunction"):WaitForChild("PlayerSpawn"):InvokeServer(unpack(args))
 task.wait(0.01)
-else
-
 end
+else
+djc1 = false
 end
 end
 })
