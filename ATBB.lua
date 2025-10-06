@@ -165,13 +165,18 @@ end
 end)  
 end
 })
+
+local TBB = Window:Tab({ Title = "tbb功能", Icon = "hand", Desc = "只针对于tbb游戏的功能" })
+
+
+
 XPSection = Window:Section({
         Title = "自动刷经验",
         Icon = "hand",
         Opened = false
     })
 ch1317 = XPSection:Tab({ 
-        Title = "速17", 
+        Title = "速17(无用)", 
         Icon = "", 
         Desc = "速刷ch1 3星 17", 
         ShowTabTitle = true 
@@ -260,18 +265,20 @@ end})
 
 
 
-local XZBZ = {
-["普通战斗者"] = 1       ,
-["普通战斗者"] = 2       ,
-["普通战斗者"] = 3       ,
-["普通战斗者"] = 4       ,
-["普通战斗者"] = 5       ,
-["普通战斗者"] = 6       ,
-["普通战斗者"] = 7       ,
-["普通战斗者"] = 8       
-
-
+local ZCB = {"普通战斗者", "铲斗者", "剑斗士", "弹弓战士", "baller战士", "火箭战士", "炸弹斗士", "泰坦战士"}
+local ZCB2 = {
+    ["普通战斗者"] = 1,
+    ["铲斗者"] = 2,
+    ["剑斗士"] = 3,
+    ["弹弓战士"] = 4,
+    ["baller战士"] = 5,
+    ["火箭战士"] = 6,
+    ["炸弹斗士"] = 7,
+    ["泰坦战士"] = 8
 }
+
+
+
 
 
 local BD = Window:Tab({ Title = "本地", Icon = "user", Desc = "bro以为有无限xp了😂" })
@@ -284,6 +291,18 @@ BD:Input({
         
     end
 })
+BD:Toggle({
+    Title = "启用",
+    PlaceholderText = "",
+    Value = false,
+    Callback = function(V)
+if V then 
+game:GetService("Players").LocalPlayer.PlayerData.Currency.Experience.Value = XP
+else
+end
+    end
+})
+
 local Bricks = 0
 BD:Input({
     Title = "改砖块",
@@ -301,11 +320,24 @@ BD:Toggle({
 if V then 
          game:GetService("Players").LocalPlayer.PlayerData.Currency.Bricks.Value = Bricks
      
-        game:GetService("Players").LocalPlayer.PlayerData.Currency.Experience.Value = XP
+        
 else
 end
     end
 })
+
+BD:Dropdown({
+    Title = "选择角色",
+    Values = ZCB,
+    SearchBarEnabled = true,
+    MenuWidth = 280,
+    Callback = function(V)
+        local ZCBV = ZCB2[V]
+        
+    end
+})
+
+
 
 
 
