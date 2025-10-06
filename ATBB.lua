@@ -204,12 +204,11 @@ end
 
 ch1317:Toggle({
     Title = "点击槽",
-    PlaceholderText = "",
+    Icon = "check",
     Value = false,
-    Callback = function(V)
-
-while V do
-if V == true then
+    Callback = function(state)
+while state do
+if state == true then
 
 local args = {
 	"Slot1" 
