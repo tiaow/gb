@@ -152,17 +152,93 @@ TY:Input({
     TimeText = Value   
 end
 })
+local We = false
 TY:Toggle({
     Title = "设置时间",
     Desc = "设置你上面输入的时间",
-    Placeholder = "",
-    Callback = function(Value)
+    Value = false,
+    Callback = function(V)
+if V  then
+
+We = true
   spawn(function()
-    while Value do
+    while We do
 game:GetService("Lighting").TimeOfDay = TimeText
 task.wait(0.01)
 end
 end)  
+else
+We = false
+end
+end
+})
+local yyin = false
+TY:Toggle({
+    Title = "去除阴影",
+    Desc = "去除游戏阴影",
+    Value = false,
+    Callback = function(V)
+if V  then
+
+yyin = true
+  spawn(function()
+    while yyin do
+game:GetService("Lighting").Brightness = 0
+task.wait(0.01)
+end
+end)  
+else
+yyin = false
+end
+end
+})
+local srldu = 0
+TY:Input({
+    Title = "输入亮度",
+    Desc = "可以负数",
+    Placeholder = "",
+    Callback = function(Value)
+    srldu = Value   
+end
+})
+local ldu = false
+TY:Toggle({
+    Title = "设置亮度",
+    Desc = "设置你输入的亮度",
+    Value = false,
+    Callback = function(V)
+if V  then
+
+ldu = true
+  spawn(function()
+    while ldu do
+game:GetService("Lighting").ExposureCompensation = srldu
+task.wait(0.01)
+end
+end)  
+else
+ldu = false
+end
+end
+})
+local fg = false
+TY:Toggle({
+    Title = "去除光线反射",
+    Desc = "",
+    Value = false,
+    Callback = function(V)
+if V  then
+
+fg = true
+  spawn(function()
+    while fg do
+game:GetService("Lighting").EnvironmentSpecularScale = 0
+task.wait(0.01)
+end
+end)  
+else
+fg = false
+end
 end
 })
 
@@ -325,18 +401,37 @@ else
 end
     end
 })
-
+local ZCBV = 0
+local DJ = 0
 BD:Dropdown({
     Title = "选择角色",
     Values = ZCB,
     SearchBarEnabled = true,
     MenuWidth = 280,
     Callback = function(V)
-        local ZCBV = ZCB2[V]
-        
+        ZCBV = ZCB2[V]
+        print("已选择角色:", ZCBV)
     end
 })
 
+
+BD:Input({
+    Title = "更改等级",
+    PlaceholderText = "更改你选择角色的等级",
+    Callback = function(V)
+    DJ = V or 0
+     print("等级设置为:", DJ)
+     
+    end
+})
+BD:Button({
+    Title = "更改",
+    Callback = function()
+   print("角色:", ZCBV )     
+print("等级:", DJ)
+game:GetService("Players").LocalPlayer.PlayerData.Upgrades.Units["" .. ZCBV].Value = DJ
+    end
+})
 
 
 
