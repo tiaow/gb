@@ -181,9 +181,10 @@ ch1317:Toggle({
     Title = "地图刷新",
     PlaceholderText = "",
     Value = false,
-    Callback = function(Value)
-local HJK = Value
-while HJK do
+    Callback = function(V)
+if V == true then
+while V do
+if V == true then
 local args = {
 	"Chapter1",
 	17,
@@ -196,6 +197,8 @@ local args = {
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunction"):WaitForChild("StartBattle"):InvokeServer(unpack(args))
 task.wait(0.01)
 end
+end
+end
  end
 })
 
@@ -203,16 +206,20 @@ ch1317:Toggle({
     Title = "点击槽",
     PlaceholderText = "",
     Value = false,
-    Callback = function(Value)
-local YUI = Value
-while YUI do
+    Callback = function(V)
+
+while V do
+if V == true then
+
 local args = {
 	"Slot1" 
 }
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunction"):WaitForChild("PlayerSpawn"):InvokeServer(unpack(args))
 task.wait(0.01)
-end
+else
 
+end
+end
 end
 })
 
