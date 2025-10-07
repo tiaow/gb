@@ -1,6 +1,6 @@
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
-if FTGG == "战斗robloxian脚本" then
+if FTGG == "The battle robloxian" then
     player:Kick("Are you hacker？😂😂😂😂😂😂", "")
 else
     player:Kick("hacker", "")
