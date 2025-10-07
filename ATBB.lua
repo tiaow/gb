@@ -355,8 +355,6 @@ local ZCB2 = {
 
 
 
-
-
 local BD = Window:Tab({ Title = "本地", Icon = "user", Desc = "bro以为有无限xp了😂" })
 local XP = 0
 BD:Input({
@@ -401,6 +399,7 @@ else
 end
     end
 })
+local CHD = ""
 local ZCBV = 0
 local DJ = 0
 BD:Dropdown({
@@ -409,6 +408,7 @@ BD:Dropdown({
     SearchBarEnabled = true,
     MenuWidth = 280,
     Callback = function(V)
+     CHD = V
         ZCBV = ZCB2[V]
         print("已选择角色:", ZCBV)
     end
@@ -428,8 +428,16 @@ BD:Button({
     Title = "更改",
     Callback = function()
    print("角色:", ZCBV )     
-print("等级:", DJ)
+   print("等级:", DJ)
+
 game:GetService("Players").LocalPlayer.PlayerData.Upgrades.Units["" .. ZCBV].Value = DJ
+
+WindUI:Notify({
+            Title = "已更改！",
+            Content = ,
+            Icon = "hand",
+            Duration = 1
+        })
     end
 })
 
