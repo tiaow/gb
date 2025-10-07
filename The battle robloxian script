@@ -1,7 +1,7 @@
 
 
 if FTGG == "战斗robloxian脚本" then
-    kick:Player("Are you hecker？？ 你被骗了😂😂😂😂😂😂", "")
+    kick:player("Are you hecker？？ 你被骗了😂😂😂😂😂😂", "")
 else
-    kick:Player("脚本不完整", "")
+    kick:player("脚本不完整", "")
 end
