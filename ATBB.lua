@@ -431,14 +431,7 @@ BD:Button({
    print("等级:", DJ)
 
 game:GetService("Players").LocalPlayer.PlayerData.Upgrades.Units["" .. ZCBV].Value = DJ
-
-WindUI:Notify({
-            Title = "已更改！",
-            
-            Icon = "hand",
-            Duration = 1
-        })
-    end
+end
 })
 
 
@@ -603,6 +596,7 @@ Tabs.WindowTab:Button({
     Callback = function()
         if fileNameInput ~= "" then
             SaveFile(fileNameInput, { Transparent = WindUI:GetTransparency(), Theme = WindUI:GetCurrentTheme() })
+          
         end
     end
 })
