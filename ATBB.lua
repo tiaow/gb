@@ -434,7 +434,7 @@ game:GetService("Players").LocalPlayer.PlayerData.Upgrades.Units["" .. ZCBV].Val
 
 WindUI:Notify({
             Title = "已更改！",
-            Content = ,
+            
             Icon = "hand",
             Duration = 1
         })
