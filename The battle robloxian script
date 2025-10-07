@@ -1,7 +1,7 @@
-
-
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
 if FTGG == "战斗robloxian脚本" then
-    player:Kick("Are you hecker？？ 你被骗了😂😂😂😂😂😂", "")
+    player:Kick("Are you hacker？😂😂😂😂😂😂", "")
 else
-    player:Kick("脚本不完整", "")
+    player:Kick("hacker", "")
 end
