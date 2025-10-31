@@ -1,0 +1,31 @@
+workspace.CurrentRooms["1"].Door
+workspace.CurrentRooms["0"].Assets:GetChildren()[8].HouseDoor
+workspace.CurrentRooms["1"].Assets:GetChildren()[7].HouseDoor.ActivateEventPrompt
+workspace.CurrentRooms["2"].Assets:TrickOrTreatHouse.HouseDoor.ActivateEventPrompt = 0
+
+for _, room in ipairs(workspace.CurrentRooms:GetChildren()) do
+    -- 检查房间是否有Doors文件夹
+    local doorsFolder = room:FindFirstChild("Door")
+    if doorsFolder then
+        for _, door in ipairs(doorsFolder:GetChildren()) do
+            local h = Instance.new("Highlight")
+            h.FillColor = Color3.new(1, 0, 0)  -- 红色
+            h.FillTransparency = 0
+            h.OutlineColor = Color3.new(1, 1, 1)  -- 白色边框
+            h.OutlineTransparency = 0
+            h.Parent = door
+        end
+    end
+end
+
+
+
+
+
+
+
+
+
+
+
+
