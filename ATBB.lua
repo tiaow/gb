@@ -260,6 +260,120 @@ game:GetService("Players").LocalPlayer.PlayerGui.BattleScreen.Enabled = true
 end
 end
 })
+local MusictbbName = {
+
+
+
+}
+local Musictbb = {
+["肿瘤3章30音乐"] = game:GetService("SoundService").OST.HereTheyAre,
+["肿瘤4章20音乐"] = game:GetService("SoundService").OST.HistoryOfTheMoon,
+["4章30音乐"] =    game:GetService("SoundService").OST.ImpastaSyndrome,
+["4章28音乐"] = game:GetService("SoundService").OST.HardDriveToMunchYou,
+["肿瘤1章10音乐"] = game:GetService("SoundService").OST.JumpIntoBattle,
+["4章10音乐"] = game:GetService("SoundService").OST.JumpIntoBattle2,
+["2章30音乐"] = game:GetService("SoundService").OST.King,
+["肿瘤2章30音乐"] = game:GetService("SoundService").OST.Masked,
+["肿瘤1章30音乐"] = game:GetService("SoundService").OST.Matricide,
+["3章10音乐"] = game:GetService("SoundService").OST.MentallySpooky, 
+["3章20音乐"] = game:GetService("SoundService").OST.Retrograde,
+["4章20音乐"] = game:GetService("SoundService").OST.ShootAStrangeBird,
+["肿瘤4章30音乐(十字架)"] = game:GetService("SoundService").OST.Soul0System,
+["2章20音乐"] = game:GetService("SoundService").OST.TheBattleOfAward42, 
+["肿瘤3章20音乐"] = game:GetService("SoundService").OST.TheFuture,
+["4章30音乐(2阶)"] = game:GetService("SoundService").OST.Unexpectancy,
+["肿瘤2章10音乐"] = game:GetService("SoundService").OST.Archetype,
+["1章30音乐"] = game:GetService("SoundService").OST.BattleofLittleSlugger,
+["1章20音乐"] = game:GetService("SoundService").OST.Chad,
+["肿瘤3章30音乐(死亡后)"] = game:GetService("SoundService").OST.CurtainCall,
+["肿瘤3章10音乐"] = game:GetService("SoundService").OST.Dalv,
+["2章10音乐"] = game:GetService("SoundService").OST.DarkSkies,
+["1章10音乐"] = game:GetService("SoundService").OST.DivineCombat,
+["肿瘤4章10音乐"] = game:GetService("SoundService").OST.FightTheMovement,
+["肿瘤4章30音乐(望远镜)"] = game:GetService("SoundService").OST.HopeOfBirth
+["肿瘤1章20音乐"] = game:GetService("SoundService").OST.UnderMySkin,
+["肿瘤2章20音乐"] = game:GetService("SoundService").OST.KillingTwoBirds
+}
+local MTBA = Window:Tab({ Title = "音乐播放", Icon = "hand", Desc = "只针对于tbb游戏音乐的功能" })
+MTBA:Dropdown({
+    Title = "选择角色",
+    Values = MusictbbName,
+    SearchBarEnabled = true,
+    MenuWidth = 280,
+    Callback = function(V)
+     CHD = V
+        ZCBV = ZCB2[V]
+        print("已选择角色:", ZCBV)
+    end
+})
+MTBA:Toggle({
+    Title = "音乐播放",
+    PlaceholderText = "",
+    Value = false,
+    Callback = function(V)
+if V then
+ .Playing = true
+else
+ .Playing = false
+end
+end
+})
+MTBA:Button({
+Title = "重制音乐",
+Value = false,
+Callback = function()
+ .TimePosition = 0
+
+end})
+MTBA:Toggle({
+    Title = "循环播放",
+    PlaceholderText = "",
+    Value = false,
+    Callback = function(V)
+if V then
+ .Looped = true
+else
+ .Looped = false
+end
+end
+})
+local beisu = 0
+MTBA:Input({
+    Title = "输入倍速",
+    Callback = function(Value)
+ beisu = Value
+        
+    end
+})
+
+MTBA:Button({
+    Title = "确认倍速",
+    Callback = function(Value)
+ PlaybackSpeed = beisu
+        
+    end
+})
+local yinliang = 0
+Tabs.WindowTab:Slider({
+    Title = "音量",
+    Value = { 
+        Min = 0,
+        Max = 10,
+        Default = 1,
+    },
+    Step = 0.1,
+    Callback = function(value)
+yinliang = value
+         end
+})
+MTBA:Button({
+    Title = "确认音量",
+    Callback = function()
+  Volume = yinliang
+        
+    end
+})
+
 
 
 XPSection = Window:Section({
@@ -373,14 +487,7 @@ local ZCB2 = {
 
 local BD = Window:Tab({ Title = "本地", Icon = "user", Desc = "bro以为有无限xp了😂" })
 local XP = 0
-BD:Input({
-    Title = "改xp",
-    PlaceholderText = "更改你的XP数量🤑🤑",
-    Callback = function(Value)
- XP = Value
-        
-    end
-})
+
 BD:Toggle({
     Title = "启用",
     PlaceholderText = "",
