@@ -326,7 +326,7 @@ local Musictbb = {
 ["2章10音乐"] = game:GetService("SoundService").OST.DarkSkies,
 ["1章10音乐"] = game:GetService("SoundService").OST.DivineCombat,
 ["肿瘤4章10音乐"] = game:GetService("SoundService").OST.FightTheMovement,
-["肿瘤4章30音乐(望远镜)"] = game:GetService("SoundService").OST.HopeOfBirth
+["肿瘤4章30音乐(望远镜)"] = game:GetService("SoundService").OST.HopeOfBirth,
 ["肿瘤1章20音乐"] = game:GetService("SoundService").OST.UnderMySkin,
 ["肿瘤2章20音乐"] = game:GetService("SoundService").OST.KillingTwoBirds
 }
@@ -352,6 +352,7 @@ if V then
 else
  Musictbb2.Playing = false
 end
+
 end
 })
 MTBA:Button({
@@ -360,7 +361,8 @@ Value = false,
 Callback = function()
  Musictbb2.TimePosition = 0
 
-end})
+end
+})
 MTBA:Toggle({
     Title = "循环播放",
     PlaceholderText = "",
@@ -371,6 +373,7 @@ if V then
 else
  Musictbb2.Looped = false
 end
+
 end
 })
 local beisu = 0
@@ -390,7 +393,7 @@ MTBA:Button({
     end
 })
 local yinliang = 0
-Tabs.WindowTab:Slider({
+MTBA:Slider({
     Title = "音量",
     Value = { 
         Min = 0,
