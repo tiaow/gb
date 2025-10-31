@@ -262,6 +262,42 @@ end
 })
 local MusictbbName = {
 
+"1章10音乐",
+"1章20音乐", 
+"1章30音乐",
+
+"2章10音乐",
+"2章20音乐",
+"2章30音乐",
+
+"3章10音乐", 
+"3章20音乐",
+
+"4章10音乐",
+"4章20音乐",
+"4章28音乐",
+"4章30音乐",
+"4章30音乐(2阶)",
+
+"肿瘤1章10音乐",
+"肿瘤1章20音乐",
+"肿瘤1章30音乐",
+
+"肿瘤2章10音乐", 
+"肿瘤2章20音乐",
+"肿瘤2章30音乐",
+
+"肿瘤3章10音乐",
+"肿瘤3章20音乐",
+"肿瘤3章30音乐",
+"肿瘤3章30音乐(死亡后)",
+
+"肿瘤4章10音乐",
+"肿瘤4章20音乐", 
+"肿瘤4章30音乐(十字架)",
+"肿瘤4章30音乐(望远镜)"
+
+
 
 
 }
@@ -296,14 +332,14 @@ local Musictbb = {
 }
 local MTBA = Window:Tab({ Title = "音乐播放", Icon = "hand", Desc = "只针对于tbb游戏音乐的功能" })
 MTBA:Dropdown({
-    Title = "选择角色",
+    Title = "选音乐",
     Values = MusictbbName,
     SearchBarEnabled = true,
     MenuWidth = 280,
     Callback = function(V)
-     CHD = V
-        ZCBV = ZCB2[V]
-        print("已选择角色:", ZCBV)
+     
+        Musictbb2 = Musictbb[V]
+        print("已选择角色:", Musictbb)
     end
 })
 MTBA:Toggle({
@@ -312,9 +348,9 @@ MTBA:Toggle({
     Value = false,
     Callback = function(V)
 if V then
- .Playing = true
+ Musictbb2.Playing = true
 else
- .Playing = false
+ Musictbb2.Playing = false
 end
 end
 })
@@ -322,7 +358,7 @@ MTBA:Button({
 Title = "重制音乐",
 Value = false,
 Callback = function()
- .TimePosition = 0
+ Musictbb2.TimePosition = 0
 
 end})
 MTBA:Toggle({
@@ -331,9 +367,9 @@ MTBA:Toggle({
     Value = false,
     Callback = function(V)
 if V then
- .Looped = true
+ Musictbb2.Looped = true
 else
- .Looped = false
+ Musictbb2.Looped = false
 end
 end
 })
@@ -349,7 +385,7 @@ MTBA:Input({
 MTBA:Button({
     Title = "确认倍速",
     Callback = function(Value)
- PlaybackSpeed = beisu
+ Musictbb2.PlaybackSpeed = beisu
         
     end
 })
@@ -369,7 +405,7 @@ yinliang = value
 MTBA:Button({
     Title = "确认音量",
     Callback = function()
-  Volume = yinliang
+  Musictbb2.Volume = yinliang
         
     end
 })
