@@ -8,10 +8,13 @@ local NotificationHolder = loadstring(game:HttpGet("https://raw.githubuserconten
      {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(255, 84, 84)} 
  ) 
 local success, result = pcall(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/%E4%B8%BB%E8%84%9A%E6%9C%AC.lua"))()
-end)
-if success then
     
+if success then
+     Notification:Notify( 
+     {Title = "停更", Description = "条脚本已关闭(再见)"}, 
+     {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "image"}, 
+     {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(255, 84, 84)} 
+ ) 
 else
    Notification:Notify( 
      {Title = "提示", Description = "更新中"}, 
