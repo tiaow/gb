@@ -243,7 +243,23 @@ end
 })
 
 local TBB = Window:Tab({ Title = "tbb功能", Icon = "hand", Desc = "只针对于tbb游戏的功能" })
-
+TBB:Toggle({
+Title = "关闭ui界面",
+Value = false,
+Callback = function(Value)
+if Value then
+game:GetService("Players").LocalPlayer.PlayerGui.MainMenu.Enabled = false
+game:GetService("Players").LocalPlayer.PlayerGui.MobileControls.Enabled = false
+game:GetService("Players").LocalPlayer.PlayerGui.Transition.Enabled = false
+game:GetService("Players").LocalPlayer.PlayerGui.BattleScreen.Enabled = false
+else
+game:GetService("Players").LocalPlayer.PlayerGui.MainMenu.Enabled = true
+game:GetService("Players").LocalPlayer.PlayerGui.MobileControls.Enabled = true
+game:GetService("Players").LocalPlayer.PlayerGui.Transition.Enabled = true
+game:GetService("Players").LocalPlayer.PlayerGui.BattleScreen.Enabled = true
+end
+end
+})
 
 
 XPSection = Window:Section({
