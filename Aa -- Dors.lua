@@ -164,6 +164,57 @@ end
 end
 })
 
+
+local ESPD = false
+TY:Toggle({
+Title = "透视门",
+Value = false,
+Callback = function(Value)
+if Value then
+ESPD = true
+while  ESPD do
+    for _, room in ipairs(workspace.CurrentRooms:GetChildren()) do
+        
+        local doorsFolder = room:FindFirstChild("Door")
+        if doorsFolder then
+            for _, door in ipairs(doorsFolder:GetChildren()) do
+                
+                local existingHighlight = door:FindFirstChildOfClass("Highlight")
+                if not existingHighlight then
+                    local h = Instance.new("Highlight")
+                    
+                    h.FillTransparency = 0
+                    h.OutlineColor = Color3.new(1, 1, 1)  
+                    h.OutlineTransparency = 0
+                    h.Parent = door
+                end
+            end
+        end
+    end
+    task.wait(1)
+end
+
+
+
+
+else
+ESPD = false
+for _, room in ipairs(workspace.CurrentRooms:GetChildren()) do
+    local doorsFolder = room:FindFirstChild("Door")
+    if doorsFolder then
+        for _, door in ipairs(doorsFolder:GetChildren()) do
+            local existingHighlight = door:FindFirstChildOfClass("Highlight")
+            if existingHighlight then
+                existingHighlight:Destroy()
+            end
+        end
+    end
+end
+end
+end
+})
+
+
 local HttpService = game:GetService("HttpService")
 
 local folderPath = "WindUI"
