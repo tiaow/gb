@@ -73,7 +73,7 @@ local Window = WindUI:CreateWindow({
     SideBarWidth = 200,
     
 })
-
+Window.User:SetAnonymous(true)
 --Window.User:Disable()
 Window:SetIconSize(48)
 
@@ -163,3 +163,228 @@ ldu = false
 end
 end
 })
+
+local HttpService = game:GetService("HttpService")
+
+local folderPath = "WindUI"
+makefolder(folderPath)
+
+local function SaveFile(fileName, data)
+    local filePath = folderPath .. "/" .. fileName .. ".json"
+    local jsonData = HttpService:JSONEncode(data)
+    writefile(filePath, jsonData)
+end
+
+local function LoadFile(fileName)
+    local filePath = folderPath .. "/" .. fileName .. ".json"
+    if isfile(filePath) then
+        local jsonData = readfile(filePath)
+        return HttpService:JSONDecode(jsonData)
+    end
+end
+
+local function ListFiles()
+    local files = {}
+    for _, file in ipairs(listfiles(folderPath)) do
+        local fileName = file:match("([^/]+)%.json$")
+        if fileName then
+            table.insert(files, fileName)
+        end
+    end
+    return files
+end
+
+local Sections = {
+    WindowSection = Window:Section({
+        Title = "UI界面设置",
+        Icon = "app-window-mac",
+        Opened = true
+    })
+    
+}
+
+local Tabs = {
+    WindowTab = Sections.WindowSection:Tab({ 
+        Title = "界面和保存", 
+        Icon = "settings", 
+        Desc = "Manage window settings and file configurations.", 
+        ShowTabTitle = true 
+    })
+}    
+
+
+Tabs.WindowTab:Section({ Title = "界面", Icon = "app-window-mac" })
+
+local themeValues = {}
+for name, _ in pairs(WindUI:GetThemes()) do
+    table.insert(themeValues, name)
+end
+local themes = {}
+for themeName, _ in pairs(WindUI:GetThemes()) do
+    table.insert(themes, themeName)
+end
+table.sort(themes)
+local themeDropdown = Tabs.WindowTab:Dropdown({
+    Title = "选择主题",
+    Values = themes,
+    SearchBarEnabled = true,
+    MenuWidth = 280,
+    Value = "Dark",
+    Callback = function(theme)
+        canchangedropdown = false
+        WindUI:SetTheme(theme)
+        WindUI:Notify({
+            Title = "应用主题",
+            Content = theme,
+            Icon = "palette",
+            Duration = 2
+        })
+        canchangedropdown = true
+    end
+})
+
+local transparencySlider = Tabs.WindowTab:Slider({
+    Title = "透明度调节",
+    Value = { 
+        Min = 0,
+        Max = 1,
+        Default = 0.2,
+    },
+    Step = 0.1,
+    Callback = function(value)
+        WindUI.TransparencyValue = tonumber(value)
+        Window:ToggleTransparency(tonumber(value) > 0)
+    end
+})
+
+
+themeDropdown:Select(WindUI:GetCurrentTheme())
+
+local ThemeToggle = Tabs.WindowTab:Toggle({
+    Title = "启用黑色主题",
+    Desc = "",
+    Value = true,
+    Callback = function(state)
+        if canchangetheme then
+            WindUI:SetTheme(state and "Dark" or "Light")
+        end
+        if canchangedropdown then
+            themeDropdown:Select(state and "Dark" or "Light")
+        end
+    end
+})
+Tabs.WindowTab:Toggle({
+    Title = "隐藏玩家",
+    Desc = "隐藏ui左下角玩家",
+    Value = true,
+    Callback = function(V)
+        if V then
+        Window.User:SetAnonymous(true)
+            WindUI:Notify({
+            Title = "已隐藏！",
+            
+            Icon = "palette",
+            Duration = 1
+      })
+        else
+        
+         Window.User:SetAnonymous(false)
+            WindUI:Notify({
+            Title = "已取消隐藏",
+            
+            Icon = "palette",
+            Duration = 1
+        })
+        end
+
+    end
+})
+
+WindUI:OnThemeChange(function(theme)
+    canchangetheme = false
+    ThemeToggle:Set(theme == "Dark")
+    canchangetheme = true
+end)
+
+Tabs.WindowTab:Section({ Title = "保存" })
+
+local fileNameInput = ""
+Tabs.WindowTab:Input({
+    Title = "写文件名",
+    PlaceholderText = "输入",
+    Callback = function(text)
+        fileNameInput = text
+    end
+})
+
+Tabs.WindowTab:Button({
+    Title = "保存配置",
+    Callback = function()
+        if fileNameInput ~= "" then
+            SaveFile(fileNameInput, { Transparent = WindUI:GetTransparency(), Theme = WindUI:GetCurrentTheme() })
+          
+        end
+    end
+})
+
+Tabs.WindowTab:Section({ Title = "加载" })
+
+local filesDropdown
+local files = ListFiles()
+
+filesDropdown = Tabs.WindowTab:Dropdown({
+    Title = "选择配置",
+    Multi = false,
+    AllowNone = true,
+    Values = files,
+    Callback = function(selectedFile)
+        fileNameInput = selectedFile
+    end
+})
+
+Tabs.WindowTab:Button({
+    Title = "加载配置",
+    Callback = function()
+        if fileNameInput ~= "" then
+            local data = LoadFile(fileNameInput)
+            if data then
+                WindUI:Notify({
+                    Title = "已加载",
+                    Content = "配置数据: " .. HttpService:JSONEncode(data),
+                    Duration = 5,
+                })
+                if data.Transparent then 
+                    Window:ToggleTransparency(data.Transparent)
+                    ToggleTransparency:SetValue(data.Transparent)
+                end
+                if data.Theme then WindUI:SetTheme(data.Theme) end
+            end
+        end
+    end
+})
+
+Tabs.WindowTab:Button({
+    Title = "覆盖配置",
+    Callback = function()
+        if fileNameInput ~= "" then
+            SaveFile(fileNameInput, { Transparent = WindUI:GetTransparency(), Theme = WindUI:GetCurrentTheme() })
+        end
+    end
+})
+
+Tabs.WindowTab:Button({
+    Title = "刷新列表",
+    Callback = function()
+        filesDropdown:Refresh(ListFiles())
+    end
+})
+
+
+
+local canchangetheme = true
+local canchangedropdown = true
+
+
+
+
+
