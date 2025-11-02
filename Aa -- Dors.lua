@@ -291,6 +291,8 @@ for _, room in ipairs(workspace.CurrentRooms:GetChildren()) do
     end
 end
 end
+end
+
 })
 --workspace.CurrentRooms["8"].Snares.Snare.Hitbox
 --workspace.CurrentRooms["6"].Assets.Snare
