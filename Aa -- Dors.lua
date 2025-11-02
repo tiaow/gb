@@ -183,7 +183,7 @@ while  ESPD do
                 if not existingHighlight then
                     local h = Instance.new("Highlight")
                     
-                    h.FillTransparency = 0
+                    h.FillTransparency = 1
                     h.OutlineColor = Color3.new(1, 1, 1)  
                     h.OutlineTransparency = 0
                     h.Parent = door
@@ -213,6 +213,56 @@ end
 end
 end
 })
+
+local EXPsn = false
+TY:Toggle({
+Title = "透视门",
+Value = false,
+Callback = function(Value)
+if Value then
+EXPsn = true
+while  EXPsn do
+    for _, room in ipairs(workspace.CurrentRooms:GetChildren()) do
+        
+        local romk = room:FindFirstChild("Snares")
+        if doorsFolder then
+            for _, door in ipairs(romk:GetChildren()) do
+                
+                local existingHighlight = door:FindFirstChildOfClass("Highlight")
+                if not existingHighlight then
+                    local h = Instance.new("Highlight")
+                    
+                    h.FillTransparency = 1
+                    h.OutlineColor = Color3.new(1, 1, 2)  
+                    h.OutlineTransparency = 0
+                    h.Parent = door
+                end
+            end
+        end
+    end
+    task.wait(1)
+end
+
+
+
+
+else
+EXPsn = false
+for _, room in ipairs(workspace.CurrentRooms:GetChildren()) do
+    local romk = room:FindFirstChild("Snares")
+    if romk then
+        for _, door in ipairs(romk:GetChildren()) do
+            local existingHighlight = door:FindFirstChildOfClass("Highlight")
+            if existingHighlight then
+                existingHighlight:Destroy()
+            end
+        end
+    end
+end
+end
+end
+})
+--workspace.CurrentRooms["8"].Snares.Snare.Hitbox
 
 
 local HttpService = game:GetService("HttpService")
