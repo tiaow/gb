@@ -242,7 +242,27 @@ while  EXPsn do
     end
     task.wait(1)
 end
-
+while  EXPsn do
+    for _, room in ipairs(workspace.CurrentRooms:GetChildren()) do
+        
+        local romk = room:FindFirstChild("Snare")
+        if doorsFolder then
+            for _, door in ipairs(romk:GetChildren()) do
+                
+                local existingHighlight = door:FindFirstChildOfClass("Highlight")
+                if not existingHighlight then
+                    local h = Instance.new("Highlight")
+                    
+                    h.FillTransparency = 1
+                    h.OutlineColor = Color3.new(1, 1, 2)  
+                    h.OutlineTransparency = 0
+                    h.Parent = door
+                end
+            end
+        end
+    end
+    task.wait(1)
+end
 
 
 
@@ -259,11 +279,21 @@ for _, room in ipairs(workspace.CurrentRooms:GetChildren()) do
         end
     end
 end
+for _, room in ipairs(workspace.CurrentRooms:GetChildren()) do
+    local romk2 = room:FindFirstChild("Snare")
+    if romk2 then
+        for _, door1 in ipairs(romk:GetChildren()) do
+            local existingHighlight = door:FindFirstChildOfClass("Highlight")
+            if existingHighlight then
+                existingHighlight:Destroy()
+            end
+        end
+    end
 end
 end
 })
 --workspace.CurrentRooms["8"].Snares.Snare.Hitbox
-
+--workspace.CurrentRooms["6"].Assets.Snare
 
 local HttpService = game:GetService("HttpService")
 
