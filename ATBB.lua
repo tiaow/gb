@@ -478,183 +478,175 @@ end
 
 local ESP = Window:Tab({ Title = "绘制", Icon = "eye", Desc = "Are you hacker？" })
 local espe = false
+local enemyNpcConnections = {} 
+
 ESP:Toggle({
     Title = "显示敌方血量",
     PlaceholderText = "",
     Value = false,
     Callback = function(V)
-if V then 
-espe = true
+        if V then 
+            espe = true
 
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
+            local Players = game:GetService("Players")
+            local RunService = game:GetService("RunService")
 
-local enemyFolder = workspace.NPCFolders.EnemyFolder
-local npcConnections = {}
+            local enemyFolder = workspace.NPCFolders.EnemyFolder
 
-local function createNameTag(npc)
-    local head = npc:FindFirstChild("Head")
-    local humanoid = npc:FindFirstChildOfClass("Humanoid")
-    
-    if not head or not humanoid then
-        return false
-    end
-    
-    local existingTag = head:FindFirstChild("NameTag")
-    if existingTag then
-        existingTag:Destroy()
-    end
-    if espe == true then
-    local billboardGui = Instance.new("BillboardGui")
-    billboardGui.Name = "NameTag"
-    billboardGui.Adornee = head
-    billboardGui.Size = UDim2.new(0, 200, 0, 80)
-    billboardGui.ExtentsOffset = Vector3.new(0, 3, 0)
-    billboardGui.AlwaysOnTop = true
-    billboardGui.Enabled = true
-    
-    local nameLabel = Instance.new("TextLabel")
-    nameLabel.Name = "NameLabel"
-    nameLabel.Size = UDim2.new(1, 0, 0.5, 0)
-    nameLabel.Position = UDim2.new(0, 0, 0, 0)
-    nameLabel.BackgroundTransparency = 1
-    nameLabel.Text = npc.Name
-    nameLabel.TextColor3 = Color3.new(1, 0.3, 0.3)
-    nameLabel.TextScaled = true
-    nameLabel.Font = Enum.Font.GothamBold
-    nameLabel.TextStrokeTransparency = 0
-    nameLabel.TextStrokeColor3 = Color3.new(0, 0, 0)
-    
-    local healthLabel = Instance.new("TextLabel")
-    healthLabel.Name = "HealthLabel"
-    healthLabel.Size = UDim2.new(1, 0, 0.5, 0)
-    healthLabel.Position = UDim2.new(0, 0, 0.5, 0)
-    healthLabel.BackgroundTransparency = 1
-    healthLabel.TextColor3 = Color3.new(1, 0, 0)
-    healthLabel.TextScaled = true
-    healthLabel.Font = Enum.Font.Gotham
-    healthLabel.TextStrokeTransparency = 0
-    healthLabel.TextStrokeColor3 = Color3.new(0, 0, 0)
-    
-    nameLabel.Parent = billboardGui
-    healthLabel.Parent = billboardGui
-    billboardGui.Parent = head
-    
-    local function updateHealth()
-        if humanoid and humanoid.Parent and head and head.Parent then
-            local currentHealth = math.floor(humanoid.Health)
-            local maxHealth = math.floor(humanoid.MaxHealth)
-            healthLabel.Text = "HP: " .. currentHealth .. " / " .. maxHealth
-            
-            local healthPercent = currentHealth / maxHealth
-            if healthPercent > 0.7 then
-                healthLabel.TextColor3 = Color3.new(0, 1, 0)
-            elseif healthPercent > 0.3 then
-                healthLabel.TextColor3 = Color3.new(1, 1, 0)
-            else
-                healthLabel.TextColor3 = Color3.new(1, 0, 0)
+            local function createNameTag(npc)
+                local head = npc:FindFirstChild("Head")
+                local humanoid = npc:FindFirstChildOfClass("Humanoid")
+                
+                if not head or not humanoid then
+                    return false
+                end
+                
+                local existingTag = head:FindFirstChild("NameTag")
+                if existingTag then
+                    existingTag:Destroy()
+                end
+                
+                if espe == true then
+                    local billboardGui = Instance.new("BillboardGui")
+                    billboardGui.Name = "NameTag"
+                    billboardGui.Adornee = head
+                    billboardGui.Size = UDim2.new(0, 200, 0, 80)
+                    billboardGui.ExtentsOffset = Vector3.new(0, 3, 0)
+                    billboardGui.AlwaysOnTop = true
+                    billboardGui.Enabled = true
+                    
+                    local nameLabel = Instance.new("TextLabel")
+                    nameLabel.Name = "NameLabel"
+                    nameLabel.Size = UDim2.new(1, 0, 0.5, 0)
+                    nameLabel.Position = UDim2.new(0, 0, 0, 0)
+                    nameLabel.BackgroundTransparency = 1
+                    nameLabel.Text = npc.Name
+                    nameLabel.TextColor3 = Color3.new(1, 0.3, 0.3)
+                    nameLabel.TextScaled = true
+                    nameLabel.Font = Enum.Font.GothamBold
+                    nameLabel.TextStrokeTransparency = 0
+                    nameLabel.TextStrokeColor3 = Color3.new(0, 0, 0)
+                    
+                    local healthLabel = Instance.new("TextLabel")
+                    healthLabel.Name = "HealthLabel"
+                    healthLabel.Size = UDim2.new(1, 0, 0.5, 0)
+                    healthLabel.Position = UDim2.new(0, 0, 0.5, 0)
+                    healthLabel.BackgroundTransparency = 1
+                    healthLabel.TextColor3 = Color3.new(1, 0, 0)
+                    healthLabel.TextScaled = true
+                    healthLabel.Font = Enum.Font.Gotham
+                    healthLabel.TextStrokeTransparency = 0
+                    healthLabel.TextStrokeColor3 = Color3.new(0, 0, 0)
+                    
+                    nameLabel.Parent = billboardGui
+                    healthLabel.Parent = billboardGui
+                    billboardGui.Parent = head
+                    
+                    local function updateHealth()
+                        if humanoid and humanoid.Parent and head and head.Parent then
+                            local currentHealth = math.floor(humanoid.Health)
+                            local maxHealth = math.floor(humanoid.MaxHealth)
+                            healthLabel.Text = "HP: " .. currentHealth .. " / " .. maxHealth
+                            
+                            local healthPercent = currentHealth / maxHealth
+                            if healthPercent > 0.7 then
+                                healthLabel.TextColor3 = Color3.new(0, 1, 0)
+                            elseif healthPercent > 0.3 then
+                                healthLabel.TextColor3 = Color3.new(1, 1, 0)
+                            else
+                                healthLabel.TextColor3 = Color3.new(1, 0, 0)
+                            end
+                            
+                            return true
+                        else
+                            return false
+                        end
+                    end
+                    
+                    local connection = RunService.Heartbeat:Connect(function()
+                        if not updateHealth() then
+                            if connection then
+                                connection:Disconnect()
+                                enemyNpcConnections[npc] = nil
+                            end
+                            if billboardGui and billboardGui.Parent then
+                                billboardGui:Destroy()
+                            end
+                        end
+                    end)
+                    
+                    enemyNpcConnections[npc] = connection
+                    updateHealth()
+                    
+                    return true
+                end
             end
-            
-            return true
+
+            local function initializeFolder()
+                for _, npc in ipairs(enemyFolder:GetChildren()) do
+                    if npc:IsA("Model") then
+                        spawn(function()
+                            wait(0.1)
+                            createNameTag(npc)
+                        end)
+                    end
+                end
+            end
+
+            local function monitorFolder()
+                enemyFolder.ChildAdded:Connect(function(child)
+                    if child:IsA("Model") then
+                        wait(0.1)
+                        createNameTag(child)
+                    end
+                end)
+                
+                enemyFolder.ChildRemoved:Connect(function(child)
+                    if enemyNpcConnections[child] then
+                        enemyNpcConnections[child]:Disconnect()
+                        enemyNpcConnections[child] = nil
+                    end
+                end)
+            end
+
+            if enemyFolder then
+                initializeFolder()
+                monitorFolder()
+            end
         else
-            return false
-        end
-    end
-    
-    local connection = RunService.Heartbeat:Connect(function()
-        if not updateHealth() then
-            if connection then
-                connection:Disconnect()
-                npcConnections[npc] = nil
+            espe = false
+            
+            
+            for npc, connection in pairs(enemyNpcConnections) do
+                if connection then
+                    connection:Disconnect()
+                end
             end
-            if billboardGui and billboardGui.Parent then
-                billboardGui:Destroy()
-            end
-        end
-    end)
-    
-    npcConnections[npc] = connection
-    updateHealth()
-    
-    return true
-end
-
-local function initializeFolder()
-    for _, npc in ipairs(enemyFolder:GetChildren()) do
-        if npc:IsA("Model") then
-            spawn(function()
-                wait(0.1)
-                createNameTag(npc)
-            end)
-        end
-    end
-end
-
-local function monitorFolder()
-    enemyFolder.ChildAdded:Connect(function(child)
-        if child:IsA("Model") then
-            wait(0.1)
-            createNameTag(child)
-        end
-    end)
-    
-    enemyFolder.ChildRemoved:Connect(function(child)
-        if npcConnections[child] then
-            npcConnections[child]:Disconnect()
-            npcConnections[child] = nil
-        end
-    end)
-end
-
-if enemyFolder then
-    initializeFolder()
-    monitorFolder()
-else
-end
-
-game:BindToClose(function()
-    for npc, connection in pairs(npcConnections) do
-        if connection then
-            connection:Disconnect()
-        end
-    end
-end)
-end
-
-
-else
-
-
- espe = false
-local function removeAllNameTags()
-    local foldersToClean = workspace.NPCFolders.EnemyFolder
-    
-    for _, folder in ipairs(foldersToClean) do
-        if folder then
-            for _, npc in ipairs(folder:GetChildren()) do
-                if npc:IsA("Model") then
-                    local head = npc:FindFirstChild("Head")
-                    if head then
-                        local nameTag = head:FindFirstChild("NameTag")
-                        if nameTag then
-                            nameTag:Destroy()
+            enemyNpcConnections = {}
+            
+            
+            local function removeAllNameTags()
+                local enemyFolder = workspace.NPCFolders.EnemyFolder
+                
+                if enemyFolder then
+                    for _, npc in ipairs(enemyFolder:GetChildren()) do
+                        if npc:IsA("Model") then
+                            local head = npc:FindFirstChild("Head")
+                            if head then
+                                local nameTag = head:FindFirstChild("NameTag")
+                                if nameTag then
+                                    nameTag:Destroy()
+                                end
+                            end
                         end
                     end
                 end
             end
+            
+            removeAllNameTags()
         end
     end
-end
-
-removeAllNameTags()
-
-
-end
-    end
 })
-
-
-
 
 local ZB = Window:Tab({ Title = "开发工具", Icon = "user", Desc = "Are you hacker？" })
 ZB:Button({
