@@ -504,7 +504,7 @@ local function createNameTag(npc)
     if existingTag then
         existingTag:Destroy()
     end
-    if espe = true then
+    if espe == true then
     local billboardGui = Instance.new("BillboardGui")
     billboardGui.Name = "NameTag"
     billboardGui.Adornee = head
@@ -621,7 +621,10 @@ game:BindToClose(function()
 end)
 end
 
+
 else
+
+
  espe = false
 local function removeAllNameTags()
     local foldersToClean = workspace.NPCFolders.EnemyFolder
