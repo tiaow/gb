@@ -721,7 +721,7 @@ ESP:Toggle({
                     local billboardGui = Instance.new("BillboardGui")
                     billboardGui.Name = "NameTag"
                     billboardGui.Adornee = head
-                    billboardGui.Size = UDim2.new(0, 200, 0, 80)
+                    billboardGui.Size = GGGexp
                     billboardGui.ExtentsOffset = Vector3.new(0, 3, 0)
                     billboardGui.AlwaysOnTop = true
                     billboardGui.Enabled = true
