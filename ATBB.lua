@@ -74,29 +74,6 @@ local Window = WindUI:CreateWindow({
     
 })
 
-window:CreateTopbarButton("Close", "x", function()
-    if not window.IgnoreAlerts then
-        window:SetToTheCenter()
-        window:Dialog{
-            Title = "关闭脚本",
-            Content = "你确定要关闭脚本吗？",
-            Buttons = {
-                {
-                    Title = "取消",
-                    Callback = function() end,
-                    Variant = "Secondary",
-                },
-                {
-                    Title = "确定", 
-                    Callback = function() window:Destroy() end,
-                    Variant = "Primary",
-                }
-            }
-        }
-    else
-        window:Destroy()
-    end
-end, 999)
 
 --Window.User:Disable()
 Window:SetIconSize(48)
