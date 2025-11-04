@@ -483,7 +483,46 @@ local espe = false
 local espf = false
 local enemyNpcConnections = {} 
 local friendlyNpcConnections = {}
+local EXPH = {
+"最小",
+"小" ,
+"中等",
+"大",
+"最大",
+"默认"
+}
+local EXPHP = {
+["最小"] = UDim2.new(0, 50, 0, 20),
+["小"]   = UDim2.new(0, 80, 0, 30),
+["中等"] = UDim2.new(0, 120, 0, 50),
+["大"]  = UDim2.new(0, 150, 0, 60),
+["最大"] = UDim2.new(0, 180, 0, 70),
+["默认"] = UDim2.new(0, 200, 0, 80)
+}
+local wzdx = EXPHP["默认"]
+ESP:Dropdown({
+    Title = "选择文字大小",
+    Values = EXPH,
+    SearchBarEnabled = true,
+    MenuWidth = 280,
+    Callback = function(V)
+    
+         wzdx = EXPHP[V] or EXPHP["默认"]
+        
+    end
+})
 
+
+local  GGG = EXPHP["默认"]
+
+ESP:Button({
+    Title = "确认大小",
+    Callback = function(V)
+
+    GGGexp  = wzdx
+        
+    end
+})
 
 ESP:Toggle({
     Title = "显示敌方血量",
@@ -515,7 +554,7 @@ ESP:Toggle({
                     local billboardGui = Instance.new("BillboardGui")
                     billboardGui.Name = "NameTag"
                     billboardGui.Adornee = head
-                    billboardGui.Size = UDim2.new(0, 200, 0, 80)
+                    billboardGui.Size = GGGexp
                     billboardGui.ExtentsOffset = Vector3.new(0, 3, 0)
                     billboardGui.AlwaysOnTop = true
                     billboardGui.Enabled = true
