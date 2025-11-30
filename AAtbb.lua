@@ -364,6 +364,29 @@ Callback = function()
 
 end
 })
+
+
+MTBA:Toggle({
+    Title = "锁定播放",
+    PlaceholderText = "",
+    Value = false,
+    Callback = function(V)
+local Ssss = V
+if V then
+while Ssss do
+ if Musictbb2.Playing = true then
+
+else
+Musictbb2.Playing = true
+end
+task.wait(0.1)
+
+end
+
+end
+
+end
+})
 MTBA:Toggle({
     Title = "循环播放",
     PlaceholderText = "",
