@@ -11,7 +11,7 @@ function CreateCustomNotification(title, text, button1Text, button2Text, callbac
     frame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     frame.Parent = screenGui
     
-    -- 标题
+
     local titleLabel = Instance.new("TextLabel")
     titleLabel.Text = title
     titleLabel.Size = UDim2.new(1, 0, 0, 30)
@@ -19,7 +19,7 @@ function CreateCustomNotification(title, text, button1Text, button2Text, callbac
     titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     titleLabel.Parent = frame
     
-    -- 内容
+    
     local textLabel = Instance.new("TextLabel")
     textLabel.Text = text
     textLabel.Size = UDim2.new(1, -20, 0, 60)
@@ -28,7 +28,7 @@ function CreateCustomNotification(title, text, button1Text, button2Text, callbac
     textLabel.BackgroundTransparency = 1
     textLabel.Parent = frame
     
-    -- 按钮1
+    
     local button1 = Instance.new("TextButton")
     button1.Text = button1Text or "确认"
     button1.Size = UDim2.new(0, 120, 0, 30)
@@ -37,7 +37,7 @@ function CreateCustomNotification(title, text, button1Text, button2Text, callbac
     button1.TextColor3 = Color3.fromRGB(255, 255, 255)
     button1.Parent = frame
     
-    -- 按钮2
+    
     local button2 = Instance.new("TextButton")
     button2.Text = button2Text or "取消"
     button2.Size = UDim2.new(0, 120, 0, 30)
@@ -46,7 +46,7 @@ function CreateCustomNotification(title, text, button1Text, button2Text, callbac
     button2.TextColor3 = Color3.fromRGB(255, 255, 255)
     button2.Parent = frame
     
-    -- 按钮事件
+    
     button1.MouseButton1Click:Connect(function()
         if callback1 then callback1() end
         screenGui:Destroy()
@@ -60,7 +60,6 @@ function CreateCustomNotification(title, text, button1Text, button2Text, callbac
     return screenGui
 end
 
--- 使用示例
 CreateCustomNotification(
     "提示", 
     "选择服务器检测或者直接启用条脚本", 
@@ -78,5 +77,10 @@ Notification:Notify(
 
 
  end,
-    function() print("用户点击了取消") end
+    function() 
+
+loadstring(game:HttpGet(https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/aaaTW脚本.lua))()
+
+
+ end
 )
