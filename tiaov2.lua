@@ -73,7 +73,7 @@ Notification:Notify(
  ) 
 
 
-
+loadstring(game:HttpGet(https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/主脚本.lua))()
 
 
  end,
