@@ -12,11 +12,9 @@ function CreateCustomNotification(title, text, button1Text, button2Text, callbac
     frame.BorderSizePixel = 0
     frame.Parent = screenGui
     
-    
     local corner = Instance.new("UICorner")
     corner.CornerRadius = UDim.new(0, 8)
     corner.Parent = frame
-    
     
     local titleLabel = Instance.new("TextLabel")
     titleLabel.Text = title
@@ -27,11 +25,23 @@ function CreateCustomNotification(title, text, button1Text, button2Text, callbac
     titleLabel.Font = Enum.Font.GothamBold
     titleLabel.Parent = frame
     
-    
     local titleCorner = Instance.new("UICorner")
     titleCorner.CornerRadius = UDim.new(0, 8)
     titleCorner.Parent = titleLabel
     
+    local closeButton = Instance.new("TextButton")
+    closeButton.Text = "X"
+    closeButton.Size = UDim2.new(0, 25, 0, 25)
+    closeButton.Position = UDim2.new(1, -30, 0, 2)
+    closeButton.BackgroundColor3 = Color3.fromRGB(200, 60, 60)
+    closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    closeButton.Font = Enum.Font.GothamBold
+    closeButton.TextScaled = true
+    closeButton.Parent = frame
+    
+    local closeCorner = Instance.new("UICorner")
+    closeCorner.CornerRadius = UDim.new(0, 4)
+    closeCorner.Parent = closeButton
     
     local textLabel = Instance.new("TextLabel")
     textLabel.Text = text
@@ -44,7 +54,6 @@ function CreateCustomNotification(title, text, button1Text, button2Text, callbac
     textLabel.Font = Enum.Font.Gotham
     textLabel.Parent = frame
     
-    
     local button1 = Instance.new("TextButton")
     button1.Text = button1Text or "确认"
     button1.Size = UDim2.new(0, 120, 0, 30)
@@ -54,11 +63,9 @@ function CreateCustomNotification(title, text, button1Text, button2Text, callbac
     button1.Font = Enum.Font.GothamBold
     button1.Parent = frame
     
-    
     local button1Corner = Instance.new("UICorner")
     button1Corner.CornerRadius = UDim.new(0, 6)
     button1Corner.Parent = button1
-    
     
     local button2 = Instance.new("TextButton")
     button2.Text = button2Text or "取消"
@@ -69,14 +76,11 @@ function CreateCustomNotification(title, text, button1Text, button2Text, callbac
     button2.Font = Enum.Font.GothamBold
     button2.Parent = frame
     
-    
     local button2Corner = Instance.new("UICorner")
     button2Corner.CornerRadius = UDim.new(0, 6)
     button2Corner.Parent = button2
     
-    
     local function handleButtonClick(callback)
-        
         button1.AutoButtonColor = false
         button2.AutoButtonColor = false
         button1.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
@@ -84,12 +88,10 @@ function CreateCustomNotification(title, text, button1Text, button2Text, callbac
         button1.Active = false
         button2.Active = false
         
-        
         local tweenService = game:GetService("TweenService")
         local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
         local tween = tweenService:Create(frame, tweenInfo, {Position = UDim2.new(0.5, -150, 1, 10)})
         tween:Play()
-        
         
         tween.Completed:Connect(function()
             if callback then 
@@ -99,6 +101,26 @@ function CreateCustomNotification(title, text, button1Text, button2Text, callbac
         end)
     end
     
+    local function closeNotification()
+        button1.AutoButtonColor = false
+        button2.AutoButtonColor = false
+        closeButton.AutoButtonColor = false
+        button1.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+        button2.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+        closeButton.BackgroundColor3 = Color3.fromRGB(120, 60, 60)
+        button1.Active = false
+        button2.Active = false
+        closeButton.Active = false
+        
+        local tweenService = game:GetService("TweenService")
+        local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+        local tween = tweenService:Create(frame, tweenInfo, {Position = UDim2.new(0.5, -150, 1, 10)})
+        tween:Play()
+        
+        tween.Completed:Connect(function()
+            screenGui:Destroy()
+        end)
+    end
     
     button1.MouseButton1Click:Connect(function()
         handleButtonClick(callback1)
@@ -108,9 +130,12 @@ function CreateCustomNotification(title, text, button1Text, button2Text, callbac
         handleButtonClick(callback2)
     end)
     
+    closeButton.MouseButton1Click:Connect(function()
+        closeNotification()
+    end)
+    
     return screenGui
 end
-
 
 CreateCustomNotification(
     "提示", 
@@ -118,23 +143,14 @@ CreateCustomNotification(
     "服务器检测", 
     "直接启用", 
     function() 
-        
         Notification:Notify( 
             {Title = "脚本提示", Description = "正在检测是否支持该服务器"}, 
             {OutlineColor = Color3.fromRGB(80, 80, 80), Time = 5, Type = "image"}, 
             {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(255, 84, 84)} 
         )
-        
-        
         loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/主脚本.lua"))()
     end,
     function() 
-        Notification:Notify( 
-            {Title = "提示", Description = "正在启动条脚本"}, 
-            {OutlineColor = Color3.fromRGB(80, 80, 80), Time = 5, Type = "image"}, 
-            {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(255, 84, 84)} 
-        )
-        
         loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/aaaTW脚本.lua"))()
     end
 )
