@@ -73,13 +73,13 @@ Notification:Notify(
  ) 
 
 
-loadstring(game:HttpGet(https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/主脚本.lua))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/主脚本.lua"))()
 
 
  end,
     function() 
 
-loadstring(game:HttpGet(https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/aaaTW脚本.lua))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/aaaTW脚本.lua"))()
 
 
  end
