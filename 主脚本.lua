@@ -4,6 +4,6 @@ local gameScripts = {
 }
 
 if gameScripts[placeId] then
-    
-    loadstring(game:HttpGet())()
+    local qidong = "https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/" .. gameScripts[placeId]
+    loadstring(game:HttpGet(qidong))()
 end
