@@ -31,7 +31,7 @@ local UITextSizeConstraint = Instance.new("UITextSizeConstraint")
 local UICorner = Instance.new("UICorner")
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/tiaow/gb/refs/heads/main/%E5%BD%A9%E8%89%B2UI.lua"))()
-local window = library:new("条脚本")
+local window = library:new("TW脚本")
 local creds = window:Tab("信息",'106133116600295')
     local bin = creds:section("作者信息",true)
     bin:Label("作者:条纹大地")
@@ -39,7 +39,7 @@ local creds = window:Tab("信息",'106133116600295')
     bin:Label("QQ:1023929190")
 
 
-    --实在不会了，用AI
+
 local bin = creds:section("玩家", true)
 local positionLabel = bin:Label("你的位置'X: %.2f Y: %.2f Z: %.2f'")
 local fpsLabel = bin:Label("当前帧率: 计算中...")
@@ -1734,7 +1734,7 @@ local credits = creds:section("内容",true)
 credits:Button("压力情云", function()
 loadstring(utf8.char((function() return table.unpack({108,111,97,100,115,116,114,105,110,103,40,103,97,109,101,58,72,116,116,112,71,101,116,40,34,104,116,116,112,115,58,47,47,114,97,119,46,103,105,116,104,117,98,117,115,101,114,99,111,110,116,101,110,116,46,99,111,109,47,67,104,105,110,97,81,89,47,45,47,109,97,105,110,47,37,69,54,37,56,51,37,56,53,37,69,52,37,66,65,37,57,49,34,41,41,40,41})end)()))()
 end)
- local creds = window:Tab("死铁轨（全力开发中）",'106133116600295')
+ local creds = window:Tab("死铁轨",'106133116600295')
 local credits = creds:section("更改数值",true)
 -- 直接修改自己的 Wins
 credits:Textbox("赢得胜场", "输入数字", "0", function(Value)
