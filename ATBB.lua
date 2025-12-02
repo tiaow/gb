@@ -261,6 +261,16 @@ game:GetService("Players").LocalPlayer.PlayerGui.BattleScreen.Enabled = true
 end
 end
 })
+TY:Button({
+Title = "时钟问答",
+Value = false,
+Callback = function()
+local ClockQuiz = game:GetService("ReplicatedStorage").Cutscenes.ClockQuiz
+local clonedClockQuiz = ClockQuiz:Clone()
+clonedClockQuiz.Parent = game:GetService("Players").LocalPlayer.PlayerGui
+})
+
+
 local MusictbbName = {
 
 "1章10音乐",
