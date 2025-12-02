@@ -149,5 +149,22 @@ end})
 
 local play = Window:Tab({ Title = "玩家", Icon = "user", Desc = "UI Elements Example" })
 
+play:Slider({
+    Flag = "SliderTest",
+    Title = "Slider",
+    Step = 1,
+    Value = {
+        Min = 0,
+        Max = 120,
+        Default = 0,
+    },
+    Callback = function(value)
+     
+       workspace["".. game.Players.LocalPlayer.Name].WalkSpeed = value
+    end
+})
 
+
+
+    
 
