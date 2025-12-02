@@ -263,7 +263,6 @@ end
 })
 TY:Button({
 Title = "时钟问答",
-Value = false,
 Callback = function()
 local ClockQuiz = game:GetService("ReplicatedStorage").Cutscenes.ClockQuiz
 local clonedClockQuiz = ClockQuiz:Clone()
