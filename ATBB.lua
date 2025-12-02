@@ -267,7 +267,7 @@ Callback = function()
 local ClockQuiz = game:GetService("ReplicatedStorage").Cutscenes.ClockQuiz
 local clonedClockQuiz = ClockQuiz:Clone()
 clonedClockQuiz.Parent = game:GetService("Players").LocalPlayer.PlayerGui
-})
+end})
 
 
 local MusictbbName = {
