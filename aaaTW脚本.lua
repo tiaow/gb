@@ -1878,7 +1878,18 @@ local function showPrompt(message)
         promptGui:Destroy()
     end)
 end
-
+credits:Button("绕过反作弊(椅子上用)", function()
+task.spawn(function()
+    local H = game.Players.LocalPlayer.Character.Humanoid
+    H.Sit = true  -- 骗服务器
+    H:ChangeState(Enum.HumanoidStateType.Running)  -- 自己站着
+    game:GetService("RunService").Heartbeat:Connect(function()
+        H.Sit = true  -- 保持骗服务器
+        if H:GetState().Name == "Seated" then H:ChangeState(Enum.HumanoidStateType.Running) end
+    end)
+    print("✅ 绕过生效 - 可以正常移动")
+end)
+end)
 credits:Button("创建焊接按钮", function()
     if weldingButton then weldingButton:Destroy() end
 
