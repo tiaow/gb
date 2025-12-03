@@ -1882,7 +1882,7 @@ local JCJJJ = false
 credits:Button("绕过反作弊(椅子上用)", function()
 if game.Players.LocalPlayer.Character.Humanoid.Sit == true then
 if JCJJJ == false then
-JCJJJ == true
+JCJJJ = true
 task.spawn(function()
     local H = game.Players.LocalPlayer.Character.Humanoid
     H.Sit = true  -- 骗服务器
@@ -1904,7 +1904,6 @@ Notification:Notify(
     music.SoundId = musicId
     music:Play()
 end
-
 end)
 credits:Button("创建焊接按钮", function()
     if weldingButton then weldingButton:Destroy() end
