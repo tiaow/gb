@@ -1878,7 +1878,11 @@ local function showPrompt(message)
         promptGui:Destroy()
     end)
 end
+local JCJJJ = false
 credits:Button("绕过反作弊(椅子上用)", function()
+if game.Players.LocalPlayer.Character.Humanoid.Sit == true then
+if JCJJJ == false then
+JCJJJ == true
 task.spawn(function()
     local H = game.Players.LocalPlayer.Character.Humanoid
     H.Sit = true  -- 骗服务器
@@ -1889,6 +1893,18 @@ task.spawn(function()
     end)
     print("✅ 绕过生效 - 可以正常移动")
 end)
+end
+Notification:Notify( 
+     {Title = "提示", Description = "未坐在椅子上！"}, 
+     {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 2, Type = "image"}, 
+     {Image = "http://www.roblox.com/asset/?id=4483345998", ImageColor = Color3.fromRGB(255, 84, 84)} 
+ ) 
+   local musicId = "rbxassetid://4590662766"
+    local music = Instance.new("Sound", game.Workspace)
+    music.SoundId = musicId
+    music:Play()
+end
+
 end)
 credits:Button("创建焊接按钮", function()
     if weldingButton then weldingButton:Destroy() end
