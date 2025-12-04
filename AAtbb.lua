@@ -79,7 +79,7 @@ local Window = WindUI:CreateWindow({
 Window:SetIconSize(48)
 
 
-
+local TW = Window:Tab({ Title = "玩家", Icon = "user", Desc = "UI Elements Example" })
 TW:Code({
     Title = "example-code.luau",
     Code = [[-- Example Luau code to test syntax highlighting
@@ -128,7 +128,7 @@ local codeDisplay = CodeTab:Code({
 })
 
 -- 输入框
-TY:Input({
+TW:Input({
     Title = "输入脚本",
     Desc = "",
     Placeholder = "输入Lua代码...",
@@ -138,7 +138,7 @@ TY:Input({
 })
 
 -- 按钮
-TY:Button({
+TW:Button({
     Title = "更新显示",
     Callback = function()
         -- 更新 HHH 变量
