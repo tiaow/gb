@@ -147,24 +147,31 @@ end})
 
 
 
-local play = Window:Tab({ Title = "玩家", Icon = "user", Desc = "UI Elements Example" })
-
-play:Slider({
-    Flag = "SliderTest",
-    Title = "Slider",
-    Step = 1,
-    Value = {
-        Min = 0,
-        Max = 120,
-        Default = 0,
-    },
-    Callback = function(value)
-     
-       workspace["".. game.Players.LocalPlayer.Name].WalkSpeed = value
-    end
-})
-
-
-
-    
-
+local play = Window:Tab({ Title = "玩家", Icon = "user", Desc = "LOL" })
+local jN = Window:Tab({ Title = "技能选择", Icon = "user", Desc = "选择你自己的技能" })
+local JLB1 = {
+	"热狗",
+	"冲刺",
+	"治疗",
+	"格挡",
+	"重拳",
+	"嘲讽",
+	"香蕉皮",
+	"左轮手枪",
+	"隐形斗篷",
+	"加速板",
+	"肾上腺素"
+}
+local JLB2 = {
+	["热狗"] = "Hotdog",
+	["冲刺"] = "Dash",
+	["治疗"] = "Caretaker",
+	["格挡"] = "Block",
+	["重拳"] = "Punch",
+	["嘲讽"] = "Taunt",
+	["香蕉皮"] = "Banana",
+	["左轮手枪"] = "Revolver",
+	["隐形斗篷"] = "Cloak",
+	["加速板"] = "BonusPad",
+	["肾上腺素"] = "Adrenaline"
+}
