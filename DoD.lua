@@ -5,29 +5,8 @@ local Localization = WindUI:Localization({
     Prefix = "loc:",
     DefaultLanguage = "en",
     Translations = {
-        ["en"] = {
-            ["WINDUI_EXAMPLE"] = "The Battle Brick Script",
-            ["WELCOME"] = "Author:Tiaowen",
-            ["LIB_DESC"] = "Beautiful UI library for Roblox",
-            ["SETTINGS"] = "Settings",
-            ["APPEARANCE"] = "Appearance",
-            ["FEATURES"] = "Features",
-            ["UTILITIES"] = "Utilities",
-            ["UI_ELEMENTS"] = "UI Elements",
-            ["CONFIGURATION"] = "Configuration",
-            ["SAVE_CONFIG"] = "Save Configuration",
-            ["LOAD_CONFIG"] = "Load Configuration",
-            ["THEME_SELECT"] = "Select Theme",
-            ["TRANSPARENCY"] = "Window Transparency",
-            ["LOCKED_TAB"] = "Locked Tab",
-            ["ADOUT_XP"] = "Adout Xp",
-             ["VERSION"] = "version:",
-             ["TEST"] = "test"
-        }
-         
-        
-
-    }
+        "en"
+          }
 })
 
 WindUI.TransparencyValue = 0
@@ -47,8 +26,8 @@ end
 
 
 local Window = WindUI:CreateWindow({
-    Title = "战斗砖脚本",
-    Icon = "rbxassetid://92667274604625",
+    Title = "DOD脚本",
+    Icon = "eye",
     Author = "作者：条纹",
     Folder = "WindUI_Example",
     Size = UDim2.fromOffset(580, 490),
@@ -106,17 +85,34 @@ spawn(function()
     end
 end)
 local TY = Window:Tab({ Title = "通用", Icon = "user", Desc = "UI Elements Example" })
+local Yeshi 
+local YShi = game.Lighting.Ambient
 TY:Toggle({
 Title = "夜视",
 Value = false,
 Callback = function(Value)
 if Value then
-game.Lighting.Ambient = Color3.new(1, 1, 1)
+Yeshi = true
 else
+Yeshi = false
 game.Lighting.Ambient = Color3.new(0, 0, 0)
 end
 end
+
 })
+
+spawn(function()
+while true do
+    if Yeshi then
+        game.Lighting.Ambient = Color3.new(1, 1, 1)
+    else
+        game.Lighting.Ambient = YShi
+    end
+task.wait(0.01)
+end
+end)
+
+
 TY:Button({
 Title = "去雾",
 Value = false,
