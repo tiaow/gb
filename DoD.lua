@@ -171,4 +171,38 @@ local JLB2 = {
 	["加速板"] = "BonusPad",
 	["肾上腺素"] = "Adrenaline"
 }
-
+local kC1
+local kC2
+TY:Dropdown({
+    Title = "槽1",
+    Desc = "请选择你的技能",
+    Values = JLB1,
+    Value = "",
+    Callback = function(V) 
+     kC1 = V
+     print("已选槽1" .. V)
+     
+     if kC1 == kC2 then
+     print("槽1与槽2重复")
+     V = ""
+     kC1 = V
+     end
+        
+         
+    end
+})
+TY:Dropdown({
+    Title = "槽2",
+    Desc = "请选择你的技能",
+    Values = JLB1,
+    Value = "",
+    Callback = function(V) 
+    kC2 = V
+     print("已选槽2" .. V)
+     if kC2 == kC1 then
+     print("槽2与槽1重复")
+     V = ""
+     kC2 = V
+     end
+    end
+})
