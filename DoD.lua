@@ -171,3 +171,4 @@ local JLB2 = {
 	["加速板"] = "BonusPad",
 	["肾上腺素"] = "Adrenaline"
 }
+
