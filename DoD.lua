@@ -76,8 +76,14 @@ spawn(function()
         task.wait(1)
     end
 end)
-
-
+local function NOtice(text,time)
+WindUI:Notify({
+            Title = text,
+            
+            Icon = "palette",
+            Duration = time
+      })
+end
 spawn(function()
     while true do
         T:SetTitle("你的游玩时间：" .. game:GetService("Players").LocalPlayer.Stats.TimePlayed.Value)
@@ -171,8 +177,8 @@ local JLB2 = {
 	["加速板"] = "BonusPad",
 	["肾上腺素"] = "Adrenaline"
 }
-local kC1
-local kC2
+local kC1 = nil
+local kC2 = nil
 TY:Dropdown({
     Title = "槽1",
     Desc = "请选择你的技能",
@@ -183,9 +189,8 @@ TY:Dropdown({
      print("已选槽1" .. V)
      
      if kC1 == kC2 then
-     print("槽1与槽2重复")
-     V = ""
-     kC1 = V
+     NOtice("重复的技能不会加载",3)
+     
      end
         
          
@@ -199,10 +204,25 @@ TY:Dropdown({
     Callback = function(V) 
     kC2 = V
      print("已选槽2" .. V)
-     if kC2 == kC1 then
-     print("槽2与槽1重复")
-     V = ""
-     kC2 = V
-     end
+    
+     if kC2 == kC1  then
+     NOtice("重复的技能不会加载",3)
+     
+    end
+end
+})
+--local Player = Player.LocalPlayer
+TY:Toggle({
+    Title = "启用",
+    Desc = "每次开局生效",
+    Value = false,
+    Callback = function(V)
+    local args = {
+	{
+		JLB2[kC1],
+		JLB2[kC2]
+	}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection"):FireServer(unpack(args))
     end
 })
