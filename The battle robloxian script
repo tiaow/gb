@@ -1,7 +1,7 @@
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 if FTGG == "The battle robloxian" then
-    player:Kick("Are you hacker？😂😂😂😂😂😂", "")
+    player:Kick("法克油😂😂😂😂😂😂", "bro还真用")
 else
-    player:Kick("hacker", "")
+    player:Kick("不完整😡😡", "")
 end
