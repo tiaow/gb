@@ -55,7 +55,7 @@ local Window = WindUI:CreateWindow({
     Theme = "Dark",
     
     HidePanelBackground = false,
-    NewElements = false,
+    NewElements = true,
     -- Background = WindUI:Gradient({
     --     ["0"] = { Color = Color3.fromHex("#0f0c29"), Transparency = 1 },
     --     ["100"] = { Color = Color3.fromHex("#302b63"), Transparency = 0.9 },
@@ -1202,50 +1202,6 @@ Tabs.WindowTab:Button({
     end
 })
 
-Tabs.WindowTab:Button({
-    Title = "Save Config",
-    Justify = "Center",
-    Callback = function()
-        Window.CurrentConfig = ConfigManager:CreateConfig(ConfigName)
-        
-        -- 直接保存整个窗口的状态
-        if Window.SaveAllSettings then
-            Window:SaveAllSettings(Window.CurrentConfig)
-        elseif Window.Save then
-            Window:Save(Window.CurrentConfig)
-        end
-        
-        if Window.CurrentConfig:Save() then
-            WindUI:Notify({
-                Title = "Config Saved", 
-                Desc = "Config '" .. ConfigName .. "' saved",
-                Icon = "check",
-            })
-        end
-    end
-})
-
-Tabs.WindowTab:Button({
-    Title = "Load Config",
-    Justify = "Center", 
-    Callback = function()
-        Window.CurrentConfig = ConfigManager:CreateConfig(ConfigName)
-        if Window.CurrentConfig:Load() then
-            -- 直接加载整个窗口的状态
-            if Window.LoadAllSettings then
-                Window:LoadAllSettings(Window.CurrentConfig)
-            elseif Window.Load then
-                Window:Load(Window.CurrentConfig)
-            end
-            
-            WindUI:Notify({
-                Title = "Config Loaded",
-                Desc = "Config '" .. ConfigName .. "' loaded", 
-                Icon = "refresh-cw",
-            })
-        end
-    end
-})
 
 local canchangetheme = true
 local canchangedropdown = true
