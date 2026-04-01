@@ -10,9 +10,30 @@ local b46 = window:Tab("46关",'')
     bin:Label("是否被拉入黑名单：")
     bin:Label("用此脚本请观看视频使用")
     bin:Label("拉黑名单别找我")
-     
+     local credits = creds:section("设置",true)
+           credits:Toggle("移除UI辉光", "", false, function(state)
+        if state then
+            game:GetService("CoreGui")["frosty is cute"].Main.DropShadowHolder.Visible = false
+        else
+            game:GetService("CoreGui")["frosty is cute"].Main.DropShadowHolder.Visible = true
+        end
+    end)
+
+    credits:Toggle("彩虹UI", "", false, function(state)
+        if state then
+            game:GetService("CoreGui")["frosty is cute"].Main.Style = "DropShadow"
+        else
+            game:GetService("CoreGui")["frosty is cute"].Main.Style = "Custom"
+        end
+    end)
+
+    
+        credits:Button("摧毁GUI",function()
+            game:GetService("CoreGui")["frosty is cute"]:Destroy()
+        end)
+
 while true do
-local ban = 9
+local ban = game:GetService("Players").LocalPlayer.SideStats.Fraud
 task.wait(1)
 end
 
