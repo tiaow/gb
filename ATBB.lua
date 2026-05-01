@@ -910,8 +910,12 @@ local ZCB2 = {
 }
 
 
-
-local BD = Window:Tab({ Title = "本地", Icon = "user", Desc = "bro以为有无限xp了😂" })
+local PLocal = Window:Section({
+        Title = "娱乐",
+        Icon = "user",
+        Opened = false
+    })
+local BD = PLocal:Tab({ Title = "修改", Icon = "user", Desc = "bro以为有无限xp了😂" })
 local XP = 0
 
 BD:Toggle({
@@ -982,8 +986,185 @@ BD:Button({
 game:GetService("Players").LocalPlayer.PlayerData.Upgrades.Units["" .. ZCBV].Value = DJ
 end
 })
+local Skybox = PLocal:Tab({ Title = "娱乐", Icon = "user", Desc = "bro以为有无限xp了😂" })
+
+Skybox:Button({
+    Title = "牢蒋",
+    Callback = function()
+if workspace.Map:FindFirstChild("Battle_Galleons") then
+for _ , v in game:GetService("Lighting"):GetChildren() do
+if v:IsA("Sky") then
+SkyboxBk = "rbxassetid://106492109996230"
+SkyboxDn = "rbxassetid://106492109996230"
+SkyboxFt = "rbxassetid://106492109996230"
+SkyboxLf = "rbxassetid://106492109996230"
+SkyboxRt = "rbxassetid://106492109996230"
+SkyboxUp = "rbxassetid://106492109996230"
+SunTextureId = ""
+else 
+local LOL = Instance.new("Sky")
+LOL.Parent = game:GetService("Lighting")
+LOL.SkyboxBk = "rbxassetid://106492109996230"
+LOL.SkyboxDn = "rbxassetid://106492109996230"
+LOL.SkyboxFt = "rbxassetid://106492109996230"
+LOL.SkyboxLf = "rbxassetid://106492109996230"
+LOL.SkyboxRt = "rbxassetid://106492109996230"
+LOL.SkyboxUp = "rbxassetid://106492109996230"
+LOL.SunTextureId = ""
+end
+end
+for _ , v in workspace.Map.Battle_Galleons.Layout:GetChildren() do
+if v.Name == "Barrel" or  v.Name == "BlueBoat" or v.Name == "RedBoat" or v.Name == "Cannon" or v.Name == "Rock" or v.Name == "Blue Flag" or v.Name == "Red Flag" then
+if not v:FindFirstChild("DJ") and not v:FindFirstChild("DJ2") then
+local DJ = Instance.new("Part")
+DJ.Name = "DiJi"
+DJ.Position = Vector3.new(30, -20, 0)
+DJ.Size = Vector3.new(20,40,20)
+DJ.Color = Color3.new(163/255,162/255,165/255)
+DJ.Material = Enum.Material.Air
+DJ.Anchored = true
+DJ.Parent = workspace.Map.Battle_Galleons.Layout
+
+local DJ2 = Instance.new("Part")
+DJ2.Name = "DiJi2"
+DJ2.Position = Vector3.new(30, -20, 0)
+DJ2.Size = Vector3.new(17,43,17)
+DJ2.Color = Color3.new(163/255,162/255,165/255)
+DJ2.Material = Enum.Material.Air
+DJ2.Anchored = true
+DJ2.Parent = workspace.Map.Battle_Galleons.Layout
+else
+end
 
 
+if v.Name == "Blue Flag"  then
+for _, Z in v:GetChildren() do
+
+if Z.Name == "Color" then
+Z:Destroy()
+
+elseif Z:FindFirstChild("Decal") then
+Z:Destroy()
+
+elseif Z.Name == "MainColor" then
+Z.Color = Color3.new(85/255,0,0)
+else
+end
+end
+
+elseif v.Name == "Red Flag" then
+
+for _, Z in v:GetChildren() do
+
+if Z.Name == "Color" then
+Z:Destroy()
+
+elseif Z:FindFirstChild("Decal") then
+Z:Destroy()
+
+elseif Z.Name == "MainColor" then
+Z.Color = Color3.new(0,16/255,176/255)
+else
+end
+end
+
+else
+v:Destroy()
+end
+end
+end
+
+if workspace.NPCFolders.EnemyFolder:FindFirstChild("Redbeard") then
+  for _ , v in workspace.NPCFolders.EnemyFolder.Redbeard:GetChildren() do
+     if v:IsA("Pants") then
+       v.PantsTemplate = "rbxassetid://93451423085032"
+       elseif v:IsA("Shirt") then
+              v.ShirtTemplate = "rbxassetid://130396741735606"
+       elseif v:IsA("Part") then
+        if v.Name == "Head" then
+          v.face.Texture = "rbxassetid://110991019542836"
+          v.Color = Color3.new(1,0.8,0.6)
+
+           else
+          v.Color = Color3.new(1,0.8,0.6)
+        end
+        elseif v:IsA("Accessory") then
+         v:Destroy()
+     end
+   end
+end
+
+if v:IsA("Sky") then
+SkyboxBk = "rbxassetid://106492109996230"
+SkyboxDn = "rbxassetid://106492109996230"
+SkyboxFt = "rbxassetid://106492109996230"
+SkyboxLf = "rbxassetid://106492109996230"
+SkyboxRt = "rbxassetid://106492109996230"
+SkyboxUp = "rbxassetid://106492109996230"
+SunTextureId = ""
+else 
+local LOL = Instance.new("Sky")
+LOL.Parent = game:GetService("Lighting")
+LOL.SkyboxBk = "rbxassetid://106492109996230"
+LOL.SkyboxDn = "rbxassetid://106492109996230"
+LOL.SkyboxFt = "rbxassetid://106492109996230"
+LOL.SkyboxLf = "rbxassetid://106492109996230"
+LOL.SkyboxRt = "rbxassetid://106492109996230"
+LOL.SkyboxUp = "rbxassetid://106492109996230"
+LOL.SunTextureId = ""
+end
+
+else
+   WindUI:Notify({
+            Title = "提示",
+            Content = "2章10关非肿瘤使用或有红胡子有惊喜",
+            Icon = "palette",
+            Duration = 2
+        })
+for _ , v in game:GetService("Lighting"):GetChildren() do
+if v:IsA("Sky") then
+SkyboxBk = "rbxassetid://106492109996230"
+SkyboxDn = "rbxassetid://106492109996230"
+SkyboxFt = "rbxassetid://106492109996230"
+SkyboxLf = "rbxassetid://106492109996230"
+SkyboxRt = "rbxassetid://106492109996230"
+SkyboxUp = "rbxassetid://106492109996230"
+SunTextureId = ""
+else 
+local LOL = Instance.new("Sky")
+LOL.Parent = game:GetService("Lighting")
+LOL.SkyboxBk = "rbxassetid://106492109996230"
+LOL.SkyboxDn = "rbxassetid://106492109996230"
+LOL.SkyboxFt = "rbxassetid://106492109996230"
+LOL.SkyboxLf = "rbxassetid://106492109996230"
+LOL.SkyboxRt = "rbxassetid://106492109996230"
+LOL.SkyboxUp = "rbxassetid://106492109996230"
+LOL.SunTextureId = ""
+end
+end
+
+local DJ = Instance.new("Part")
+DJ.Name = "DiJi"
+DJ.Position = Vector3.new(30, -20, 0)
+DJ.Size = Vector3.new(20,40,20)
+DJ.Color = Color3.new(163/255,162/255,165/255)
+DJ.Material = Enum.Material.Air
+DJ.Anchored = true
+DJ.Parent = workspace.Map.Battle_Galleons.Layout
+
+local DJ2 = Instance.new("Part")
+DJ2.Name = "DiJi2"
+DJ2.Position = Vector3.new(30, -20, 0)
+DJ2.Size = Vector3.new(17,43,17)
+DJ2.Color = Color3.new(163/255,162/255,165/255)
+DJ2.Material = Enum.Material.Air
+DJ2.Anchored = true
+DJ2.Parent = workspace.Map.Battle_Galleons.Layout
+
+end
+end
+
+})
 
 
 
